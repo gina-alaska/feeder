@@ -1,0 +1,31 @@
+!!!5
+%html
+  %head
+    %title Feeder
+    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
+    = stylesheet_link_tag 'print.css', :media => 'print'
+    /[if lt IE 8]
+      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
+    = stylesheet_link_tag "application", :media => "all"
+    
+    = javascript_include_tag "application"
+    = csrf_meta_tags 
+  %body.two-col.bp
+    #container
+      #header
+        %h1 GINA Feeder
+        #nav-menu
+          %ul
+            %li= link_to 'Home', '/'
+            %li= link_to 'Login', '#'
+      #sidebar
+        #search
+          = render 'feeds/search'
+        #list
+          %h3 Available Feeds
+          %ul
+            %li= link_to "Barrow Radar", feed_path('barrow_radar')
+      #content
+        = yield
+      #footer
+        Powered by GINA
