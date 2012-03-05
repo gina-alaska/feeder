@@ -1,9 +1,18 @@
 // Place all the styles related to the entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#entry {
-  display: inline-block;
+.entry {
+  display: inline-block;    
   img {
-    width: 100px;
+    width: 500px;
   }  
+}
+
+.entries {
+  .entry {
+    display: inline-block;    
+    img {
+      width: 100px;
+    }  
+  }
 }

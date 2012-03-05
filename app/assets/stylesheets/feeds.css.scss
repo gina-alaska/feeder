@@ -1,3 +1,29 @@
 // Place all the styles related to the feeds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "compass/css3";
+
+
+.feed {
+  .pagination {
+    margin-bottom: 15px;
+    
+    a {
+      display: inline-block;
+      padding: 3px 5px;
+      cursor: pointer;
+      border: 1px solid #AAA;
+      background-color: #EEE;
+      @include border-radius(3px);
+    }
+    a:hover {
+      background-color: #DDD;
+    }
+    
+    .current {
+      padding: 5px;
+      border: 1px solid #f00;
+      @include border-radius(5px);
+    }
+  }
+}

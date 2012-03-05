@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'haml'
 gem 'compass', '~> 0.12.alpha.4'
 gem 'nofxx-georuby', :require => 'geo_ruby'
+gem 'will_paginate'
 
 # Gems used only for assets and not required
 # in production environments by default.

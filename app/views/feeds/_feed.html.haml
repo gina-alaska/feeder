@@ -1,4 +1,9 @@
 %h1= feed.title
 %h2= feed.description
 
-=render feed.entries.order('event_at DESC')
+= will_paginate @entries
+
+.entries
+  = render @entries
+
+= will_paginate @entries

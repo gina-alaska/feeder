@@ -6,6 +6,7 @@ class FeedsController < ApplicationController
   
   def show
     @feed = Feed.where(:slug => params[:id]).first
-    respond_with @feed
+    @entries = @feed.entries.includes(:feed).paginate(:page => params[:page]).order('event_at DESC')
+    respond_with @feed, @entries
   end
 end

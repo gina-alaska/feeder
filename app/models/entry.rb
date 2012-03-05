@@ -1,5 +1,7 @@
 class Entry < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
+  
+  self.per_page = 16
 
   belongs_to :feed
   
