@@ -1,5 +1,6 @@
 Feeder::Application.routes.draw do
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
+    get ':id/page/:page', :action => :show, :on => :collection
     resources :entries
   end
 

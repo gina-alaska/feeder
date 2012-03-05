@@ -1,9 +1,9 @@
 %h1= feed.title
 %h2= feed.description
 
-= will_paginate @entries
+= paginate @entries
 
 .entries
   = render @entries
 
-= will_paginate @entries
+= paginate @entries

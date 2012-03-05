@@ -6,5 +6,5 @@ xml.feed("xmlns"=>"http://www.w3.org/2005/Atom", "xmlns:georss" => "http://www.g
   xml.link(:href => slug_url(@feed, :format => :georss), :rel => "self")
   xml.link(:href => slug_url(@feed, :format => :html), :rel => "alternate")
   xml.updated @feed.updated_at
-  render :partial => @feed.entries.order('event_at DESC'), :locals => { :entry_xml => xml }
+  render :partial => @entries, :locals => { :entry_xml => xml }
 }
