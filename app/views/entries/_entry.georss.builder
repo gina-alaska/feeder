@@ -9,10 +9,8 @@ entry_xml.entry {
   entry_xml.tag!('georss:where') {
     entry_xml << entry.georss_location    
   }
-  entry_xml.content(:type=>"application/xhtml", "xml:lang"=>"en", :src=>feed_entry_url(entry.feed, entry, :format => :html)) {
-    entry_xml.div(:xmlns=>"http://www.w3.org/1999/xhtml") {
-      entry_xml << entry.content      
-    }
+  entry_xml.content(:type=>"xhtml", :src=>feed_entry_url(entry.feed, entry, :format => :html)) {
+    entry_xml.text! entry.content      
   }
   entry_xml.updated entry.updated_at
 }
