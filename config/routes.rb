@@ -3,8 +3,8 @@ Feeder::Application.routes.draw do
     resources :entries
   end
 
-  match ':id' => 'feeds#show'
-  match ':feed_id/entries/:id' => 'entries#show'
+  match ':id' => 'feeds#show', :as => :slug
+  match ':feed_id/:id' => 'entries#show', :as => :slug_entry
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

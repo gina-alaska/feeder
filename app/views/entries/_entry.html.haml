@@ -1,7 +1,7 @@
 #entry
   .title
     %label Title:
-    = link_to entry.title, feed_entry_path(entry.feed, entry)
+    = link_to entry.title, slug_entry_path(entry.feed, entry)
   .event
     %label Event Date:
     = entry.event_at
