@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  respond_to :html, :georss
+  respond_to :html, :georss, :xml
   
   def index
   end
