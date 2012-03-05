@@ -1,4 +1,4 @@
 %h1= feed.title
 %h2= feed.description
 
-=render feed.entries
+=render feed.entries.order('event_at DESC')
