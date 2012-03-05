@@ -3,6 +3,9 @@ Feeder::Application.routes.draw do
     resources :entries
   end
 
+  match ':id' => 'feeds#show'
+  match ':feed_id/entries/:id' => 'entries#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
