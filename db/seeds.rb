@@ -6,10 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-barrow = Feed.create({
+radar = Feed.create({
   slug: 'barrow_radar',
   title: 'Barrow Radar',
   description: 'Barrow Radar data showing ice flow',
+  author: 'Someone',
+  where: 'POINT(-156.673 71.328)'
+})
+
+animations = Feed.create({
+  slug: 'barrow_radar_animations',
+  title: 'Barrow Radar Animation',
+  description: 'Barrow Radar animation showing ice flow',
   author: 'Someone',
   where: 'POINT(-156.673 71.328)'
 })
