@@ -15,17 +15,17 @@ class Import < Thor
     raise "Unable to find feed for #{slug}" if feed.nil?
     
     files.each do |filename|    
-      feeds_url = "http://feeder.zoom.gina.alaska.edu"
       file = File.basename(filename)
       puts "Importing #{file}"  
       
-      title, year,month,day,hour,minute = breakdown(file)
+      title,category,year,month,day,hour,minute = breakdown(file)
       path_fragment = File.join('feeds', slug, year, month, day)
       path = Rails.root.join('public', path_fragment)
       
       attributes = { 
         title: title,
-        content: image_content("#{feeds_url}/#{path_fragment}/#{file}", title),
+        file: "#{path_fragment}/#{file}",
+        category: category,
         event_at: DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0),
         where: "POINT(-156.788333 71.2925)"
       }
@@ -50,14 +50,16 @@ class Import < Thor
       when /^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).png$/
         dummy, year, month, day, hour, minute = filename.match(/^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).png$/).to_a
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
+        category = "radar"
       when /^(\d{4})(\d{2})(\d{2})_day.gif/
         dummy, year, month, day = filename.match(/^(\d{4})(\d{2})(\d{2})_day.gif/).to_a
         title = "Animation for #{year}-#{month}-#{day}"
+        category = "radar_animation"
       else
         raise "Unable to breakdown filename, #{filename}"
       end
     
-      [title, year, month, day, hour, minute]
+      [title, category, year, month, day, hour, minute]
     end
 
     def image_content(img, title, url = nil)

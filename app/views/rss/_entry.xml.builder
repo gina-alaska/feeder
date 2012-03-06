@@ -8,7 +8,7 @@ entry_xml.item {
   entry_xml << entry.georss_location    
   
   entry_xml.description {
-    entry_xml.cdata! entry.content      
+    render :partial => entry.category, :locals => { :content_xml => entry_xml, :entry => entry }
   }
   entry_xml.pubDate entry.updated_at
 }
