@@ -6,7 +6,7 @@ class RssController < ApplicationController
     if params[:id].nil?
       @entries = @feed.entries.includes(:feed).order('event_at DESC').page(params[:page])
     else
-      @entries = @feed.entries.includes(:feed)..where(:title => params[:id]).order('event_at DESC').page(params[:page])      
+      @entries = @feed.entries.includes(:feed).where(:title => params[:id]).order('event_at DESC').page(params[:page])      
     end
     respond_with @feed, @entries
   end
