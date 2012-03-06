@@ -10,6 +10,11 @@ Feeder::Application.routes.draw do
   match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
   match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
 
+  match ':slug.georss' => 'rss#show', :format => :xml
+  match ':slug/:id.georss' => 'rss#show', :format => :xml
+  match ':slug.xml' => 'rss#show', :format => :xml
+  match ':slug/:id.xml' => 'rss#show', :format => :xml
+  
   match ':slug' => 'feeds#show', :as => :slug
   match ':slug/:id' => 'feeds#show', :as => :slug_entry
 
