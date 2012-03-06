@@ -4,6 +4,6 @@
 = paginate @entries
 
 .entries
-  = render @entries
+  = render :partial => 'entry', :collection => @entries
 
 = paginate @entries

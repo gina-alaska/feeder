@@ -5,4 +5,5 @@
   .event
     %label Date:
     = entry.event_at
-  .content= raw entry.content
+  .content
+    = render :partial => entry.category, :locals => { :entry => entry }
