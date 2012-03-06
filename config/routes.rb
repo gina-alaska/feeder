@@ -4,8 +4,11 @@ Feeder::Application.routes.draw do
     resources :entries
   end
 
-  match ':id' => 'feeds#show', :as => :slug
-  match ':feed_id/:id' => 'entries#show', :as => :slug_entry
+  resources :atoms, :constraints => { :id => /[^\/\.]+/ }
+  resources :rss, :constraints => { :id => /[^\/\.]+/ }
+
+  match ':slug' => 'rss#show', :as => :slug
+  match ':slug/:id' => 'rss#show', :as => :slug_entry
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
