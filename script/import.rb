@@ -15,26 +15,31 @@ class Import < Thor
     raise "Unable to find feed for #{slug}" if feed.nil?
     
     files.each do |filename|    
+      feeds_url = "http://feeder.zoom.gina.alaska.edu"
       file = File.basename(filename)
       puts "Importing #{file}"  
       
       title, year,month,day,hour,minute = breakdown(file)
-
       path_fragment = File.join('feeds', slug, year, month, day)
       path = Rails.root.join('public', path_fragment)
-      FileUtils.mkdir_p(path)
-      FileUtils.cp(filename, path)
-    
-      feeds_url = "http://feeder.dev"
-      entry = feed.entries.where(title: title).count
-      puts "found #{entry} items"
       
-      feed.entries.create!(
+      attributes = { 
         title: title,
-        content: "<img src=\"#{feeds_url}/#{path_fragment}/#{file}\" alt=\"#{file}\" />",
+        content: image_content("#{feeds_url}/#{path_fragment}/#{file}", title),
         event_at: DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0),
-        where: "POINT(-156.673 71.328)"
-      ) if entry == 0        
+        where: "POINT(-156.788333 71.2925)"
+      }
+
+      entry = feed.entries.where(title: title).first
+ 
+      if entry.nil?
+        FileUtils.mkdir_p(path)
+        FileUtils.cp(filename, path)
+        feed.entries.create!(attributes)
+      else
+        entry.update_attributes(attributes)
+      end
+
     end
     
     feed.touch
@@ -53,6 +58,14 @@ class Import < Thor
       end
     
       [title, year, month, day, hour, minute]
+    end
+
+    def image_content(img, title, url = nil)
+      <<-EOHTML
+      <div class="puffin_feeder" style="text-align: center">
+        <img src="#{img}" alt="#{title}" style="width:200px;" />
+      </div>
+      EOHTML
     end
   end
 end
