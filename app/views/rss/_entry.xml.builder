@@ -1,8 +1,8 @@
 entry_xml.item {
   entry_xml.title entry.title
   
-  entry_xml.id slug_entry_url(entry.feed, entry, :format => :georss)
-  entry_xml.link(:href => slug_entry_url(entry.feed, entry, :format => :georss), :rel => "self")
+  entry_xml.id georss_entry_url(entry.feed, entry, :format => :xml)
+  entry_xml.link(:href => georss_entry_url(entry.feed, entry, :format => :xml), :rel => "self")
   entry_xml.link(:href => slug_entry_url(entry.feed, entry, :format => :html), :rel => "alternate")
   entry_xml.event entry.event_at
   entry_xml << entry.georss_location    
