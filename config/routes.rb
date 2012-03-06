@@ -7,8 +7,8 @@ Feeder::Application.routes.draw do
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
 
-  match 'rss/:slug' => 'rss#show', :as => :georss
-  match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry
+  match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
+  match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
 
   match ':slug' => 'feeds#show', :as => :slug
   match ':slug/:id' => 'feeds#show', :as => :slug_entry
