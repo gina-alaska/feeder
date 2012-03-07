@@ -57,8 +57,7 @@ form.bp {
   body.two-col {
     padding: 5px;
     
-    #sidebar { text-align: right; top: 2.2em; right: 1em; position: absolute; }
-    #sidebar #list { display: none; }
+    #sidebar #search { text-align: right; top: 2.2em; right: 1em; position: absolute; }
     #footer, #content {
       text-align: center;
     }
