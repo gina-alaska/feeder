@@ -3,8 +3,19 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
-
-.feed {
+body.bp .feed {
+  h1 {
+    font-size: 2.3em;
+    margin-bottom: 10px;
+    text-decoration:underline;
+  }
+  
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    margin-left: 15px;
+  }
+  
   .pagination {
     margin-bottom: 15px;
     

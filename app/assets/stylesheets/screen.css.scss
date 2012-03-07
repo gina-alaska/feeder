@@ -32,6 +32,8 @@ form.bp {
   @include blueprint-scaffolding; }
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
+@media screen and (min-width:960px) {
+  
 body.two-col {
   #container {
     @include container; }
@@ -47,3 +49,15 @@ body.two-col {
     $content-columns: ceil(3 * $blueprint-grid-columns / 4);
     // true means it's the last column in the row
     @include column($content-columns, true); } }
+}
+
+@media screen and (max-width:960px) {
+  body.two-col {
+    padding: 5px;
+    #sidebar { 
+      #list {
+        display: none;
+      }
+    }
+  }
+}
