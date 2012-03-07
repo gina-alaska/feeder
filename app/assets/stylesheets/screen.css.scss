@@ -33,7 +33,6 @@ form.bp {
 
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 @media screen and (min-width:960px) {
-  
   body.two-col {
     #container {
       @include container; }
@@ -54,13 +53,19 @@ form.bp {
   }
 }
 
-@media screen and (max-width:960px) and (min-width:400px) {
+@media screen and (max-width:960px) and (min-width:480px) {
   body.two-col {
     padding: 5px;
+    
+    #sidebar { text-align: right; top: 2.2em; right: 1em; position: absolute; }
+    #sidebar #list { display: none; }
+    #footer, #content {
+      text-align: center;
+    }
   }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:480px) {
   body.two-col {
     padding: 5px;
     #header {
