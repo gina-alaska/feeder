@@ -26,7 +26,7 @@
           %h3 Available Feeds
           %ul
             - Feed.all.each do |feed|
-              %li= link_to feed.title, slug_path(feed)
+              %li= link_to feed.title, slug_path(feed)        
       #content
         = yield
       #footer

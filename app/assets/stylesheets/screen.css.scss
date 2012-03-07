@@ -34,30 +34,40 @@ form.bp {
 // Page layout can be done using mixins applied to your semantic classes and IDs:
 @media screen and (min-width:960px) {
   
-body.two-col {
-  #container {
-    @include container; }
-  #header, #footer {
-    @include column($blueprint-grid-columns); }
-  #sidebar {
-    // One third of the grid columns, rounding down. With 24 cols, this is 8.
-    $sidebar-columns: floor($blueprint-grid-columns / 4);
-    @include column($sidebar-columns); }
-  #content {
-    // Two thirds of the grid columns, rounding up.
-    // With 24 cols, this is 16.
-    $content-columns: ceil(3 * $blueprint-grid-columns / 4);
-    // true means it's the last column in the row
-    @include column($content-columns, true); } }
+  body.two-col {
+    #container {
+      @include container; }
+    #header, #footer {
+      @include column($blueprint-grid-columns); }
+    #sidebar {
+      // One third of the grid columns, rounding down. With 24 cols, this is 8.
+      $sidebar-columns: 5;
+      @include column($sidebar-columns); }
+    #content {
+      // Two thirds of the grid columns, rounding up.
+      // With 24 cols, this is 16.
+      $content-columns: 18;
+      // true means it's the last column in the row
+      @include column($content-columns, true); 
+      @include prepend(1);
+    } 
+  }
 }
 
-@media screen and (max-width:960px) {
+@media screen and (max-width:960px) and (min-width:400px) {
   body.two-col {
     padding: 5px;
-    #sidebar { 
-      #list {
-        display: none;
-      }
+  }
+}
+
+@media screen and (max-width:400px) {
+  body.two-col {
+    padding: 5px;
+    #header {
+      display:none;
+    }
+    #sidebar {
+      display:none; 
     }
   }
 }
