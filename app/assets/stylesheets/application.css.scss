@@ -16,6 +16,28 @@
 
 body { 
   #header {
+    #gina_logo {
+      height: 60px;
+      
+      img {
+        height: 40px;
+        display: inline-block;
+      }
+      
+      span.gina {
+        color: #EDB329;
+      }
+      
+      span {
+        height: 50px;
+        display: inline-block;
+        font-size: 50px;
+        margin-bottom: 8px;
+        color: #666;
+        font-weight: bold;
+      }
+    }
+    
     h1 { font-size: 3em; margin-bottom: 5px; }
     #nav-menu {
       text-align: right;
@@ -37,9 +59,13 @@ body {
       }
     }
   }
-
+  
   #footer {
     text-align: right;
+    
+    #gina_logo img {
+      width: 100px;
+    }
   }
 
   #sidebar {

@@ -14,7 +14,9 @@
   %body.two-col.bp
     #container
       #header
-        %h1 GINA Feeder
+        #gina_logo
+          %span.gina GINA
+          %span Feeder
         #nav-menu
           %ul
             %li= link_to 'Home', '/'
@@ -30,4 +32,4 @@
       #content
         = yield
       #footer
-        Powered by GINA
+        #gina_logo= image_tag 'gina_powered.png'
