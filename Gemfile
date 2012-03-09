@@ -6,6 +6,7 @@ gem 'rails', '3.2.2'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
+gem 'pg'
 gem 'haml'
 gem 'compass', '~> 0.12.alpha.4'
 gem 'nofxx-georuby', :require => 'geo_ruby'
