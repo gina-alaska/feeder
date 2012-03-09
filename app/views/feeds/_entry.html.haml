@@ -1,9 +1,5 @@
 .entry
   .title
-    %label Title:
     = link_to entry.title, slug_entry_path(entry.feed, entry), :target => '_blank'
-  .event
-    %label Date:
-    = entry.event_at
   .content
     = render :partial => entry.category, :locals => { :entry => entry }
