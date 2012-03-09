@@ -1,19 +1,16 @@
 // Place all the styles related to the entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.entry {
-  text-align: center;
-  display: inline-block;    
-  img {
-    width: 500px;
-  }  
-}
-
 .entries {
   .entry {
+    text-align: center;
     display: inline-block;    
+    width: 150px;
     img {
-      width: 150px;
-    }  
+      width: 100%;
+    } 
   }
+
+  .entry.full_size {
+    width: 50%; }
 }

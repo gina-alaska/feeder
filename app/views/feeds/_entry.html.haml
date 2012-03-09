@@ -1,5 +1,8 @@
-.entry
+.entry{:class => current_page?(slug_entry_path(@feed, entry)) ? 'full_size' : ''}
   .title
-    = link_to entry.title, slug_entry_path(entry.feed, entry), :target => '_blank'
+    - if current_page?(slug_entry_path(@feed, entry))
+      = entry.title
+    - else
+      = link_to entry.title, slug_entry_path(@feed, entry)
   .content
     = render :partial => entry.category, :locals => { :entry => entry }
