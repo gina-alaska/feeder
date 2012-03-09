@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120306232557) do
+ActiveRecord::Schema.define(:version => 20120309043656) do
 
   create_table "entries", :force => true do |t|
     t.integer  "feed_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20120306232557) do
     t.datetime "updated_at", :null => false
     t.string   "file"
     t.string   "category"
+    t.string   "slug"
   end
 
   create_table "feeds", :force => true do |t|

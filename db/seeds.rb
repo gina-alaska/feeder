@@ -21,3 +21,11 @@ animations = Feed.create({
   author: 'Someone',
   where: 'POINT(-156.673 71.328)'
 })
+
+webcam = Feed.create({
+  slug: 'barrow_webcam',
+  title: 'Barrow Webcam',
+  description: 'Barrow Webcam',
+  author: 'Someone',
+  where: 'POINT(-156.673 71.328)'
+})

@@ -4,9 +4,13 @@ class Entry < ActiveRecord::Base
   # paginates_per 16
 
   belongs_to :feed
+
+  def self.build_slug(text)
+    text.downcase.gsub(/[\-\.:\s]/,'_')
+  end
   
   def to_param
-    self.title
+    self.slug
   end
   
   def georss_location

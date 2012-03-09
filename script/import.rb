@@ -4,7 +4,7 @@ class Import < Thor
   desc "radar SLUG FOLDER", "import radar image into feeds"
   def radar(slug, item)
     if File.directory? item
-      files = Dir.glob(File.join(item, '*.png')) 
+      files = Dir.glob(File.join(item, '*')) 
     elsif File.exists? item
       files = [item]
     else
@@ -15,14 +15,17 @@ class Import < Thor
     raise "Unable to find feed for #{slug}" if feed.nil?
     
     files.each do |filename|    
+      next if filename[0] == ?.
+
       file = File.basename(filename)
       puts "Importing #{file}"  
       
-      title,category,year,month,day,hour,minute = breakdown(file)
+      entry_slug,title,category,year,month,day,hour,minute = breakdown(file)
       path_fragment = File.join('feeds', slug, year, month, day)
       path = Rails.root.join('public', path_fragment)
       
-      attributes = { 
+      attributes = {
+        slug: entry_slug,
         title: title,
         file: "#{path_fragment}/#{file}",
         category: category,
@@ -30,7 +33,7 @@ class Import < Thor
         where: "POINT(-156.788333 71.2925)"
       }
 
-      entry = feed.entries.where(title: title).first
+      entry = feed.entries.where(slug: slug).first
  
       if entry.nil?
         FileUtils.mkdir_p(path)
@@ -44,6 +47,7 @@ class Import < Thor
     
     feed.touch
   end
+
   no_tasks do
     def breakdown(filename)
       case filename
@@ -53,13 +57,18 @@ class Import < Thor
         category = "radar"
       when /^(\d{4})(\d{2})(\d{2})_day.gif/
         dummy, year, month, day = filename.match(/^(\d{4})(\d{2})(\d{2})_day.gif/).to_a
-        title = "Animation for #{year}-#{month}-#{day}"
+        title = "#{year}-#{month}-#{day}"
         category = "radar_animation"
+      when /^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).jpg$/
+        dummy, year, month, day, hour, minute = filename.match(/^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).jpg$/).to_a
+        title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
+        category = "webcam"
       else
         raise "Unable to breakdown filename, #{filename}"
       end
     
-      [title, category, year, month, day, hour, minute]
+      slug = Entry.build_slug(title)
+      [slug, title, category, year, month, day, hour, minute]
     end
 
     def image_content(img, title, url = nil)
