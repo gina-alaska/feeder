@@ -2,9 +2,9 @@ require "thor"
 
 class Import < Thor
   desc "radar SLUG FOLDER", "import radar image into feeds"
-  def radar(slug, item)
+  def image(slug, item)
     if File.directory? item
-      files = Dir.glob(File.join(item, '*')) 
+      files = Dir.glob(File.join(item, '**/*')) 
     elsif File.exists? item
       files = [item]
     else
@@ -16,6 +16,7 @@ class Import < Thor
     
     files.each do |filename|    
       next if filename[0] == ?.
+      next if File.directory? filename
 
       file = File.basename(filename)
       puts "Importing #{file}"  
@@ -33,7 +34,7 @@ class Import < Thor
         where: "POINT(-156.788333 71.2925)"
       }
 
-      entry = feed.entries.where(slug: slug).first
+      entry = feed.entries.where(slug: entry_slug).first
  
       if entry.nil?
         FileUtils.mkdir_p(path)
