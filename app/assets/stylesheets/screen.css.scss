@@ -1,3 +1,5 @@
+@import "compass/css3";
+
 // This import applies a global reset to any page that imports this stylesheet.
 @import "blueprint/reset";
 
@@ -48,6 +50,9 @@ form.bp {
       $content-columns: 17;
       // true means it's the last column in the row
       @include column($content-columns, true); 
+      .full_size {
+        min-width: 400px;
+      }
     } 
   }
 }
@@ -57,9 +62,26 @@ form.bp {
     padding: 5px;
     
     #sidebar #search { text-align: right; top: 2.2em; right: 1em; position: absolute; }
+    #sidebar #list {
+      text-align: center;
+      ul { list-style: none; padding: 0; }
+      li { 
+        display: inline-block; 
+        padding: 5px; 
+        font-weight: bold; 
+        border: 1px solid #AAA; 
+        @include border-radius(10px);
+      }
+      ul.links li { 
+        padding: 0px; 
+        font-weight: normal; 
+        border: none; 
+      }
+    }
     #footer, #content {
       text-align: center;
     }
+
   }
 }
 
@@ -71,6 +93,11 @@ form.bp {
     }
     #sidebar {
       display:none; 
+    }
+    #content h1 {
+      font-size:1.4em;
+      margin-bottom: 3px;
+      padding-bottom: 0; 
     }
     #footer, #content {
       text-align: center;
