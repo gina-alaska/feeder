@@ -28,7 +28,13 @@
           %h3 Available Feeds
           %ul
             - Feed.all.each do |feed|
-              %li= link_to feed.title, slug_path(feed)        
+              %li
+                = feed.title
+                %ul.links
+                  %li
+                    = link_to 'Current Image', slug_entry_path(feed, 'current')
+                    |
+                    = link_to 'All Images', slug_path(feed)
       #content
         = yield
       #footer

@@ -73,10 +73,19 @@ body {
       font-size: 1.2em;
       margin-top: 10px;
       margin-bottom: 3px;
+      text-decoration: underline;
     }
   
     ul {
-      margin-left: 5px;
+      margin-left: 0px;
+    }
+    ul.links {
+      list-style: none;
+      padding-left: 1em;
+
+      li {
+        white-space: nowrap;
+      }
     }
   }
 }
