@@ -61,10 +61,12 @@ body {
   }
   
   #footer {
-    text-align: right;
+    text-align: center;
     
-    #gina_logo img {
-      width: 100px;
+    #gina_logo, #uaf_logo {
+      display: inline;
+      padding: 0px 10px;
+      img { height: 30px; }
     }
   }
 
