@@ -1,7 +1,8 @@
 !!!5
 %html
   %head
-    %title GINA Feeder
+    %title GINA Puffin Feeder
+    = favicon_link_tag 'puffin.png'
     = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
     = stylesheet_link_tag 'print.css', :media => 'print'
     /[if lt IE 8]
@@ -15,8 +16,9 @@
     #container
       #header
         #gina_logo
+          %span.puffin= image_tag("puffin.png")
           %span.gina GINA
-          %span Feeder
+          %span Puffin Feeder
         #nav-menu
           %ul
             %li= link_to 'Home', '/'
