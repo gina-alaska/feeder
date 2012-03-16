@@ -3,7 +3,7 @@
 = paginate @entries if @entries.respond_to? :current_page
 
 .entries
-  = render :partial => 'entry', :collection => @entries
+  = render :partial => 'entry', :collection => @entries, :locals => { :feed => feed }
 
 = paginate @entries if @entries.respond_to? :current_page
 

@@ -1,1 +1,6 @@
-Welcome
+.current_list
+  - Feed.all.each do |feed|
+    - next if feed.entries.count == 0
+    .current_entry
+      %h3= feed.title
+      = render :partial => 'feeds/entry', :locals => { :feed => feed, :entry => feed.entries.current.first }

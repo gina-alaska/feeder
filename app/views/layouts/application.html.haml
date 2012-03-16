@@ -19,24 +19,7 @@
           %span.puffin= image_tag("puffin.png")
           %span.gina GINA
           %span Puffin Feeder
-        #nav-menu
-          %ul
-            %li= link_to 'Home', '/'
-            %li= link_to 'Login', '#'
-      #sidebar
-        #search
-          = render 'feeds/search'
-        #list
-          %h3 Available Feeds
-          %ul
-            - Feed.all.each do |feed|
-              %li
-                = feed.title
-                %ul.links
-                  %li
-                    = link_to 'Current Image', slug_entry_path(feed, 'current')
-                    |
-                    = link_to 'All Images', slug_path(feed)
+      = render 'layouts/sidebar'
       #content
         = yield
       #footer
