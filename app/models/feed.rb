@@ -1,7 +1,11 @@
 class Feed < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
 
-  has_many :entries
+  has_many :entries do
+    def current
+      order('event_at DESC').limit(1)
+    end
+  end
   
   def to_param
     self.slug

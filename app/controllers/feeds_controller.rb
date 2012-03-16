@@ -10,7 +10,7 @@ class FeedsController < ApplicationController
       @entries = @feed.entries.includes(:feed)
       @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
     elsif params[:id] == 'current'
-      @entries = @feed.entries.order('event_at DESC').limit(1)
+      @entries = @feed.entries.current
     else
       @entries = @feed.entries.includes(:feed).where(:slug => params[:id])
       @entries = @entries.order('event_at DESC').page(params[:page]).per(12)

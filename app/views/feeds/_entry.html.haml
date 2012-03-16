@@ -1,9 +1,9 @@
-- current = current_page?(slug_entry_path(@feed, entry)) || current_page?(slug_entry_path(@feed, 'current'))
+- current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .entry{:class => current ? 'full_size' : ''}
   .title
     - if current
       = entry.title
     - else
-      = link_to entry.title, slug_entry_path(@feed, entry)
+      = link_to entry.title, slug_entry_path(feed, entry)
   .content
-    = render :partial => entry.category, :locals => { :entry => entry }
+    = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }

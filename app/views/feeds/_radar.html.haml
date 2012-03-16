@@ -1,9 +1,9 @@
 .radar
   - img_url = File.join(root_url, entry.file)
-  - if current_page?(slug_entry_url(@feed, entry))
+  - if current_page?(slug_entry_url(feed, entry))
     = link_to img_url, :target => '_blank' do
       = image_tag(img_url, :class => :full_sized)
       Click here for fullsize image
   - else
-    = link_to  image_tag(img_url), slug_entry_url(@feed, entry), :target => '_blank'
+    = link_to  image_tag(img_url), slug_entry_url(feed, entry), :target => '_blank'
     

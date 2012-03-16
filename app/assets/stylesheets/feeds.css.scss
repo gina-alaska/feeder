@@ -37,5 +37,14 @@ body.bp .feed {
       border: 1px solid #f00;
       @include border-radius(5px);
     }
+  }  
+}
+
+.current_list {
+  .current_entry {
+    h3 { margin: 0;}
+    display: inline-block;
+    text-align: center;
+    width: 49%;
   }
 }
