@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 radar = Feed.create({
-  slug: 'barrow_radar',
+  slug: 'radar-uaf-barrow-seaice-images',
   title: 'Barrow Radar',
   description: 'Barrow Radar data showing ice flow',
   author: 'Someone',
@@ -15,7 +15,7 @@ radar = Feed.create({
 })
 
 animations = Feed.create({
-  slug: 'barrow_radar_animations',
+  slug: 'radar-uaf-barrow-seaice-animations',
   title: 'Barrow Radar Animation',
   description: 'Barrow Radar animation showing ice flow',
   author: 'Someone',
@@ -23,8 +23,16 @@ animations = Feed.create({
 })
 
 webcam = Feed.create({
-  slug: 'barrow_webcam',
+  slug: 'webcam-uaf-barrow-seaice-images',
   title: 'Barrow Webcam',
+  description: 'Barrow Webcam',
+  author: 'Someone',
+  where: 'POINT(-156.673 71.328)'
+})
+
+webcam = Feed.create({
+  slug: 'webcam-uaf-barrow-seaice-animations',
+  title: 'Barrow Webcam Animations',
   description: 'Barrow Webcam',
   author: 'Someone',
   where: 'POINT(-156.673 71.328)'

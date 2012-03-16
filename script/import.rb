@@ -1,5 +1,7 @@
 require "thor"
 
+class FileNotSupported < Exception; end
+
 class Import < Thor
   desc "radar SLUG FOLDER", "import radar image into feeds"
   def image(slug, item)
@@ -20,8 +22,14 @@ class Import < Thor
 
       file = File.basename(filename)
       puts "Importing #{file}"  
-      
-      entry_slug,title,category,year,month,day,hour,minute = breakdown(file)
+     
+      begin
+        entry_slug,title,category,year,month,day,hour,minute = breakdown(file)
+      rescue FileNotSupported => e
+        puts "Skipping #{e.message}"
+        next
+      end
+
       path_fragment = File.join('feeds', slug, year, month, day)
       path = Rails.root.join('public', path_fragment)
       
@@ -65,7 +73,7 @@ class Import < Thor
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
         category = "webcam"
       else
-        raise "Unable to breakdown filename, #{filename}"
+        raise FileNotSupported.new filename
       end
     
       slug = Entry.build_slug(title)
