@@ -16,9 +16,10 @@
     #container
       #header
         #gina_logo
-          %span.puffin= image_tag("puffin.png")
-          %span.gina GINA
-          %span Puffin Feeder
+          = link_to '/' do
+            %span.puffin= image_tag("puffin.png")
+            %span.gina GINA
+            %span Puffin Feeder
       = render 'layouts/sidebar'
       #content
         = yield
