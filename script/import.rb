@@ -3,7 +3,7 @@ require "thor"
 class FileNotSupported < Exception; end
 
 class Import < Thor
-  desc "radar SLUG FOLDER", "import radar image into feeds"
+  desc "image SLUG FOLDER", "import radar image into feeds"
   def image(slug, item)
     if File.directory? item
       files = Dir.glob(File.join(item, '**/*')) 

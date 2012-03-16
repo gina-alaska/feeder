@@ -46,14 +46,16 @@ class Feed < ActiveRecord::Base
 
         entry = feed.entries.where(slug: entry_slug).first
 
-        if entry.nil?
+        unless File.exists?(File.join(path, File.basename(filename)))
           FileUtils.mkdir_p(path)
           FileUtils.cp(filename, path)
+        end
+
+        if entry.nil?
           feed.entries.create!(attributes)
         else
           entry.update_attributes(attributes)
         end
-
       end
 
       feed.touch
