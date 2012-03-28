@@ -1,0 +1,7 @@
+watch '/san/tub/icemonkey/barrow_webcams/source' do
+  match extension jpg do
+    Dir.chdir '/home/wfisher/workspace/feeder' do
+      run "script/import_barrow_webcams.sh \"#{filename}\""
+    end
+  end
+end
