@@ -11,9 +11,9 @@ every 10.minutes do
   command File.join(Dir.pwd,"script/rsync.sh")
 end
 
-every 10.minutes, :at => 5 do
-  runner 'Feed.import("webcam-uaf-barrow-seaice-images", "/san/tub/icemonkey/barrow_webcams/source/201203/")'
-end
+#every 10.minutes, :at => 5 do
+#  runner 'Feed.import("webcam-uaf-barrow-seaice-images", "/san/tub/icemonkey/barrow_webcams/source/201203/")'
+#end
 
 # Example:
 #
