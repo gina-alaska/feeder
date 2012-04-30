@@ -1,2 +1,7 @@
 ---
 worker_defs: /home/wfisher/workspace/feeder/workers
+logfile: logs/conveyor.log
+websocket:
+  disable: false
+  host: '0.0.0.0'
+  port: 9876
