@@ -1,5 +1,0 @@
-watch File.dirname(__FILE__) do
-  match extension worker do
-    reload!
-  end
-end

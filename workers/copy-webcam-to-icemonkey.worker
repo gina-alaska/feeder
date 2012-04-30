@@ -1,0 +1,6 @@
+watch '/media/raid/wfisher/icemonkey/barrow_webcams/source' do
+  loglvl :debug
+  match extension jpg do
+    scp filename, 'seaice@icemonkey:incoming/webcam-uaf-barrow-seaice-images'
+  end
+end
