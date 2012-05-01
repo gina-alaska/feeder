@@ -12,6 +12,8 @@ gem 'compass', '~> 0.12.alpha.4'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'
+gem 'carrierwave'
+gem 'rmagick'
 
 # Gems used only for assets and not required
 # in production environments by default.

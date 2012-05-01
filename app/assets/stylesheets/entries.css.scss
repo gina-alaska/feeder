@@ -4,13 +4,9 @@
 .entry {
   text-align: center;
   display: inline-block;    
-  width: 200px;
-  img {
-    width: 100%;
-  } 
   vertical-align: top;
 }
 
-.entry.full_size {
-  height: 50%; 
+.full_sized {
+  display: block;
 }

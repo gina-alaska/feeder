@@ -37,3 +37,11 @@ webcam = Feed.create({
   author: 'Someone',
   where: 'POINT(-156.673 71.328)'
 })
+
+npp = Feed.create({
+  slug: 'npp-gina-alaska-truecolor-images',
+  title: 'NPP Truecolor Images',
+  description: 'NPP Truecolor Images',
+  author: 'GINA',
+  where: 'POINT(-147.723056 64.843611)'  
+})
