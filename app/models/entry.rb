@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
 
   class << self
     def npp_regexp
-      /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor_station_mask_ortho_5k\.tif$/
+      /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor_aa_1500\.png$/
     end
 
     def barrow_radar_regexp
