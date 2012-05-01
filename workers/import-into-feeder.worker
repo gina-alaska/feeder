@@ -1,17 +1,17 @@
-watch '/media/raid/feeder/incoming/barrow_webcam' do
+watch '/mnt/incoming/barrow_webcam' do
   match extension jpg do
-    Dir.chdir '/home/wfisher/workspace/feeder' do
+    Dir.chdir '/home/webdev/gits/feeder' do
       run "script/import_barrow_webcams.sh \"#{filename}\""
-      move filename, '/media/raid/feeder/done/barrow_webcam' if status.success?
+      move filename, '/mnt/done/barrow_webcam' if status.success?
     end
   end
 end
 
-watch '/media/raid/feeder/incoming/barrow_radar' do
+watch '/mnt/incoming/barrow_radar' do
   match extension png do
-    Dir.chdir '/home/wfisher/workspace/feeder' do
+    Dir.chdir '/home/webdev/gits/feeder' do
       run "script/import_barrow_radar.sh \"#{filename}\""
-      move filename, '/media/raid/feeder/done/barrow_radar' if status.success?
+      move filename, '/mnt/done/barrow_radar' if status.success?
     end
   end
 end
