@@ -1,0 +1,9 @@
+watch "/mnt/npp", :force_polling => true, :latency => 10 do
+  match extension md5 do
+    Dir.chdir '/home/webdev/gits/feeder' do
+      path = File.dirname(filename)
+      scene_id = File.basename(filename, '.md5')
+      run "script/import_npp.sh \"#{path}/#{scene_id}_truecolor-pan_alaska.tif\""
+    end
+  end
+end
