@@ -1,4 +1,4 @@
-.radar
+.image
   - if current_page?(slug_entry_url(feed, entry))
     = link_to entry.file.url, :target => '_blank' do
       = image_tag(entry.file.thumb.medium.url, :class => :full_sized)

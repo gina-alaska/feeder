@@ -50,7 +50,8 @@ form.bp {
       $content-columns: 17;
       // true means it's the last column in the row
       @include column($content-columns, true); 
-      .full_size {
+      .full_sized {
+        max-width: 630px;
         min-width: 400px;
       }
     } 

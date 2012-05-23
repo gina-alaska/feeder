@@ -1,0 +1,8 @@
+.npp
+  - if current_page?(slug_entry_url(feed, entry))
+    = link_to entry.file.url, :target => '_blank' do
+      = image_tag(entry.file.thumb.large.url, :class => :full_sized)
+      Click here for fullsize image<br />
+      NOTE: This is a geotiff and my not open in all browsers
+  - else
+    = link_to  image_tag(entry.file.thumb.small.url), slug_entry_url(feed, entry), :target => '_blank'
