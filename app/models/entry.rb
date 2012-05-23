@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
 
   class << self
     def npp_regexp
-      /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor_aa_1500\.png$/
+      /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor-pan_alaska\.tif$/
     end
 
     def barrow_radar_regexp
@@ -44,7 +44,7 @@ class Entry < ActiveRecord::Base
         day = date.day
         month = date.month
         year = date.year
-        title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
+        title = sprintf("%4d-%02d-%02d %02d:%02d", year, month, day, hour, minute)
         category = "image"
         where = "POINT(-147.723056 64.843611)"
       when barrow_radar_regexp
