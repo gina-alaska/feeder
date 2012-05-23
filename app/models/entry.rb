@@ -45,7 +45,7 @@ class Entry < ActiveRecord::Base
         month = date.month
         year = date.year
         title = sprintf("%4d-%02d-%02d %02d:%02d", year, month, day, hour, minute)
-        category = "image"
+        category = "npp"
         where = "POINT(-147.723056 64.843611)"
       when barrow_radar_regexp
         dummy, year, month, day, hour, minute = filename.match(
