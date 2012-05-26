@@ -13,29 +13,28 @@
  *= require 'feeds'
  *=# require_tree .
 */
+@import 'bootstrap';
 
 body { 
   #header {
     #gina_logo {
       a { text-decoration: none; }
       
-      height: 60px;
-      
       img {
-        height: 40px;
+        height: 50px;
         display: inline-block;
-      }
-      
-      span.gina {
-        color: #EDB329;
-        margin-right: 10px;
       }
       
       span {
-        height: 50px;
+        &.gina {
+          color: #EDB329;
+          margin-right: 10px;
+        }
+        &.text {
+        }
+        
         display: inline-block;
         font-size: 50px;
-        margin-bottom: 8px;
         color: #666;
         font-weight: bold;
       }

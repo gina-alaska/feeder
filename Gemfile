@@ -13,6 +13,7 @@ gem 'kaminari'
 gem 'whenever'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'bootstrap-sass'
 
 # Gems used only for assets and not required
 # in production environments by default.

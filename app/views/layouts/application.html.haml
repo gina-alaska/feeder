@@ -3,26 +3,24 @@
   %head
     %title GINA Puffin Feeder
     = favicon_link_tag 'puffin.png'
-    = stylesheet_link_tag 'screen.css', :media => 'screen, projection'
-    = stylesheet_link_tag 'print.css', :media => 'print'
-    /[if lt IE 8]
-      = stylesheet_link_tag 'ie.css', :media => 'screen, projection'
     = stylesheet_link_tag "application", :media => "all"
     = auto_discovery_link_tag(:rss, slug_path(@feed, :xml), :title=>"#{@feed.title} GeoRSS feed") unless @feed.nil?
     =# link_tag(:href=>feeds_path(@feed), :type => "application/atom+xml", :rel=> "alternate", ) unless @feed.nil?
     = javascript_include_tag "application"
     = csrf_meta_tags 
-  %body.two-col.bp
-    #container
-      #header
-        #gina_logo
+  %body
+    .container
+      #header.row
+        #gina_logo.span12
           = link_to '/' do
             %span.puffin= image_tag("puffin.png")
-            %span.gina GINA
-            %span Puffin Feeder
-      = render 'layouts/sidebar'
-      #content
-        = yield
-      #footer
+            %span.gina.text GINA
+            %span.text Puffin Feeder
+      #content.row
+        .span4
+          = render 'layouts/sidebar'
+        .span8
+          = yield
+      #footer.row
         #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
         #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
