@@ -1,6 +1,7 @@
 !!!5
 %html
   %head
+    %meta{:name=>"viewport", :content=>"width=device-width, initial-scale=1.0"}
     %title GINA Puffin Feeder
     = favicon_link_tag 'puffin.png'
     = stylesheet_link_tag "application", :media => "all"
@@ -17,9 +18,9 @@
             %span.gina.text GINA
             %span.text Puffin Feeder
       #content.row
-        .span4
+        .span3
           = render 'layouts/sidebar'
-        .span8
+        .span9
           = yield
       #footer.row
         #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank

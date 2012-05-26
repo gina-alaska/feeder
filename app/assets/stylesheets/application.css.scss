@@ -14,13 +14,15 @@
  *=# require_tree .
 */
 @import 'bootstrap';
+@import "bootstrap-responsive";
 
 body { 
   #header {
     #gina_logo {
       a { text-decoration: none; }
-      
+    
       img {
+        margin-top: 5px;
         height: 50px;
         display: inline-block;
       }
@@ -29,8 +31,6 @@ body {
         &.gina {
           color: #EDB329;
           margin-right: 10px;
-        }
-        &.text {
         }
         
         display: inline-block;
@@ -41,55 +41,14 @@ body {
     }
     
     h1 { font-size: 3em; margin-bottom: 5px; }
-    #nav-menu {
-      text-align: right;
-      position: absolute;
-      top: 0.5em;
-      right: 1em;
-      ul {
-        padding: 0;
-        margin: 0;
-      }
-      li { 
-        padding: 0;
-        margin: 0;
-        display: inline-block;
-      }
-      a {
-        padding: 0px 5px;
-        display: block;
-      }
-    }
   }
   
   #footer {
     text-align: center;
-    
     #gina_logo, #uaf_logo {
       display: inline;
       padding: 0px 10px;
       img { height: 30px; }
-    }
-  }
-
-  #sidebar {
-    h3 {
-      font-size: 1.2em;
-      margin-top: 10px;
-      margin-bottom: 3px;
-      text-decoration: underline;
-    }
-  
-    ul {
-      margin-left: 0px;
-    }
-    ul.links {
-      list-style: none;
-      padding-left: 1em;
-
-      li {
-        white-space: nowrap;
-      }
     }
   }
 }

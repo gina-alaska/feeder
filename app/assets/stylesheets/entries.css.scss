@@ -1,14 +1,21 @@
 // Place all the styles related to the entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.entries { 
+  text-align: center;
+}
 .entry {
   text-align: center;
   display: inline-block;    
   vertical-align: top;
+  
+  a {
+    display: inline-block;
+  }
 }
 
-.full_sized {
-  display: block;
+img.full_sized {
+  width:100%;
 }
 
 .npp img {

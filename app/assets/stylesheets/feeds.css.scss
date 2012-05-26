@@ -3,43 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
-body.bp .feed {
-  h1 {
-    font-size: 2.0em;
-    margin-bottom: 5px;
-    text-decoration:underline;
-  }
-  
-  h2 {
-    font-size: 1.5em;
-    margin-bottom: 5px;
-    margin-left: 15px;
-  }
-  
-  .pagination {
-    margin-bottom: 15px;
-    
-    a {
-      display: inline-block;
-      padding: 3px 5px;
-      cursor: pointer;
-      border: 1px solid #AAA;
-      background-color: #EEE;
-      @include border-radius(3px);
-    }
-    a:hover {
-      background-color: #DDD;
-    }
-    
-    .page.current {
-      display: inline-block;
-      padding: 3px 5px;
-      border: 1px solid #f00;
-      @include border-radius(5px);
-    }
-  }  
-}
-
 .current_list {
   .current_entry {
     h3 { margin: 0;}
