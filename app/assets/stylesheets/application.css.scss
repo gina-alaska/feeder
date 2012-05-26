@@ -21,20 +21,17 @@ body {
     #gina_logo {
       a { text-decoration: none; }
     
-      img {
-        margin-top: 5px;
+      .puffin img {
         height: 50px;
-        display: inline-block;
       }
       
       span {
         &.gina {
           color: #EDB329;
-          margin-right: 10px;
-        }
-        
+        }        
+        vertical-align: bottom;
         display: inline-block;
-        font-size: 50px;
+        font-size: 45px;
         color: #666;
         font-weight: bold;
       }

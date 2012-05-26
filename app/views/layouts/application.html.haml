@@ -13,10 +13,11 @@
     .container
       #header.row
         #gina_logo.span12
-          = link_to '/' do
-            %span.puffin= image_tag("puffin.png")
-            %span.gina.text GINA
-            %span.text Puffin Feeder
+          %h1
+            = link_to '/' do
+              %span.puffin= image_tag("puffin.png")
+              %span.gina.text GINA
+              %span.text Puffin Feeder
       #content.row
         .span3
           = render 'layouts/sidebar'
