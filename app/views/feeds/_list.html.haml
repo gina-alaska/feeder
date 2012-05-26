@@ -1,5 +1,5 @@
 #list.hidden-phone
-  %h1 Available Feeds
+  %h3 Available Feeds
   %ul.unstyled
     - Feed.all.each do |feed|
       - next if feed.entries.count == 0
