@@ -15,37 +15,38 @@
 */
 @import 'bootstrap';
 @import "bootstrap-responsive";
-
-body { 
-  #header {
-    #gina_logo {
-      a { text-decoration: none; }
+#header {
+  #gina_logo {
+    a { text-decoration: none; }
     
-      .puffin img {
-        height: 50px;
-      }
+    .puffin img {
+      height: 50px;
+    }
       
-      span {
-        &.gina {
-          color: #EDB329;
-        }        
-        vertical-align: bottom;
-        display: inline-block;
-        font-size: 45px;
-        color: #666;
-        font-weight: bold;
-      }
+    span {
+      &.gina {
+        color: #EDB329;
+      }        
+      vertical-align: bottom;
+      display: inline-block;
+      font-size: 45px;
+      color: #666;
+      font-weight: bold;
     }
+  }
     
-    h1 { font-size: 3em; margin-bottom: 5px; }
-  }
+  h1 { font-size: 3em; margin-bottom: 5px; }
+}
   
-  #footer {
-    text-align: center;
-    #gina_logo, #uaf_logo {
-      display: inline;
-      padding: 0px 10px;
-      img { height: 30px; }
-    }
+#footer {
+  text-align: center;
+  #gina_logo, #uaf_logo {
+    display: inline;
+    padding: 0px 10px;
+    img { height: 30px; }
   }
+}
+
+.nav .nav-header {
+  font-size: 14px;
 }
