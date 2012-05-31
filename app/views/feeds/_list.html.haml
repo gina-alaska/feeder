@@ -4,5 +4,7 @@
       - next if feed.entries.count == 0
       %li.nav-header
         = feed.title
-      %li= link_to 'Current Image', slug_entry_path(feed, 'current')
-      %li= link_to 'All Images', slug_path(feed)
+      %li{ :class => current_page?(slug_entry_path(feed, 'current')) ? 'active' : '' }
+        = link_to 'Current Image', slug_entry_path(feed, 'current')
+      %li{ :class => !current_page?(slug_entry_path(feed, 'current')) && current_page?(:slug => feed.slug) ? 'active' : '' }
+        = link_to 'All Images', slug_path(feed)
