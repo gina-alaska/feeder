@@ -1,12 +1,8 @@
 #list.hidden-phone
-  %h3 Available Feeds
-  %ul.unstyled
+  %ul.nav.nav-list
     - Feed.all.each do |feed|
       - next if feed.entries.count == 0
-      %li
+      %li.nav-header
         = feed.title
-        %ul.links
-          %li
-            = link_to 'Current Image', slug_entry_path(feed, 'current')
-            |
-            = link_to 'All Images', slug_path(feed)
+      %li= link_to 'Current Image', slug_entry_path(feed, 'current')
+      %li= link_to 'All Images', slug_path(feed)
