@@ -12,12 +12,12 @@
   a {
     display: inline-block;
   }
+  
+  img {
+    border: 1px solid black;
+  }
 }
 
 img.full_sized {
   width:100%;
-}
-
-.npp img {
-  border: 1px solid black;
 }
