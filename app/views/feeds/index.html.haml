@@ -1,5 +1,5 @@
 .entries
-  - Feed.all.each do |feed|
+  - @feeds.each do |feed|
     - next if feed.entries.count == 0
     .entry
       %h3= feed.title

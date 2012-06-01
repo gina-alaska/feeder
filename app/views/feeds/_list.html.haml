@@ -1,6 +1,6 @@
 #list.hidden-phone
   %ul.nav.nav-list
-    - Feed.all.each do |feed|
+    - Feed.order('slug ASC').all.each do |feed|
       - next if feed.entries.count == 0
       %li.nav-header
         = feed.title
