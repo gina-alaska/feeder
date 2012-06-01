@@ -7,9 +7,6 @@ class Entry < ActiveRecord::Base
 
   mount_uploader :file, EntryFileUploader
 
-  def self.build_slug(text)
-    text.downcase.gsub(/[\-\.:\s]/,'_')
-  end
   validates_presence_of :slug
   validates_presence_of :title
   validates_presence_of :event_at
@@ -23,6 +20,10 @@ class Entry < ActiveRecord::Base
   end  
 
   class << self
+    def build_slug(text)
+      text.downcase.gsub(/[\-\.:\s]/,'_')
+    end    
+    
     def npp_regexp
       /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor-pan_alaska\.tif$/
     end
@@ -77,10 +78,8 @@ class Entry < ActiveRecord::Base
         return nil
       end
 
-      slug = Entry.build_slug(title)
-
       { 
-        entry_slug: slug, 
+        entry_slug: Entry.build_slug(title), 
         title: title, 
         category: category, 
         year: year, 
