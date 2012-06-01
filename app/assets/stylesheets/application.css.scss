@@ -16,23 +16,23 @@
 @import 'bootstrap';
 @import "bootstrap-responsive";
 #header {
-  #gina_logo {
-    a { text-decoration: none; }
+  a { text-decoration: none; }
     
-    .puffin img {
-      height: 50px;
-    }
+  img.puffin {
+    float: left;
+    bottom: 0px;
+    height: 40px;
+  }
       
-    span {
-      &.gina {
-        color: #EDB329;
-      }        
-      vertical-align: bottom;
-      display: inline-block;
-      font-size: 45px;
-      color: #666;
-      font-weight: bold;
-    }
+  span {
+    &.gina {
+      color: #EDB329;
+    }        
+    vertical-align: bottom;
+    display: inline-block;
+    font-size: 20px;
+    color: #AAA;
+    font-weight: bold;
   }
     
   h1 { font-size: 3em; margin-bottom: 5px; }
@@ -45,6 +45,10 @@
     padding: 0px 10px;
     img { height: 30px; }
   }
+}
+
+#content {
+  margin-top: 40px;
 }
 
 .nav .nav-header {

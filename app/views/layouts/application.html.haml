@@ -10,19 +10,23 @@
     = javascript_include_tag "application"
     = csrf_meta_tags 
   %body
-    .container
-      #header.row
-        #gina_logo.span12
-          %h1
-            = link_to '/' do
-              %span.puffin= image_tag("puffin.png")
-              %span.gina.text GINA
-              %span.text Puffin Feeder
-      #content.row
+    #header.navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = image_tag("puffin.png", :class => :puffin)
+          = link_to '/', :class => 'brand' do
+            %span.gina.text GINA 
+            %span.text Puffin Feeder
+          /   %h1
+          /     = link_to '/' do
+          /       %span.gina.text GINA
+          /       %span.text Puffin Feeder
+    #content.container
+      .row
         .span3
           = render 'layouts/sidebar'
         .span9
           = yield
-      #footer.row
-        #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
-        #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
+    #footer.row
+      #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
+      #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
