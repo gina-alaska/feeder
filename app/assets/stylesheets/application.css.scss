@@ -16,6 +16,8 @@
 @import 'bootstrap';
 @import "bootstrap-responsive";
 #header {
+  height: 40px;
+  
   a { text-decoration: none; }
     
   img.puffin {
@@ -48,7 +50,10 @@
 }
 
 #content {
-  margin-top: 40px;
+}
+
+#header-spacer {
+  height: 40px;
 }
 
 .nav .nav-header {
