@@ -10,6 +10,9 @@ class Entry < ActiveRecord::Base
   def self.build_slug(text)
     text.downcase.gsub(/[\-\.:\s]/,'_')
   end
+  validates_presence_of :slug
+  validates_presence_of :title
+  validates_presence_of :event_at
   
   def to_param
     self.slug

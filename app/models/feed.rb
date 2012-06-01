@@ -1,6 +1,9 @@
 class Feed < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
 
+  validates_presence_of :slug
+  validates_presence_of :title
+
   has_many :entries do
     def current
       order('event_at DESC').limit(1)
