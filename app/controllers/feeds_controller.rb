@@ -20,4 +20,9 @@ class FeedsController < ApplicationController
 
     respond_with @feed, @entries
   end
+  
+  def image
+    @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
+    send_file(@feed.entries.last.file.current_path)
+  end
 end
