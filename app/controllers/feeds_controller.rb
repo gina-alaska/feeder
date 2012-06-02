@@ -23,6 +23,6 @@ class FeedsController < ApplicationController
   
   def image
     @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
-    send_file(@feed.entries.last.file.current_path)
+    send_file(@feed.entries.last.file.current_path, :disposition => 'inline')
   end
 end
