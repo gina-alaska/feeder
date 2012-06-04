@@ -4,7 +4,17 @@
       - next if feed.entries.count == 0
       %li.nav-header
         = feed.title
-      %li{ :class => current_page?(slug_entry_path(feed, 'current')) ? 'active' : '' }
+      %li{ :class => current_image_active_class(feed.slug)  }
         = link_to 'Current Image', slug_entry_path(feed, 'current')
-      %li{ :class => !current_page?(slug_entry_path(feed, 'current')) && current_page?(:slug => feed.slug) ? 'active' : '' }
+      %li{ :class => all_images_active_class(feed.slug) }
         = link_to 'All Images', slug_path(feed)
+      - date = feed.entries.order('event_at ASC').first.event_at.to_date
+      - end_date = feed.entries.order('event_at DESC').first.event_at.to_date
+      %li
+        = link_to 'By Month', "##{feed.slug}_by_date", "data-toggle" => "collapse", "data-target" => "##{feed.slug}_by_date"
+      %ul.nav.nav-list{id: "#{feed.slug}_by_date", class: collase_current_slug_without_date(feed.slug)}
+        - while(date <= end_date)
+          - date_str = date.strftime('%Y-%m')
+          %li{ class: month_images_active_class(feed.slug, date_str) }
+            = link_to date_str, slug_path(feed, date: date_str)
+          - date = date >> 1
