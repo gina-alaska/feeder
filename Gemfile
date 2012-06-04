@@ -14,6 +14,7 @@ gem 'whenever'
 gem 'carrierwave'
 gem 'rmagick'
 gem 'bootstrap-sass'
+gem 'quiet_assets', :group => :development
 
 # Gems used only for assets and not required
 # in production environments by default.
