@@ -13,7 +13,7 @@
       %li
         = link_to 'By Month', "##{feed.slug}_by_date", "data-toggle" => "collapse", "data-target" => "##{feed.slug}_by_date"
       %ul.nav.nav-list{id: "#{feed.slug}_by_date", class: collase_current_slug_without_date(feed.slug)}
-        - while(date <= end_date)
+        - while(date <= end_date.end_of_month)
           - date_str = date.strftime('%Y-%m')
           %li{ class: month_images_active_class(feed.slug, date_str) }
             = link_to date_str, slug_path(feed, date: date_str)
