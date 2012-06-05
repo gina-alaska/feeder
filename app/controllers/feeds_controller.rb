@@ -22,7 +22,7 @@ class FeedsController < ApplicationController
       @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
     end
 
-    respond_with @feed, @entries
+    respond_with @feed, @entries, :layout => (params[:rss] ? 'rss' : true)
   end
   
   def carousel

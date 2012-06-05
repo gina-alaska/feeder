@@ -12,6 +12,6 @@ content_xml.cdata!(
   border: none;
 }
 </style>
-<iframe src="#{slug_entry_url(@feed, entry)}" class="gina_feeder" frameborder="0"></iframe> 
+<iframe src="#{slug_entry_url(@feed, entry)}?rss=true" class="gina_feeder" frameborder="0"></iframe> 
 EOHTML
 )

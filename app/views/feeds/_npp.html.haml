@@ -1,8 +1,8 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .npp
   - if current
-    = link_to cw_image_url(entry.file), :target => '_blank' do
-      = image_tag(cw_image_url(entry.file.thumb.large), :class => :full_sized)
+    = link_to cw_image_url(entry.file), :target => '_blank', :class => :full_sized do
+      = image_tag(cw_image_url(entry.file.thumb.large))
       Click here for fullsize image<br />
       NOTE: This is a geotiff and may not open in all browsers
   - else
