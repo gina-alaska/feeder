@@ -3,11 +3,11 @@
     - @entries.each do |entry|
       .item
         = image_tag(cw_image_url(entry.file.thumb.large))
-        .carousel-caption= entry.title
+        .carousel-caption= link_to entry.title, slug_entry_url(@feed, entry)
       
   = link_to raw('&lsaquo;'), '#feeder-carousel', :class => "carousel-control left", "data-slide" => "prev"
   = link_to raw('&rsaquo;'), '#feeder-carousel', :class => "carousel-control right", "data-slide" => "next"
 :javascript
   $('.carousel').carousel({
     interval: 5000
-  })
+  }).carousel(0)
