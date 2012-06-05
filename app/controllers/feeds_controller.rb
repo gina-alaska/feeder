@@ -25,6 +25,14 @@ class FeedsController < ApplicationController
     respond_with @feed, @entries
   end
   
+  def carousel
+    @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
+    @entries = @feed.entries.includes(:feed)
+    @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
+    
+    respond_with @feed, @entries
+  end
+  
   def image
     @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
     send_file(@feed.entries.last.file.current_path, :disposition => 'inline')

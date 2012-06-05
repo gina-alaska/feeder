@@ -56,6 +56,16 @@
   height: 40px;
 }
 
+.carousel {
+  width: 800px;
+  height: 800px;
+}
+.carousel-caption {
+  font-size: 2em;
+  text-align: center;
+  color: $white;
+}
+
 .nav .nav-header {
   padding-left: 0px;
   font-size: 14px;

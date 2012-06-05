@@ -1,5 +1,6 @@
 Feeder::Application.routes.draw do
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
+    get 'carousel', :action => :carousel
     get ':id/page/:page', :action => :show, :on => :collection
     resources :entries
   end
@@ -16,6 +17,7 @@ Feeder::Application.routes.draw do
   match ':slug/:id.xml' => 'rss#show', :format => :xml
   
   match ':slug' => 'feeds#show', :as => :slug
+  match ':slug/carousel' => 'feeds#carousel'
   match ':slug/:id' => 'feeds#show', :as => :slug_entry
   match ':slug/:id/image' => 'feeds#image', :as => :current_image
   
