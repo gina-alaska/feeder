@@ -1,9 +1,9 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .image
   - if current
-    = link_to entry.file.url, :target => '_blank' do
-      = image_tag(entry.file.thumb.medium.url, :class => :full_sized)
+    = link_to cw_image_url(entry.file), :target => '_blank' do
+      = image_tag(cw_image_url(entry.file.thumb.large), :class => :full_sized)
       Click here for fullsize image
   - else
-    = link_to  image_tag(entry.file.thumb.small.url), slug_entry_url(feed, entry), :target => '_blank'
+    = link_to image_tag(cw_image_url(entry.file.thumb.small)), slug_entry_url(feed, entry), :target => '_blank'
     
