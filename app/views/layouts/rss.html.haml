@@ -12,15 +12,7 @@
     :css
       .entry a.full_sized { max-width: 75%; }
   %body
-    #header.navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          = image_tag("puffin.png", :class => :puffin)
-          = link_to '/', :class => 'brand' do
-            %span.gina.text GINA 
-            %span.text Puffin Feeder
     .container
-      #header-spacer.row.visible-desktop &nbsp;
       #page.row
         #content.span12
           = yield
