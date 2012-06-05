@@ -11,11 +11,14 @@
     = csrf_meta_tags
     :css
       .entry a.full_sized { max-width: 75%; }
+      #footer #feeder { display: inline-block; }
+      #footer #feeder img { width: 40px; }
   %body
     .container
       #page.row
         #content.span12
           = yield
       #footer.row
+        #feeder= link_to image_tag('puffin.png'), 'http://feeder.gina.alaska.edu', :target => :_blank
         #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
         #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
