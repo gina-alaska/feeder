@@ -4,11 +4,13 @@ class EntryFileUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
+  include CarrierWave::Processing::RMagick
+  
   # include CarrierWave::MiniMagick
 
   # Include the Sprockets helpers for Rails 3.1+ asset pipeline compatibility:
-  # include Sprockets::Helpers::RailsHelper
-  # include Sprockets::Helpers::IsolatedHelper
+  include Sprockets::Helpers::RailsHelper
+  include Sprockets::Helpers::IsolatedHelper
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -46,15 +48,6 @@ class EntryFileUploader < CarrierWave::Uploader::Base
       end
     end
 
-    version :medium do
-      process :resize_to_fill => [400, 400]
-      convert :png
-
-      def full_filename(for_file)
-        super(for_file).chomp(File.extname(super)) + '.png'
-      end
-    end
-
     version :large do
       process :resize_to_fill => [800, 800]
       convert :png
@@ -64,7 +57,7 @@ class EntryFileUploader < CarrierWave::Uploader::Base
       end
     end
 
-
+    process :resize_to_fill => [1600, 1600]
     convert :png
 
     def full_filename(for_file)

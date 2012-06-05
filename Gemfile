@@ -12,6 +12,7 @@ gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'
 gem 'carrierwave'
+gem 'carrierwave-processing'
 gem 'rmagick'
 gem 'bootstrap-sass'
 gem 'quiet_assets', :group => :development
