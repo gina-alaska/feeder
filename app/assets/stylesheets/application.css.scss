@@ -15,8 +15,11 @@
 */
 @import 'bootstrap';
 @import "bootstrap-responsive";
+
+$header_height: 40px;
+
 #header {
-  height: 40px;
+  height: $header_height;
   
   a { text-decoration: none; }
     
@@ -41,6 +44,7 @@
 }
   
 #footer {
+  margin-top: 5px;
   text-align: center;
   #gina_logo, #uaf_logo {
     display: inline;
@@ -49,11 +53,14 @@
   }
 }
 
-#content {
+#sidebar {
+  .by_month {
+    color: $linkColor;
+    cursor: pointer;
+  }
 }
-
 #header-spacer {
-  height: 40px;
+  height: $header-height;
 }
 
 .carousel {
@@ -67,6 +74,6 @@
 }
 
 .nav .nav-header {
-  padding-left: 0px;
+/*  padding-left: 0px;*/
   font-size: 14px;
 }
