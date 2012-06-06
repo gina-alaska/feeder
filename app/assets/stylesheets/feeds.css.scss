@@ -3,6 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "compass/css3";
 
+.feed {
+  h1 {
+    text-align: center;
+  }
+}
+
 .current_list {
   .current_entry {
     h3 { margin: 0;}
