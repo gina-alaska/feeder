@@ -48,7 +48,7 @@ class Entry < ActiveRecord::Base
         day = date.day
         month = date.month
         year = date.year
-        title = sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", year, month, day, hour, minute, yday)
+        title = sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, yday.to_i)
         # title += sprintf("\nnpp.%2d%03d.%02d%02d", year[2..3], yday, hour, minute)
         category = "npp"
         where = "POINT(-147.723056 64.843611)"
