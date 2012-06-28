@@ -25,7 +25,11 @@ class Entry < ActiveRecord::Base
     end    
     
     def npp_regexp
-      /^npp\.(\d{2})(\d{3}).(\d{2})(\d{2})_truecolor-pan_alaska\.tif$/
+      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_truecolor-pan_alaska\.tif$/
+    end
+    
+    def npp_landcover_regexp
+      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_I03_I02_I01\.tif$/
     end
 
     def barrow_radar_regexp
@@ -42,6 +46,16 @@ class Entry < ActiveRecord::Base
 
     def metainfo(filename)
       case filename
+      when npp_landcover_regexp
+        dummy, year, yday, hour, minute = filename.match(npp_landcover_regexp).to_a
+        date = DateTime.strptime("#{year}-#{yday}", "%y-%j")
+        day = date.day
+        month = date.month
+        year = date.year
+        title = sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, yday.to_i)
+        # title += sprintf("\nnpp.%2d%03d.%02d%02d", year[2..3], yday, hour, minute)
+        category = "npp"
+        where = "POINT(-147.723056 64.843611)"
       when npp_regexp
         dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
         date = DateTime.strptime("#{year}-#{yday}", "%y-%j")

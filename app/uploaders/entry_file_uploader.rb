@@ -40,6 +40,7 @@ class EntryFileUploader < CarrierWave::Uploader::Base
   # Create different versions of your uploaded files:
   version :thumb do
     version :small do
+      process :first_frame
       process :resize_to_fill => [200, 200]
       convert :png
 
@@ -48,20 +49,18 @@ class EntryFileUploader < CarrierWave::Uploader::Base
       end
     end
 
-    version :large do
-      process :resize_to_fill => [800, 800]
-      convert :png
-
-      def full_filename(for_file)
-        super(for_file).chomp(File.extname(super)) + '.png'
-      end
-    end
-
-    process :resize_to_fill => [1600, 1600]
+    process :first_frame
+    process :resize_to_fill => [800, 800]
     convert :png
 
     def full_filename(for_file)
       super(for_file).chomp(File.extname(super)) + '.png'
+    end
+  end  
+  
+  def first_frame
+    manipulate! do |img, index|
+      img if index == 0
     end
   end
 
@@ -76,5 +75,4 @@ class EntryFileUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end
