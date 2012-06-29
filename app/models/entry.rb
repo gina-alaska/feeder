@@ -25,7 +25,7 @@ class Entry < ActiveRecord::Base
     end    
     
     def npp_regexp
-      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_truecolor-pan_alaska\.tif$/
+      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_M05_M04_M03_I01\.tif$/
     end
     
     def npp_landcover_regexp
