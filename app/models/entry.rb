@@ -33,7 +33,7 @@ class Entry < ActiveRecord::Base
     end
 
     def barrow_radar_regexp
-      /^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).png$/
+      /^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_masked\.png$/
     end
 
     def barrow_day_animation_regexp
