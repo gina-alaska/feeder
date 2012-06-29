@@ -3,7 +3,8 @@ watch "/mnt/npp", :force_polling => true, :latency => 10 do
     Dir.chdir '/home/webdev/gits/feeder' do
       path = File.dirname(filename)
       scene_id = File.basename(filename, '.md5')
-      run "script/import_npp.sh \"#{path}/#{scene_id}_truecolor-pan_alaska.tif\""
+      run "script/import_npp.sh \"#{path}/#{scene_id}_M05_M04_M03_I01.tif\""
+      run "script/import_npp_landcover.sh \"#{path}/#{scene_id}_I05_I04_I03.tif\""
     end
   end
 end
