@@ -5,14 +5,12 @@
       = entry.event_at
       = entry.event_at.yday
       = "(JD#{entry.event_at.yday})"
-      -# = entry.title
     - else
-      -# = link_to entry.title, slug_entry_path(feed, entry)
       = link_to slug_entry_path(feed, entry) do
         = entry.event_at
         = "(JD#{entry.event_at.yday})"
   .ago
-    Processed 
+    Processed
     = time_ago_in_words(entry.event_at)
     ago
   .contents
