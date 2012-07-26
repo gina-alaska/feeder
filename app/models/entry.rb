@@ -94,7 +94,7 @@ class Entry < ActiveRecord::Base
         tz = Time.now.strftime('%z')
         date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         #fix date to be local
-        date = Time.parse(date.strftime("%Y-%m-%d %I:%M:%S #{date.to_time.localtime.zone}")).to_datetime
+        date = Time.parse(date.strftime("%Y-%m-%d %H:%M:%S") + " #{date.to_time.localtime.zone}")
       # when barrow_day_animation_regexp
       #   dummy, year, month, day = filename.match(
       #     barrow_day_animation_regexp
@@ -114,7 +114,7 @@ class Entry < ActiveRecord::Base
         tz = Time.now.strftime('%z')
         date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         #fix date to be local
-        date = Time.parse(date.strftime("%Y-%m-%d %I:%M:%S #{date.to_time.localtime.zone}")).to_datetime        
+        date = Time.parse(date.strftime("%Y-%m-%d %H:%M:%S") + " #{date.to_time.localtime.zone}")        
       else
         #raise "Unable to breakdown filename, #{filename}"
         return nil
