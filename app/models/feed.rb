@@ -37,7 +37,6 @@ class Feed < ActiveRecord::Base
         
       puts "Importing #{file}"  
 
-
       entry = self.entries.where(slug: metainfo[:entry_slug]).first
       entry ||= self.entries.build
 
@@ -46,7 +45,7 @@ class Feed < ActiveRecord::Base
         title: metainfo[:title],
         file: File.open(filename),
         category: metainfo[:category],
-        event_at: DateTime.new(metainfo[:year].to_i, metainfo[:month].to_i, metainfo[:day].to_i, metainfo[:hour].to_i, metainfo[:minute].to_i, 0),
+        event_at: metainfo[:date],
         where: metainfo[:where] 
       }
 
@@ -55,7 +54,12 @@ class Feed < ActiveRecord::Base
       #   FileUtils.cp(filename, path)
       # end
 
-      entry.update_attributes(attributes)
+      if entry.update_attributes(attributes)
+        puts "Import complete"
+      else
+        puts "Import failed"
+        puts entry.errors.full_messages
+      end
 
       self.touch
     end

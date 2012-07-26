@@ -22,30 +22,48 @@ class Entry < ActiveRecord::Base
   class << self
     def build_slug(text)
       text.downcase.gsub(/[\-\.:\s]/,'_')
-    end    
+    end
     
+    def regexps
+      {
+        :npp_truecolor      => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_M05_M04_M03_I01\.tif$',
+        :npp_landcover      => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_I03_I02_I01\.tif$',
+        :barrow_radar_image => '^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_masked\.png$',
+        :barrow_radar_anim  => '^(\d{4})(\d{2})(\d{2})_(\d{1:2})day_animation\.mp4$',
+        :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
+      }
+    end
+
     def npp_regexp
-      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_M05_M04_M03_I01\.tif$/
+      Regexp.new(regexps[:npp_truecolor])
     end
     
     def npp_landcover_regexp
-      /^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_I03_I02_I01\.tif$/
+      Regexp.new(regexps[:npp_landcover])
     end
 
     def barrow_radar_regexp
-      /^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_masked\.png$/
-    end
-
-    def barrow_day_animation_regexp
-      /^(\d{4})(\d{2})(\d{2})_day.gif/
+      Regexp.new(regexps[:barrow_radar_image])
     end
 
     def barrow_webcam_regexp
-      /^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2}).jpg$/
+      Regexp.new(regexps[:barrow_webcam])
+    end
+    
+    def barrow_animation_regexp
+      Regexp.new(regexps[:barrow_radar_anim])
     end
 
     def metainfo(filename)
+      tz = '+000'
+      
       case filename
+      when barrow_animation_regexp
+        dummy, year, month, day, anim_type = filename.match(barrow_animation_regexp).to_a
+        title = sprintf('%4d-%02d-%02d %d day', year, month, day, anim_type)
+        category = "movie"
+        where = "POINT(-147.723056 64.843611)"
+        tz = Time.now.strftime('%z')
       when npp_landcover_regexp
         dummy, year, yday, hour, minute = filename.match(npp_landcover_regexp).to_a
         date = DateTime.strptime("#{year}-#{yday}", "%y-%j")
@@ -73,14 +91,19 @@ class Entry < ActiveRecord::Base
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
         category = "image"
         where = "POINT(-156.788333 71.2925)"
-      when barrow_day_animation_regexp
-        dummy, year, month, day = filename.match(
-          barrow_day_animation_regexp
-        ).to_a
-
-        title = "#{year}-#{month}-#{day}"
-        category = "image"
-        where = "POINT(-156.788333 71.2925)"
+        tz = Time.now.strftime('%z')
+        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
+        #fix date to be local
+        date = Time.parse(date.strftime("%Y-%m-%d %I:%M:%S #{date.to_time.localtime.zone}")).to_datetime
+      # when barrow_day_animation_regexp
+      #   dummy, year, month, day = filename.match(
+      #     barrow_day_animation_regexp
+      #   ).to_a
+      # 
+      #   title = "#{year}-#{month}-#{day}"
+      #   category = "image"
+      #   where = "POINT(-156.788333 71.2925)"
+      #   tz = Time.now.strftime('%z')
       when barrow_webcam_regexp
         dummy, year, month, day, hour, minute = filename.match(
           barrow_webcam_regexp
@@ -88,6 +111,10 @@ class Entry < ActiveRecord::Base
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
         category = "image"
         where = "POINT(-156.788333 71.2925)"
+        tz = Time.now.strftime('%z')
+        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
+        #fix date to be local
+        date = Time.parse(date.strftime("%Y-%m-%d %I:%M:%S #{date.to_time.localtime.zone}")).to_datetime        
       else
         #raise "Unable to breakdown filename, #{filename}"
         return nil
@@ -102,7 +129,8 @@ class Entry < ActiveRecord::Base
         day: day, 
         hour: hour, 
         minute: minute, 
-        where: where
+        where: where,
+        date: date
       }
     end
   end
