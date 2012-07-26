@@ -67,7 +67,7 @@ class Entry < ActiveRecord::Base
         where = "POINT(-147.723056 64.843611)"
       when npp_landcover_regexp
         dummy, year, yday, hour, minute = filename.match(npp_landcover_regexp).to_a
-        date = DateTime.strptime("#{year}-#{yday}", "%y-%j")
+        date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute}", "%y-%j %H:%M")
         day = date.day
         month = date.month
         year = date.year
@@ -77,7 +77,7 @@ class Entry < ActiveRecord::Base
         where = "POINT(-147.723056 64.843611)"
       when npp_regexp
         dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
-        date = DateTime.strptime("#{year}-#{yday}", "%y-%j")
+        date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute}", "%y-%j %H:%M")
         day = date.day
         month = date.month
         year = date.year
