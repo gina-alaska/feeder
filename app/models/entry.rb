@@ -17,7 +17,7 @@ class Entry < ActiveRecord::Base
   
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
-  end  
+  end
 
   class << self
     def build_slug(text)
@@ -32,6 +32,10 @@ class Entry < ActiveRecord::Base
         :barrow_radar_anim  => '^(\d{4})(\d{2})(\d{2})_(\d{1:2})day_animation\.mp4$',
         :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
       }
+    end
+    
+    def fix_time_tz(time, zone)
+      Time.parse(time.strftime("%Y/%m/%d %H:%M:%S #{zone}"))
     end
 
     def npp_regexp
@@ -55,15 +59,12 @@ class Entry < ActiveRecord::Base
     end
 
     def metainfo(filename)
-      tz = '+000'
-      
       case filename
       when barrow_animation_regexp
         dummy, year, month, day, anim_type = filename.match(barrow_animation_regexp).to_a
         title = sprintf('%4d-%02d-%02d %d day', year, month, day, anim_type)
         category = "movie"
         where = "POINT(-147.723056 64.843611)"
-        tz = Time.now.strftime('%z')
       when npp_landcover_regexp
         dummy, year, yday, hour, minute = filename.match(npp_landcover_regexp).to_a
         date = DateTime.strptime("#{year}-#{yday}", "%y-%j")
@@ -91,10 +92,9 @@ class Entry < ActiveRecord::Base
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
         category = "image"
         where = "POINT(-156.788333 71.2925)"
-        tz = Time.now.strftime('%z')
-        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         #fix date to be local
-        date = Time.parse(date.strftime("%Y-%m-%d %H:%M:%S") + " #{date.to_time.localtime.zone}")
+        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
+        date = fix_time_tz(date, date.to_time.localtime.zone)
       # when barrow_day_animation_regexp
       #   dummy, year, month, day = filename.match(
       #     barrow_day_animation_regexp
@@ -111,10 +111,9 @@ class Entry < ActiveRecord::Base
         title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
         category = "image"
         where = "POINT(-156.788333 71.2925)"
-        tz = Time.now.strftime('%z')
-        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         #fix date to be local
-        date = Time.parse(date.strftime("%Y-%m-%d %H:%M:%S") + " #{date.to_time.localtime.zone}")        
+        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
+        date = fix_time_tz(date, date.to_time.localtime.zone)
       else
         #raise "Unable to breakdown filename, #{filename}"
         return nil
