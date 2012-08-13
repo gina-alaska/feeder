@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
 
   class << self
     def build_slug(text)
-      text.downcase.gsub(/[\(\-\.:\s]/,'_').gsub(/[\)]/, '')
+      text.downcase.gsub(/[\-\.:\s]/,'_').gsub(/[\(\)]/, '')
     end
     
     def regexps
