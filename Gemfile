@@ -7,7 +7,7 @@ gem 'rails', '3.2.3'
 
 gem 'sqlite3'
 gem 'pg'
-gem 'haml'
+gem 'haml-rails'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'

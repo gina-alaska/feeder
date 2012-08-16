@@ -14,3 +14,8 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require_tree .
+//= require_self
+
+$(function() {
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
+});
