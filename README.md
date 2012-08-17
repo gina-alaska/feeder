@@ -1,6 +1,6 @@
 # GINA Feeder
 
-Application that will be run on ships to record observations about ice conditions.
+A GeoRSS generator and data browser.
 
 ## Installation
 
