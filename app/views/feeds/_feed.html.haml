@@ -1,9 +1,8 @@
 %h1= feed.title
 
 = paginate @entries if @entries.respond_to? :current_page
-
 .entries
-  = render :partial => 'entry', :collection => @entries, :locals => { :feed => feed }
+  = render @entries, :feed => feed
 
 = paginate @entries if @entries.respond_to? :current_page
 

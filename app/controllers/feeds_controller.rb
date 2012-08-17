@@ -22,6 +22,11 @@ class FeedsController < ApplicationController
       @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
     end
 
+    if @entries.count == 1
+      @prev_entry = @feed.entries.where('event_at < ?', @entries.first.event_at).order('event_at DESC').first      
+      @next_entry = @feed.entries.where('event_at > ?', @entries.first.event_at).order('event_at ASC').first      
+    end
+
     respond_with @feed, @entries, :layout => (params[:rss] ? 'rss' : true)
   end
   

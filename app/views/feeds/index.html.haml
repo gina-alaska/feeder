@@ -3,4 +3,4 @@
     - next if feed.entries.count == 0
     .entry
       %h3= feed.title
-      = render :partial => 'feeds/entry', :locals => { :feed => feed, :entry => feed.entries.current.first }
+      = render feed.entries.current.first, :feed => feed

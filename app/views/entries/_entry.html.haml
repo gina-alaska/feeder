@@ -1,5 +1,15 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .entry
+  - if @prev_entry
+    .pull-left
+      = link_to slug_entry_path(feed, @prev_entry), class: 'btn btn-large' do
+        %i.icon-arrow-left
+        Prev
+  - if @next_entry
+    .pull-right
+      = link_to slug_entry_path(feed, @next_entry), class: 'btn btn-large' do
+        Next
+        %i.icon-arrow-right
   .title
     - if current
       = entry.event_at
@@ -9,6 +19,7 @@
       = link_to slug_entry_path(feed, entry) do
         = entry.event_at
         = "(JD#{entry.event_at.yday})"
+    
   .ago
     Processed
     = time_ago_in_words(entry.event_at)
