@@ -1,6 +1,6 @@
 .entries
   - @feeds.each do |feed|
     - next if feed.entries.count == 0
-    .entry
+    .feed
       %h3= feed.title
       = render feed.entries.current.first, :feed => feed

@@ -3,7 +3,5 @@
   - if current
     = link_to cw_image_url(entry.file), :target => '_blank', :class => :full_sized do
       = image_tag(cw_image_url(entry.file.thumb))
-      Click here for fullsize image<br />
-      NOTE: This is a geotiff and may not open in all browsers
   - else
     = link_to image_tag(cw_image_url(entry.file.thumb.small)), slug_entry_url(feed, entry)
