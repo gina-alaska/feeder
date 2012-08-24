@@ -4,6 +4,8 @@ class Feed < ActiveRecord::Base
   validates_presence_of :slug
   validates_presence_of :title
 
+  has_many :movies
+
   has_many :entries do
     def current
       order('event_at DESC').limit(1)
@@ -16,6 +18,23 @@ class Feed < ActiveRecord::Base
   
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
+  end
+  
+  def import_movie(item)
+    if File.directory? item
+      files = Dir.glob(File.join(item, '**/*')) 
+    elsif File.exists? item
+      files = [item]
+    else
+      raise "Unable to find #{item}"
+    end
+    
+    files.each do |filename|
+      next if filename[0] == ?.
+      next if File.directory? filename
+      
+      file = File.basename(filename)
+    end
   end
   
   def import_image(item)
@@ -72,6 +91,8 @@ class Feed < ActiveRecord::Base
       raise "Unable to find feed for #{slug}" if feed.nil?
 
       case type.to_sym 
+      when :movie
+        feed.import_movie(item)
       when :image
         feed.import_image(item)
       end

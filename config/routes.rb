@@ -3,6 +3,8 @@ Feeder::Application.routes.draw do
     get 'carousel', :action => :carousel
     get ':id/page/:page', :action => :show, :on => :collection
     resources :entries
+    
+    resources :movies, :constraints => { :id => /[\/]+/ }
   end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
@@ -15,6 +17,8 @@ Feeder::Application.routes.draw do
   match ':slug/:id.georss' => 'rss#show', :format => :xml
   match ':slug.xml' => 'rss#show', :format => :xml
   match ':slug/:id.xml' => 'rss#show', :format => :xml
+  
+  match ':slug/movies/:year/:month/:day' => 'movies#show'
   
   match ':slug' => 'feeds#show', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
