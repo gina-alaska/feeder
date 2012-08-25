@@ -39,9 +39,10 @@ ActiveRecord::Schema.define(:version => 20120824192457) do
   create_table "movies", :force => true do |t|
     t.string   "title"
     t.integer  "feed_id"
-    t.datetime "at"
+    t.date     "event_at"
     t.integer  "duration"
     t.string   "status"
+    t.string   "path"
     t.boolean  "generated",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

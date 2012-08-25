@@ -3,10 +3,10 @@ class Movie < ActiveRecord::Base
   
   aasm :column => :status do
     state :queued, :initial => true
-    state :generating, :enter => :create_movie
+    state :generating
     state :available
     
-    event :generate do 
+    event :generate, :after => :create_movie do 
       transitions :to => :generating, :from => :queued
     end
     
@@ -23,14 +23,16 @@ class Movie < ActiveRecord::Base
   belongs_to :feed
   
   def starts_at
-    (self.at - self.duration.days).beginning_of_day
+    (self.event_at - self.duration.days).beginning_of_day
   end
   
   def ends_at
-    self.at.end_of_day
+    self.event_at.end_of_day
   end
   
   def create_movie
+    self.save!
+    
     entries = feed.entries.where('event_at >= ? and event_at <= ?', starts_at, ends_at).order('event_at ASC')
     
     mencoder_opts = '-oac faac -faacopts br=192:mpeg=4:object=2:raw -channels 2 -srate 48000 -ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
@@ -39,17 +41,21 @@ class Movie < ActiveRecord::Base
     frames = Tempfile.new('frames')
     
     entries.each do |e|
-      frames << File.join(Rails.root, 'public', e.file.to_s) + "\n"
+      frames << File.join(Rails.root, 'public', e.file.thumb.to_s) + "\n"
     end
-    
     frames.close
     
-    output_file = Rails.root.join('public/uploads/movies/', self.id.to_s, duration.to_s + '_day_animation.mp4')
-    FileUtils.mkdir_p(File.dirname(output_file))
+    self.path = File.join('/uploads/movies/', self.id.to_s, duration.to_s + '_day_animation.mp4')
     
-    cmd = "mencoder mf://@#{frames.path} #{mencoder_opts} -o #{output_file}"
+    fspath = File.join(Rails.root, 'public', self.path)
+    FileUtils.mkdir_p(File.dirname(fspath))
+    
+    cmd = "mencoder mf://@#{frames.path} #{mencoder_opts} -o #{fspath}"
     puts system(cmd)
     
     frames.unlink
+    
+    self.complete
+    self.save!
   end
 end

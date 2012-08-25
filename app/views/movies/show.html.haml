@@ -1,0 +1,14 @@
+#feed
+  .row-fluid
+    .entry.span12
+      - if @movie.available?
+        .title
+          = @movie.event_at
+          = @movie.event_at.yday
+          = "(JD#{@movie.event_at.yday})"
+  
+        %video{style:"max-width:100%", controls:"controls"}
+          %source{src:@movie.path, type:"video/mp4"}/
+          Your browser does not support the video tag
+      - else
+        Please wait while the movie is being generated

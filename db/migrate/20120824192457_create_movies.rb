@@ -3,9 +3,10 @@ class CreateMovies < ActiveRecord::Migration
     create_table :movies do |t|
       t.string    :title
       t.integer   :feed_id
-      t.datetime  :at
+      t.date      :event_at
       t.integer   :duration # in days
       t.string    :status
+      t.string    :path
       t.boolean   :generated, :default => false
       t.timestamps
     end
