@@ -23,7 +23,7 @@ class Movie < ActiveRecord::Base
   belongs_to :feed
   
   def starts_at
-    (self.event_at - self.duration.days).beginning_of_day
+    (self.event_at - (self.duration.days-1)).beginning_of_day
   end
   
   def ends_at
