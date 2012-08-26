@@ -7,8 +7,11 @@
           = @movie.event_at.yday
           = "(JD#{@movie.event_at.yday})"
   
-        %video{style:"max-width:100%", controls:"controls"}
-          %source{src:@movie.path, type:"video/mp4"}/
+        %video{style:"max-width:100%", controls:"controls", preload:"auto", poster:@movie.entries.first.file.thumb.url}
+          - if @movie.has_mp4?
+            %source{src:@movie.as_mp4, type:"video/mp4"}/
+          - if @movie.has_webm?
+            %source{src:@movie.as_webm, type:"video/webm"}/ 
           Your browser does not support the video tag
       - else
         Please wait while the movie is being generated

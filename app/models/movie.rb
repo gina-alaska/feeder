@@ -30,12 +30,17 @@ class Movie < ActiveRecord::Base
     self.event_at.end_of_day
   end
   
+  def entries
+    feed.entries.where('event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc).order('event_at ASC')
+  end
+  
   def create_movie
+    self.path = File.join('/uploads/movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
+    
     self.save!
     
-    entries = feed.entries.where('event_at >= ? and event_at <= ?', starts_at, ends_at).order('event_at ASC')
-    
-    mencoder_opts = '-oac faac -faacopts br=192:mpeg=4:object=2:raw -channels 2 -srate 48000 -ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
+    mencoder_opts = '-mf w=800:h=800:fps=8:type=png -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy'
+    #mencoder_opts = '-oac faac -faacopts br=192:mpeg=4:object=2:raw -channels 2 -srate 48000 -ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-mf fps=8 -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -of lavf -ovc lavc'
     frames = Tempfile.new('frames')
@@ -45,17 +50,61 @@ class Movie < ActiveRecord::Base
     end
     frames.close
     
-    self.path = File.join('/uploads/movies/', self.id.to_s, duration.to_s + '_day_animation.mp4')
+    filename = File.join(self.id.to_s, duration.to_s + '_day_animation.avi')
     
-    fspath = File.join(Rails.root, 'public', self.path)
-    FileUtils.mkdir_p(File.dirname(fspath))
+    tmpfile = File.join(Rails.root, 'tmp/movies', filename)
+    FileUtils.mkdir_p(File.dirname(tmpfile))
     
-    cmd = "mencoder mf://@#{frames.path} #{mencoder_opts} -o #{fspath}"
-    puts system(cmd)
-    
+    cmd = "mencoder mf://@#{frames.path} #{mencoder_opts} -o #{tmpfile}"
+    system(cmd)
     frames.unlink
+    
+    to_mp4(tmpfile)
+    to_webm(tmpfile)
     
     self.complete
     self.save!
+  end
+  
+  def as_mp4
+    as_format(:mp4)
+  end
+  
+  def as_webm
+    as_format(:webm)
+  end
+  
+  def as_format(format)
+    File.join(self.path, "#{self.duration}_day_animation.#{format}")
+  end
+  
+  def has_mp4?
+    has_format?(:mp4)
+  end
+  
+  def has_webm?
+    has_format?(:webm)
+  end
+  
+  def has_format?(format)
+    File.exists?(File.join(Rails.root, 'public', as_format(format)))
+  end
+  
+  def to_webm(file)
+    output = File.join(Rails.root, 'public', self.path, File.basename(file, '.*') + '.webm')
+    FileUtils.mkdir_p(File.dirname(output))
+    
+    opts = "-y -codec:v libvpx -quality good -cpu-used 0 -b:v 600k -maxrate 600k -bufsize 1200k -qmin 10 -qmax 42 -vf scale=-1:480 -threads 0 -codec:a vorbis  -b:a 128k"
+    cmd = "ffmpeg -i #{file} #{opts} #{output}"
+    system(cmd)
+  end
+  
+  def to_mp4(file)
+    output = File.join(Rails.root, 'public', self.path, File.basename(file, '.*') + '.mp4')
+    FileUtils.mkdir_p(File.dirname(output))
+    
+    cmd = "ffmpeg -i #{file} -y -vcodec libx264 -vprofile baseline -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale=-1:480 -threads 0 -acodec libvo_aacenc -b:a 128k #{output}"
+    puts cmd
+    system(cmd)
   end
 end
