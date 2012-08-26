@@ -7,14 +7,19 @@ class MoviesController < ApplicationController
   def show
     duration = 1
     
-    date = DateTime.new(params[:year].to_i, params[:month].to_i, params[:day].to_i).beginning_of_day
-    @movie = @feed.movies.where(:event_at => date.utc, :duration => duration.to_i).first
+    date = DateTime.parse(params[:date]).beginning_of_day
+    @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
 
     if @movie.nil?
       #generate the movie
-      @movie = @feed.movies.build(:event_at => date, :duration => duration.to_i)
-      @movie.generate
-      @movie.save!
+      @movie = @feed.movies.create(:event_at => date, :duration => duration.to_i)
+      @movie.async_generate
+    end
+    
+    respond_to do |format|
+      format.html {
+        render :layout => false if request.xhr?
+      }
     end
   end
   

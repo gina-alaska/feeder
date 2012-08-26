@@ -21,6 +21,30 @@ class Movie < ActiveRecord::Base
   
   # attr_accessible :title, :body
   belongs_to :feed
+
+  def to_param
+    "#{year}/#{month}/#{day}"
+  end
+
+  def slug
+    self.feed.slug
+  end
+  
+  def year
+    self.event_at.year
+  end
+  
+  def month
+    self.event_at.month
+  end
+  
+  def day
+    self.event_at.day
+  end
+  
+  def async_generate
+    Resque.enqueue(MovieRequest, self.id)
+  end
   
   def starts_at
     (self.event_at - (self.duration-1).days).beginning_of_day

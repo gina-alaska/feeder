@@ -4,7 +4,7 @@ Feeder::Application.routes.draw do
     get ':id/page/:page', :action => :show, :on => :collection
     resources :entries
     
-    resources :movies, :constraints => { :id => /[\/]+/ }
+    resources :movies
   end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
@@ -18,7 +18,7 @@ Feeder::Application.routes.draw do
   match ':slug.xml' => 'rss#show', :format => :xml
   match ':slug/:id.xml' => 'rss#show', :format => :xml
   
-  match ':slug/movies/:year/:month/:day' => 'movies#show'
+  match ':slug/movies/:date' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
   
   match ':slug' => 'feeds#show', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
