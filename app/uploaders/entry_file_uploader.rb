@@ -41,7 +41,7 @@ class EntryFileUploader < CarrierWave::Uploader::Base
   version :thumb do
     version :small do
       process :first_frame
-      process :resize_to_fit => [200, 200]
+      process :resize_to_fill => [200, 200]
       convert :png
 
       def full_filename(for_file)
