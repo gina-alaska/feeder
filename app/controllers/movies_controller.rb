@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
     if @movie.nil?
       #generate the movie
-      @movie = @feed.movies.create(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
+      @movie = @feed.movies.create(:event_at => date.to_date, :duration => duration.to_i, :title => "#{duration} day animation")
       @movie.async_generate
     end
     
