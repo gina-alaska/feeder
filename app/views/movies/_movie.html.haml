@@ -1,4 +1,4 @@
-%video{style:"max-width:100%", controls:"controls", preload:"auto", autoplay: "true", poster:feed_movie_url(movie.feed, movie, format: 'png')}
+%video{style:"width:480px; max-width: 100%;", controls:"controls", preload:"auto", autoplay: "true", poster:feed_movie_url(movie.feed, movie, format: 'png')}
   - if movie.has_mp4?
     %source{src:feed_movie_url(movie.feed, movie, format: 'mp4'), type:"video/mp4"}/
   - if movie.has_webm?
