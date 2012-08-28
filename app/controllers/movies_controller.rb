@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
       @movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
       @movie.feed = @feed
       
-      if @movie.entries.count > 0 && @movie.end_date <= Time.now
+      if @movie.entries.count > 0 && @movie.ends_at <= Time.now
         @movie.save!
         @movie.async_generate        
       end
