@@ -4,9 +4,11 @@
     .entry
       .title{style:"padding:3px;"}
         %b= "#{duration} day animation for"
-        = render 'picker', date: @movies[duration].try(:event_at) || Time.now.to_date, duration: duration
+        = render 'picker', date: @movies[duration].try(:event_at) || (Time.now - duration.days).to_date, duration: duration
       - if @movies[duration].nil?
-        No animations available
+        = link_to '#' do
+          = image_tag 'http://placehold.it/200x200&text=Not+available'
+          No animation available
       - else
         = link_to feed_movie_url(@feed, @movies[duration]) do
           = image_tag @movies[duration].entries.first.file.thumb.small.url
