@@ -21,6 +21,21 @@ class Movie < ActiveRecord::Base
   
   # attr_accessible :title, :body
   belongs_to :feed
+  
+  
+  validates_presence_of :title, :event_at, :duration
+  validate :valid_dates
+  validate :active_animation
+  
+  def valid_dates
+    errors.add('duration', "is not valid, end date has not occured yet") if self.ends_at > Time.now
+  end
+  
+  def active_animation
+    unless self.feed.active_animations.include?(self.duration)
+      errors.add('duration', "is not valid, this feed only supports #{self.feed.active_animations.join(', ')} day animations") 
+    end
+  end
 
   def to_param
     "#{year}/#{month}/#{day}"
@@ -47,11 +62,11 @@ class Movie < ActiveRecord::Base
   end
   
   def starts_at
-    (self.event_at - (self.duration-1).days).beginning_of_day
+    self.event_at.beginning_of_day
   end
   
   def ends_at
-    self.event_at.end_of_day
+    (self.event_at+self.duration.to_i.days).end_of_day
   end
   
   def entries

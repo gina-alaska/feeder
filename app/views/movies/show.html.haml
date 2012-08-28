@@ -1,6 +1,6 @@
 #feed{style:"text-align:center;"}
   %h2= "#{@feed.title} animation"
-  - if @movie.available?
+  - if @movie.available? && @movie.valid?
     .entry
       .title{style:"padding:3px;"}
         %b= "#{@movie.title} for"

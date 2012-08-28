@@ -10,7 +10,6 @@ class MoviesController < ApplicationController
   
   def show
     duration = params[:duration] || 1
-    
     date = DateTime.parse(params[:date]).beginning_of_day.to_date
     @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
 
@@ -19,8 +18,8 @@ class MoviesController < ApplicationController
       @movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
       @movie.feed = @feed
       
-      if @movie.entries.count > 0 && @movie.ends_at <= Time.now
-        @movie.save!
+      if @movie.entries.count > 0 && @movie.valid?
+        @movie.save
         @movie.async_generate        
       end
     end
