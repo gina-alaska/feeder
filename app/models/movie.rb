@@ -40,7 +40,7 @@ class Movie < ActiveRecord::Base
   def to_param
     "#{year}/#{month}/#{day}"
   end
-
+  
   def slug
     self.feed.slug
   end
@@ -89,9 +89,7 @@ class Movie < ActiveRecord::Base
     end
     frames.close
     
-    filename = File.join(self.id.to_s, duration.to_s + '_day_animation.avi')
-    
-    tmpfile = File.join(Rails.root, 'tmp/movies', filename)
+    tmpfile = File.join(Rails.root, 'tmp/movies', File.basename(as_format(:avi)))
     FileUtils.mkdir_p(File.dirname(tmpfile))
     
     cmd = "mencoder mf://@#{frames.path} #{mencoder_opts} -o #{tmpfile}"
@@ -117,7 +115,7 @@ class Movie < ActiveRecord::Base
   end
   
   def as_format(format)
-    File.join(self.path, "#{self.duration}_day_animation.#{format}")
+    File.join(self.path, "#{self.feed.slug}_#{self.to_param.gsub('/', '-')}_#{self.duration}-day-animation.#{format}")
   end
   
   def has_mp4?

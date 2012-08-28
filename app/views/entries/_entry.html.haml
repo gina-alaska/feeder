@@ -14,11 +14,11 @@
         %i.icon-arrow-right
   .title
     - if current
-      = entry.event_at.utc
+      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
       = "(JD#{entry.event_at.yday})"
     - else
       = link_to slug_entry_path(feed, entry) do
-        = entry.event_at.utc
+        = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
         = "(JD#{entry.event_at.yday})"
     
   .ago
