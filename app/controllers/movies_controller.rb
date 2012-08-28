@@ -14,7 +14,12 @@ class MoviesController < ApplicationController
       date = DateTime.parse(params[:date]).beginning_of_day.to_date
       @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
     elsif params[:id]
-      @movie = @feed.movies.find(params[:id])
+      if (params[:id] =~ /^current/).nil?
+        @movie = @feed.movies.find(params[:id])
+      else
+        duration = params[:id].split('-')[1].to_i
+        @movie = @feed.movies.where(:status => 'available', duration: duration).order('event_at DESC').first
+      end
     end
     
     if @movie.nil?
@@ -37,6 +42,9 @@ class MoviesController < ApplicationController
       }
       format.webm {
         send_file(@movie.as_webm)
+      }
+      format.png {
+        send_file(File.join(Rails.public_path, @movie.entries.first.file.thumb.url), :disposition => 'inline')
       }
     end
   end
