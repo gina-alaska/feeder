@@ -1,4 +1,4 @@
-%video{style:"max-width:100%", controls:"controls", preload:"auto", poster:movie.entries.first.try(:file).try(:thumb).try(:url)}
+%video{style:"max-width:100%", controls:"controls", preload:"auto", autoplay: "true", poster:movie.entries.first.try(:file).try(:thumb).try(:url)}
   - if movie.has_mp4?
     %source{src:movie.as_mp4, type:"video/mp4"}/
   - if movie.has_webm?
