@@ -4,7 +4,7 @@
   :javascript
     (function () {
       setTimeout(function() {
-        $('#feed').load('#{slug_movie_path(@feed, movie)}');
+        $('#feed').load('#{feed_movie_url(@feed, movie)}');
       }, 5000)
     })();
 - elsif !movie.valid?

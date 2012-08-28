@@ -8,6 +8,6 @@
       - if @movies[duration].nil?
         No animations available
       - else
-        = link_to slug_movie_path(@feed.slug, @movies[duration], duration) do
+        = link_to feed_movie_url(@feed, @movies[duration]) do
           = image_tag @movies[duration].entries.first.file.thumb.small.url
           Play animation

@@ -38,7 +38,7 @@ class Movie < ActiveRecord::Base
   end
 
   def to_param
-    "#{year}/#{month}/#{day}"
+    "#{self.id}_#{self.feed.slug}_#{self.year}-#{self.month}-#{self.day}_#{self.duration}-day-animation"
   end
   
   def slug
@@ -74,7 +74,7 @@ class Movie < ActiveRecord::Base
   end
   
   def create_movie
-    self.path = File.join('/uploads/movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
+    self.path = File.join(Rails.public_path, '/uploads/movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
     
     self.save!
     
@@ -115,7 +115,7 @@ class Movie < ActiveRecord::Base
   end
   
   def as_format(format)
-    File.join(self.path, "#{self.feed.slug}_#{self.to_param.gsub('/', '-')}_#{self.duration}-day-animation.#{format}")
+    File.join(self.path, "#{self.to_param}.#{format}")
   end
   
   def has_mp4?
@@ -127,11 +127,11 @@ class Movie < ActiveRecord::Base
   end
   
   def has_format?(format)
-    File.exists?(File.join(Rails.root, 'public', as_format(format)))
+    File.exists?(as_format(format))
   end
   
   def to_webm(file)
-    output = File.join(Rails.root, 'public', self.path, File.basename(file, '.*') + '.webm')
+    output = File.join(self.path, File.basename(file, '.*') + '.webm')
     FileUtils.mkdir_p(File.dirname(output))
     
     opts = "-y -codec:v libvpx -quality good -cpu-used 0 -b:v 600k -maxrate 600k -bufsize 1200k -qmin 10 -qmax 42 -vf scale=-1:480 -threads 0 -codec:a vorbis  -b:a 128k"
@@ -140,7 +140,7 @@ class Movie < ActiveRecord::Base
   end
   
   def to_mp4(file)
-    output = File.join(Rails.root, 'public', self.path, File.basename(file, '.*') + '.mp4')
+    output = File.join(self.path, File.basename(file, '.*') + '.mp4')
     FileUtils.mkdir_p(File.dirname(output))
     
     cmd = "ffmpeg -i #{file} -y -vcodec libx264 -vprofile baseline -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale=-1:480 -threads 0 -acodec libvo_aacenc -b:a 128k #{output}"

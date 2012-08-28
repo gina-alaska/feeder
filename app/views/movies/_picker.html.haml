@@ -7,6 +7,6 @@
 :javascript
   $('#animation-date-btn-#{duration}').datepicker({ autoClose: true, position: 'right' }).on('changeDate', function(ev){
     $('#animation-date-btn-#{duration} .date').text($(this).data('date'));
-    top.location = "#{slug_movies_path}/" + $(this).data('date') + '/#{duration}';
+    top.location = "#{slug_movies_path(@feed.slug)}/" + $(this).data('date') + '/#{duration}';
     $(this).datepicker('hide')
   });

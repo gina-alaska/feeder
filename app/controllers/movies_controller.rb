@@ -9,10 +9,14 @@ class MoviesController < ApplicationController
   end
   
   def show
-    duration = params[:duration] || 1
-    date = DateTime.parse(params[:date]).beginning_of_day.to_date
-    @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
-
+    if params[:date]
+      duration = params[:duration] || 1
+      date = DateTime.parse(params[:date]).beginning_of_day.to_date
+      @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
+    elsif params[:id]
+      @movie = @feed.movies.find(params[:id])
+    end
+    
     if @movie.nil?
       #generate the movie
       @movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
@@ -28,12 +32,22 @@ class MoviesController < ApplicationController
       format.html {
         render :layout => false if request.xhr?
       }
+      format.mp4 {
+        send_file(@movie.as_mp4)
+      }
+      format.webm {
+        send_file(@movie.as_webm)
+      }
     end
   end
   
   protected
   
   def get_feed
-    @feed = Feed.where(slug: params[:slug]).first
+    if params[:slug]
+      @feed = Feed.where(slug: params[:slug]).first
+    elsif params[:feed_id]
+      @feed = Feed.where(slug: params[:feed_id]).first
+    end
   end
 end
