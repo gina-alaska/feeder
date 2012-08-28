@@ -4,7 +4,7 @@ class MoviesController < ApplicationController
   def index
     @movies = {}
     @feed.active_animations.each do |duration|
-      @movies[duration] = @feed.movies.where(status: 'available', duration: duration).order('event_at ASC').first
+      @movies[duration] = @feed.movies.where(status: 'available', duration: duration).order('event_at DESC').first
     end
   end
   
