@@ -101,6 +101,9 @@ class Movie < ActiveRecord::Base
     to_mp4(tmpfile)
     to_webm(tmpfile)
     
+    #cleanup
+    FileUtils.rm_rf(File.dirname(tmpfile))
+    
     self.complete
     self.save!
   end
