@@ -17,8 +17,11 @@ module FeedsHelper
     end
   end
   
+  def current_feed?(feed)
+    current_page?(slug: feed.slug) or current_page?(feed_id: feed.slug) or current_page?(id: feed.slug)
+  end
   
-  def collase_current_slug_without_date(slug)
+  def collapse_current_slug_without_date(slug)
     if current_page?(slug_path(slug: slug)) && params.include?(:date)
       ""
     else

@@ -6,7 +6,13 @@ class FeedsController < ApplicationController
   end
   
   def show
-    @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
+    if params[:slug]
+      @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
+    elsif params[:id]
+      @feed = Feed.where(:slug => params[:id]).order('slug ASC').first
+    end
+    
+    
     if params[:date]
       year, month = params[:date].split('-')
       date = Date.civil(year.to_i, month.to_i)
