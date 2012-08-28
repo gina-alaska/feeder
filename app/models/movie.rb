@@ -66,7 +66,7 @@ class Movie < ActiveRecord::Base
   end
   
   def ends_at
-    (self.event_at+self.duration.to_i.days).end_of_day
+    (self.event_at+(self.duration.to_i-1).days).end_of_day
   end
   
   def entries
