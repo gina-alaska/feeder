@@ -1,6 +1,7 @@
 @import 'compass';
 @import 'bootstrap';
 @import "bootstrap-responsive";
+@import "bootstrap-datepicker";
 @import 'entries';
 @import 'feeds';
 
@@ -64,3 +65,12 @@ $header_height: 40px;
 /*  padding-left: 0px;*/
   font-size: 14px;
 }
+
+.input-prepend.input-append .add-on:first-child, .input-prepend.input-append .btn:first-child {
+  margin-right: -4px;
+}
+
+.input-prepend.input-append .add-on:last-child, .input-prepend.input-append .btn:last-child {
+  margin-left: -4px;
+}
+

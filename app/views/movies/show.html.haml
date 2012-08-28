@@ -1,25 +1,10 @@
+%h2= "#{@feed.title} animation"
 #feed{style:"text-align:center;"}
-  .entry
-    %h3
-      = @movie.event_at
-      = '-'
-      = @movie.title
-        
-    - if @movie.available?
-      %video{style:"max-width:100%", controls:"controls", preload:"auto", poster:@movie.entries.first.try(:file).try(:thumb).try(:url)}
-        - if @movie.has_mp4?
-          %source{src:@movie.as_mp4, type:"video/mp4"}/
-        - if @movie.has_webm?
-          %source{src:@movie.as_webm, type:"video/webm"}/ 
-        Your browser does not support the video tag
-    - elsif @movie.entries.count > 0
-      %h3 Please wait while the movie is being generated
-      %h4 This page will automatically refresh when the movie is available.
-      :javascript
-        (function () {
-          setTimeout(function() {
-            $('#feed').load('#{slug_movie_path(@feed, @movie)}');
-          }, 5000)
-        })();
-    - else
-      .alert.alert-error The specified date has no images to animate.
+  - if @movie.available?
+    .entry
+      .title{style:"padding:3px;"}
+        %b= "#{@movie.title} for"
+        = render 'picker', date: @movie.event_at, duration: @movie.duration
+      = render @movie
+  - else
+    = render 'generating', movie: @movie

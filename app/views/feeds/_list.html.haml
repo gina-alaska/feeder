@@ -22,3 +22,8 @@
         %li{ class: month_images_active_class(feed.slug, date_str) }
           = link_to date_str, slug_path(feed, date: date_str)
         - date = date >> -1
+    - if feed.animate
+      %li
+        = link_to slug_movies_path(feed) do
+          %i.icon-film
+          Animations

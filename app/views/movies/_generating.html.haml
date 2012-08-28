@@ -1,0 +1,11 @@
+- if movie.entries.count > 0
+  %h3 Please wait while the movie is being generated
+  %h4 This page will automatically refresh when the movie is available.
+  :javascript
+    (function () {
+      setTimeout(function() {
+        $('#feed').load('#{slug_movie_path(@feed, movie)}');
+      }, 5000)
+    })();
+- else
+  .alert.alert-error The specified date has no images to animate.

@@ -2,18 +2,27 @@ class MoviesController < ApplicationController
   before_filter :get_feed
 
   def index
+    @movies = {}
+    @feed.active_animations.each do |duration|
+      @movies[duration] = Movie.where(status: 'available', duration: duration).order('event_at ASC').first
+    end
   end
   
   def show
-    duration = 1
+    duration = params[:duration] || 1
     
-    date = DateTime.parse(params[:date]).beginning_of_day
+    date = DateTime.parse(params[:date]).beginning_of_day.to_date
     @movie = @feed.movies.where(:event_at => date, :duration => duration.to_i).first
 
     if @movie.nil?
       #generate the movie
-      @movie = @feed.movies.create(:event_at => date.to_date, :duration => duration.to_i, :title => "#{duration} day animation")
-      @movie.async_generate
+      @movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
+      @movie.feed = @feed
+      
+      if @movie.entries.count > 0 && @movie.end_date <= Time.now
+        @movie.save!
+        @movie.async_generate        
+      end
     end
     
     respond_to do |format|

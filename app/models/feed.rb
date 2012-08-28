@@ -12,6 +12,8 @@ class Feed < ActiveRecord::Base
     end
   end
   
+  serialize :active_animations
+  
   def to_param
     self.slug
   end

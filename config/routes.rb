@@ -19,7 +19,8 @@ Feeder::Application.routes.draw do
   match ':slug/:id.xml' => 'rss#show', :format => :xml
   
   # match ':slug/:date' => 'feeds#show', :as => :slug_entries_by_date, :constraints => { :date => /\d+\/\d+/ } 
-  match ':slug/movies/:date' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
+  match ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
+  match ':slug/movies' => 'movies#index', :as => :slug_movies
   
   match ':slug' => 'feeds#show', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120824192457) do
+ActiveRecord::Schema.define(:version => 20120827204413) do
 
   create_table "entries", :force => true do |t|
     t.integer  "feed_id"
@@ -32,8 +32,11 @@ ActiveRecord::Schema.define(:version => 20120824192457) do
     t.string   "description"
     t.string   "author"
     t.string   "where"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "valid_animations"
+    t.boolean  "animate"
+    t.string   "active_animations"
   end
 
   create_table "movies", :force => true do |t|

@@ -1,20 +1,20 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .entry
-  - if @prev_entry
+  - if @prev_entry or @next_entry
     .pull-left.prev
-      = link_to slug_entry_path(feed, @prev_entry), class: 'btn btn-large' do
+      - @prev_page = @prev_entry ? slug_entry_path(feed, @prev_entry) : '#'
+      = link_to @prev_page, class: 'btn btn-large' + (@prev_entry ? '' : ' disabled') do
         %i.icon-arrow-left
         Prev
         
-  - if @next_entry
     .pull-right.next
-      = link_to slug_entry_path(feed, @next_entry), class: 'btn btn-large' do
+      - next_page = @next_entry ? slug_entry_path(feed, @next_entry) : '#'
+      = link_to next_page, class: 'btn btn-large' + (@next_entry ? '' : ' disabled') do
         Next
         %i.icon-arrow-right
   .title
     - if current
       = entry.event_at.utc
-      = entry.event_at.utc.yday
       = "(JD#{entry.event_at.yday})"
     - else
       = link_to slug_entry_path(feed, entry) do
