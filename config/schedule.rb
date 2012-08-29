@@ -15,7 +15,7 @@ set :environment, :development
 #  runner 'Feed.import("webcam-uaf-barrow-seaice-images", "/san/tub/icemonkey/barrow_webcams/source/201203/")'
 #end
 
-every 1.day, at: '2:00 am' do
+every :day, at: '2:00 am' do
   runner "Feed.generate_animations"
 end
 

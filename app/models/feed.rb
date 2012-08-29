@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
         movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
         movie.feed = f
       
-        if movie.entries.count > 0 && @movie.valid?
+        if movie.entries.count > 0 && movie.valid?
           movie.save
           movie.async_generate        
         end
