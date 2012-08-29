@@ -7,13 +7,17 @@ set :path, Dir.pwd
 set :output, File.join(Dir.pwd, "log/cron_log.log")
 set :environment, :development
 
-every 10.minutes do
-  command File.join(Dir.pwd,"script/rsync.sh")
-end
+# every 10.minutes do
+#   command File.join(Dir.pwd,"script/rsync.sh")
+# end
 
 #every 10.minutes, :at => 5 do
 #  runner 'Feed.import("webcam-uaf-barrow-seaice-images", "/san/tub/icemonkey/barrow_webcams/source/201203/")'
 #end
+
+every 1.day do
+  runner "Feed.generate_animations"
+end
 
 # Example:
 #

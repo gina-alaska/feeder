@@ -18,6 +18,21 @@ class Feed < ActiveRecord::Base
     self.slug
   end
   
+  def self.generate_animations
+    Feed.where(:animate => true).all.each do |f|
+      f.active_animations.each do |duration|
+        date = Time.now.beginning_of_day - duration.days
+        movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
+        movie.feed = f
+      
+        if movie.entries.count > 0 && @movie.valid?
+          movie.save
+          movie.async_generate        
+        end
+      end
+    end
+  end
+  
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
   end
