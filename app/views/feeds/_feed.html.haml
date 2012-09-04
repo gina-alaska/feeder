@@ -1,6 +1,6 @@
-= paginate @entries if @entries.respond_to? :current_page
+= paginate @entries, inner_window: 3 if @entries.respond_to? :current_page
 .entries
   = render @entries, :feed => feed
 
-= paginate @entries if @entries.respond_to? :current_page
+= paginate @entries, inner_window: 3 if @entries.respond_to? :current_page
 
