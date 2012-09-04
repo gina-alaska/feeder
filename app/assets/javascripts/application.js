@@ -19,4 +19,8 @@
 
 $(function() {
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
-});
+  $('#feed_select select').on('change', function() {
+    var url = $(this).find('option:selected').val();
+    if(url.length > 0) { top.location = url; }
+  });
+})

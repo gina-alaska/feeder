@@ -27,6 +27,8 @@
           = link_to '/', :class => 'brand' do
             %span.gina.text GINA 
             %span.text Puffin Feeder
+          %form#feed_select.navbar-form.form-search.pull-right
+            = select_tag :feed_id, feed_select_options, prompt: "Select a feed"
     .container
       #header-spacer.row.visible-desktop &nbsp;
       #page.row
