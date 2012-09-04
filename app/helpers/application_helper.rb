@@ -1,6 +1,14 @@
 module ApplicationHelper
+  def feed_cdn_url
+    if Feeder::Application.config.feed_cdn_urls.nil?
+      root_url
+    else
+      Feeder::Application.config.feed_cdn_urls[rand(Feeder::Application.config.feed_cdn_urls.count)]
+    end
+  end
+  
   def cw_image_url(img)
-    File.join(root_url, img.url) unless img.url.nil?
+    File.join(feed_cdn_url, img.url) unless img.url.nil?
   end
   
   def feed_select_options
