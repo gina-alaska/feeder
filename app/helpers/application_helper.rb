@@ -22,7 +22,7 @@ module ApplicationHelper
       c << [f.title, slug_url(f)] if f.entries.count > 0
       c
     end
-    selected = @feed.nil? ? nil : slug_url(@feed)
-    options_for_select(feeds, selected)
+    # selected = @feed.nil? ? nil : slug_url(@feed)
+    options_for_select(feeds)
   end
 end
