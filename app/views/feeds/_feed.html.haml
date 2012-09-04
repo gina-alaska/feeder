@@ -1,5 +1,3 @@
-%h1= feed.title
-
 = paginate @entries if @entries.respond_to? :current_page
 .entries
   = render @entries, :feed => feed

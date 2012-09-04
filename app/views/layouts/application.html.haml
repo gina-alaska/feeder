@@ -31,11 +31,8 @@
             = select_tag :feed_id, feed_select_options, prompt: "Select a feed"
     .container
       #header-spacer.row.visible-desktop &nbsp;
-      #page.row
-        #sidebar.span3
-          .hidden-phone= render 'layouts/sidebar'
-        #content.span9
-          = yield
+      #content
+        = yield
       #footer.row
         #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
         #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank

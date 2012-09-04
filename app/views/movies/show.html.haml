@@ -1,10 +1,12 @@
-#feed{style:"text-align:center;"}
-  %h2= "#{@feed.title} animation"
-  - if @movie.available? && @movie.valid?
-    .entry
-      .title{style:"padding:3px;"}
-        %b= "#{@movie.title} for"
-        = render 'picker', date: @movie.event_at, duration: @movie.duration
-      = render @movie
-  - else
-    = render 'generating', movie: @movie
+.row
+  #sidebar.span3
+    = render 'feeds/sidebar'
+  #feed.span9{style:"text-align:center;"}
+    - if @movie.available? && @movie.valid?
+      .entry
+        .title{style:"padding:3px;"}
+          %b= "#{@movie.title} for"
+          = render 'picker', date: @movie.event_at, duration: @movie.duration
+        = render @movie
+    - else
+      = render 'generating', movie: @movie

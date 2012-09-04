@@ -1,8 +1,6 @@
 // Place all the styles related to the feeds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "compass/css3";
-
 .feed {
   h1 {
     text-align: center;
@@ -17,5 +15,17 @@
     h3 { margin: 0;}
     display: inline-block;
     text-align: center;
+  }
+}
+
+#sidebar {
+  h3 { font-size: 20px; }
+  font-size: 18px;
+  .well { 
+    padding-top: 3px; 
+    padding-bottom: 3px;
+  }
+  [class^="icon-"], [class*=" icon-"] {
+    margin-top: 3px;
   }
 }
