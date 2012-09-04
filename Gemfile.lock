@@ -32,7 +32,7 @@ GEM
     arel (3.0.2)
     bootstrap-datepicker-rails (0.6.16)
       railties (>= 3.0)
-    bootstrap-sass (2.0.4.0)
+    bootstrap-sass (2.0.4.1)
     builder (3.0.0)
     carrierwave (0.6.2)
       activemodel (>= 3.2.0)
