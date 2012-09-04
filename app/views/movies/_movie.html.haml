@@ -1,6 +1,4 @@
 %video{style:"width:480px; max-width: 100%;", controls:"controls", preload:"auto", autoplay: "true", poster:feed_cdn_url(feed_movie_path(movie.feed, movie, format: 'png'))}
-  - if movie.has_mp4?
-    %source{src:feed_cdn_url(feed_movie_path(movie.feed, movie, format: 'mp4')), type:"video/mp4"}/
-  - if movie.has_webm?
-    %source{src:feed_cdn_url(feed_movie_path(movie.feed, movie, format: 'webm')), type:"video/webm"}/ 
+  %source{src:feed_cdn_url(feed_movie_path(movie.feed, movie, format: 'mp4')), type:"video/mp4"}/
+  %source{src:feed_cdn_url(feed_movie_path(movie.feed, movie, format: 'webm')), type:"video/webm"}/ 
   Your browser does not support the video tag
