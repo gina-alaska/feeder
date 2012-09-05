@@ -18,7 +18,7 @@
 //= require_self
 
 $(function() {
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content', { timeout: 3000 });
   $('#feed_select select').on('change', function() {
     var url = $(this).find('option:selected').val();
     if(url.length > 0) { top.location = url; }
