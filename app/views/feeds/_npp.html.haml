@@ -1,5 +1,5 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
-.npp
+.image
   - if current
     = image_tag(cw_image_url(entry.file.thumb))
   - else
