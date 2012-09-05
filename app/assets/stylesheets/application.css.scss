@@ -80,3 +80,8 @@ $header_height: 45px;
 .page a {
   width: 15px; 
 }
+
+.icon-rss {
+  background-image: url(asset_path('feed-icon-14x14.png', image));
+  background-position: 0 0;
+}

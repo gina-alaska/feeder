@@ -31,3 +31,12 @@
       = link_to slug_movies_path(@feed) do
         %i.icon-film
         Animations
+  %li
+    - if current_page?(slug_entry_path(@feed, 'current'))
+      = link_to slug_entry_path(@feed, 'current', :xml), 'data-skip-pjax' => true do
+        %i.icon-rss
+        RSS Feed
+    - else
+      = link_to slug_path(@feed, :xml), 'data-skip-pjax' => true do
+        %i.icon-rss
+        RSS Feed
