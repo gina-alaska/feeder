@@ -25,4 +25,12 @@ module ApplicationHelper
     # selected = @feed.nil? ? nil : slug_url(@feed)
     options_for_select(feeds)
   end
+  
+  def current_date_range(entries)
+    if (entries.last.event_at - entries.first.event_at) >= 1.day
+      "#{entries.first.event_at.strftime('%Y/%m/%d')} - #{entries.last.event_at.strftime('%Y/%m/%d')}"
+    else
+      entries.first.event_at.strftime('%Y/%m/%d')
+    end
+  end
 end
