@@ -62,8 +62,14 @@
   #embed_modal.modal.hide.fade
     .modal-header
       %button.close{type:"button", "data-dismiss" => "modal"} X
-      %h3= "Embed animation"
+      %h3 Share animation
     .modal-body
+      %h3 Link
+      %textarea{rows: 2, style:"width:98%"}
+        = feed_movie_url(@feed, @movie)
+      
+      
+      %h3 Embed
       %ul.nav.nav-tabs
         %li.active= link_to 'Viewed animation', '#current_animation', "data-toggle"=>"tab"
         %li= link_to 'Latest Animation', '#latest_animation', "data-toggle"=>"tab"
@@ -84,18 +90,25 @@
   #embed_modal.modal.hide.fade
     .modal-header
       %button.close{type:"button", "data-dismiss" => "modal"} X
-      %h3= "Embed image"
+      %h3 Share image
     .modal-body
+      %h3 Link
+      %textarea{rows: 2, style:"width:98%"}
+        = slug_entry_url(@feed, @entries.first)
+    
+      %h3 Embed
       %ul.nav.nav-tabs
         %li.active= link_to 'Viewed image', '#current_image', "data-toggle"=>"tab"
         %li= link_to 'Latest image', '#latest_image', "data-toggle"=>"tab"
         
+      
       .tab-content
         #current_image.tab-pane.active
-          %textarea{rows: 10, style: "width: 100%;"}= render @entries.first.category, feed: @feed, entry: @entries.first
+          %textarea{rows: 3, style: "width: 98%;"}
+            = image_tag current_image_url(@feed.slug, @entries.first), alt: "#{@feed.title} #{@entries.first.title}"
         #latest_image.tab-pane
-          %textarea{rows: 10, style: "width: 100%;"}
-            .image= image_tag current_image_path(@feed.slug, 'current'), alt: "Current #{@feed.title} image"
+          %textarea{rows: 3, style: "width: 98%;"}
+            = image_tag current_image_url(@feed.slug, 'current'), alt: "Current #{@feed.title} image"
           
       %p Paste the above html snippet into your webpage to embed the image
     .modal-footer
