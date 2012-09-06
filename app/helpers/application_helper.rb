@@ -27,7 +27,7 @@ module ApplicationHelper
   end
   
   def current_date_range(entries)
-    if (entries.last.event_at - entries.first.event_at) >= 1.day
+    if (entries.first.event_at - entries.last.event_at) >= 1.day
       "#{entries.first.event_at.strftime('%Y/%m/%d')} - #{entries.last.event_at.strftime('%Y/%m/%d')}"
     else
       entries.first.event_at.strftime('%Y/%m/%d')
