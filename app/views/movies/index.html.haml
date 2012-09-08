@@ -3,7 +3,7 @@
     = render 'feeds/sidebar'
   
   #feed.span9{style:"text-align:center;"}
-    %h2= "Latest #{@feed.title} animations"
+    %h4= "Latest #{@feed.title} animations"
     - @feed.active_animations.each do |duration|
       .entry
         .title{style:"padding:3px;"}
