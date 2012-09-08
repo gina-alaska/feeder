@@ -19,13 +19,14 @@
 }
 
 #sidebar {
-  h3 { font-size: 20px; }
-  font-size: 18px;
+  h3 { 
+    font-size: 20px; 
+    line-height: 30px;
+    margin: 0;  
+  }
   .well { 
+    margin: 5px 0;
     padding-top: 3px; 
     padding-bottom: 3px;
-  }
-  [class^="icon-"], [class*=" icon-"] {
-    margin-top: 3px;
   }
 }

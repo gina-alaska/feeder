@@ -1,4 +1,8 @@
 @import 'compass';
+
+$navbarBackground: #3F3F3F;
+$navbarBackgroundHighlight: #5F5F5F;
+
 @import 'bootstrap';
 @import "bootstrap-responsive";
 @import "bootstrap-datepicker";
@@ -11,9 +15,8 @@ $header_height: 45px;
   height: $header_height;
   a { text-decoration: none; }
   a.brand {
-    padding-top: 2px;
-    padding-bottom: 2px;
   }
+  
   img.puffin {
     float: left;
     bottom: 0px;

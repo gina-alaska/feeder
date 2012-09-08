@@ -14,7 +14,7 @@ gem 'whenever'
 gem 'carrierwave'
 gem 'carrierwave-processing'
 gem 'rmagick'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
 gem 'resque'
