@@ -24,3 +24,18 @@ $(function() {
     if(url.length > 0) { top.location = url; }
   });
 })
+
+$.fn.poll = function(fn, timeout) {
+  this.each(function() {
+    var $this = $(this),
+        data = $this.data();
+
+    if (data.polling) {
+      clearTimeout(data.polling);
+    }
+    if (fn !== false) {
+      var callback = function() { $this.poll(fn, timeout) };
+      data.polling = setTimeout(function() { fn(callback); }, timeout || 5000);
+    }
+  });
+}

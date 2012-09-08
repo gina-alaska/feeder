@@ -10,3 +10,8 @@
         = render @movie
     - else
       = render 'generating', movie: @movie
+      :javascript
+        $('#feed').poll(function(callback){
+          $('#feed').load('#{feed_movie_url(@feed, @movie)} #feed div', callback);
+        });
+        
