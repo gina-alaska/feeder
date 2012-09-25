@@ -1,9 +1,14 @@
 ---
 worker_defs: ./workers
 logfile: log/conveyor.log
-threadpool: 5
+threadpool: 1
 websocket:
   disable: false
   host: 0.0.0.0
   port: 9876
-version: 0.0.1
+campfire:
+  subdomain: ''
+  use_ssl: true
+  token: ''
+  room: ''
+version: 0.1.0
