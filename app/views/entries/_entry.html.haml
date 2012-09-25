@@ -16,19 +16,25 @@
     - if current
       = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
       = "(JD#{entry.event_at.yday})"
+      .contents
+        = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
+    - elsif current_page?(root_path)
+      = link_to slug_path(feed) do
+        = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+        = "(JD#{entry.event_at.yday})"
+        .contents
+          = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
     - else
       = link_to slug_entry_path(feed, entry) do
         = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-        = "(JD#{entry.event_at.yday})"
-    
+        = "(JD#{entry.event_at.yday})"    
+        .contents
+          = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
   .ago
     Processed
     = time_ago_in_words(entry.event_at)
     ago
-  .contents
-    = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
   .sizes.btn-group
-    = link_to 'Small', cw_image_url(entry.file.thumb.small), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Medium', cw_image_url(entry.file.thumb), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Original', cw_image_url(entry.file), class: 'btn', 'data-skip-pjax' => true      
+    = link_to 'Medium', cw_image_url(entry.file.thumb), class: 'btn btn-large', 'data-skip-pjax' => true
+    = link_to 'Original', cw_image_url(entry.file), class: 'btn btn-large', 'data-skip-pjax' => true      
 
