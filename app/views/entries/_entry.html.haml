@@ -29,7 +29,8 @@
     = time_ago_in_words(entry.event_at)
     ago
   .sizes.btn-group
-    = link_to 'Medium', entry.image_jpg.try(:thumb, '1024x768').try(:url), class: 'btn btn-large', 'data-skip-pjax' => true
-    = link_to 'Large', entry.image_jpg.try(:thumb, '1600x1200').try(:url), class: 'btn btn-large', 'data-skip-pjax' => true
-    = link_to 'Original', entry.image.try(:url), class: 'btn btn-large', 'data-skip-pjax' => true      
+    = link_to 'Small', entry.image_preview.try(:thumb, '1280x768').try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Medium', entry.image_preview.try(:thumb, '1600x1200').try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Large', entry.image_preview.try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Original', entry.image.try(:url), class: 'btn', 'data-skip-pjax' => true      
 

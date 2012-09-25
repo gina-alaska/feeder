@@ -7,11 +7,11 @@ class Entry < ActiveRecord::Base
 
   mount_uploader :file, EntryFileUploader
   image_accessor :image do
-    copy_to(:image_jpg) do |a| 
-      a.process(:layer, 0, :jpg)
-    end 
+    copy_to(:image_preview) do |a| 
+      a.process(:layer, 0, :jpg).thumb('1600x1200')
+    end
   end
-  image_accessor :image_jpg do |a|
+  image_accessor :image_preview do |a|
     after_assign { |a| a.name = "#{a.basename}.jpg" }
   end
 
