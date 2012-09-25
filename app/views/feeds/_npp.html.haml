@@ -1,6 +1,7 @@
-- current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
+.title
+  = link_to entry_link do
+    = entry.event_at.utc.strftime('%Y-%m-%d %H:%M %Z')
+    = "(JD#{entry.event_at.yday})"    
 .image
-  - if current
-    = image_tag(entry.image_preview.try(:thumb, '1280x768').try(:jpg).try(:url))
-  - else
-    = image_tag(entry.image_preview.try(:thumb, '200x200#').try(:jpg).try(:url))  
+  = link_to entry_link do
+    = image_tag(cw_image_url(image_url), alt: entry.title)

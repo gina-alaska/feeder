@@ -1,10 +1,13 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 - if current
   - link = nil
+  - image_url = entry.image_preview.try(:thumb, '1280x768').try(:jpg).try(:url)
 - elsif current_page?(root_path)
   - link = slug_path(feed)
+  - image_url = entry.image_preview.try(:thumb, '200x200#').try(:jpg).try(:url)
 - else
   - link = slug_entry_path(feed, entry)
+  - image_url = entry.image_preview.try(:thumb, '200x200#').try(:jpg).try(:url)
 .entry
   - if @prev_entry or @next_entry
     .pull-left.prev
@@ -17,19 +20,12 @@
       = link_to next_page, class: 'btn btn-large' + (@next_entry ? '' : ' disabled') do
         Next
         %i.icon-arrow-right
-  .title
-    = link_to link do
-      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-      = "(JD#{entry.event_at.yday})"    
-  .contents
-    = link_to link do
-      = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
+  = render :partial => entry.category, :locals => { :feed => feed, :entry => entry, :entry_link => link, :image_url => image_url }
   .ago
     Processed
     = time_ago_in_words(entry.event_at)
     ago
   .sizes.btn-group
-    = link_to 'Small', entry.image_preview.try(:thumb, '1280x768').try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
     = link_to 'Medium', entry.image_preview.try(:thumb, '1600x1200').try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
     = link_to 'Large', entry.image_preview.try(:jpg).try(:url), class: 'btn', 'data-skip-pjax' => true
     = link_to 'Original', entry.image.try(:url), class: 'btn', 'data-skip-pjax' => true      
