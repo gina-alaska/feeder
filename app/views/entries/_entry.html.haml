@@ -1,4 +1,10 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
+- if current
+  - link = nil
+- elsif current_page?(root_path)
+  - link = slug_path(feed)
+- else
+  - link = slug_entry_path(feed, entry)
 .entry
   - if @prev_entry or @next_entry
     .pull-left.prev
@@ -6,30 +12,18 @@
       = link_to @prev_page, class: 'btn btn-large' + (@prev_entry ? '' : ' disabled') do
         %i.icon-arrow-left
         Prev
-        
     .pull-right.next
       - next_page = @next_entry ? slug_entry_path(feed, @next_entry) : '#'
       = link_to next_page, class: 'btn btn-large' + (@next_entry ? '' : ' disabled') do
         Next
         %i.icon-arrow-right
   .title
-    - if current
+    = link_to link do
       = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-      = "(JD#{entry.event_at.yday})"
-      .contents
-        = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
-    - elsif current_page?(root_path)
-      = link_to slug_path(feed) do
-        = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-        = "(JD#{entry.event_at.yday})"
-        .contents
-          = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
-    - else
-      = link_to slug_entry_path(feed, entry) do
-        = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-        = "(JD#{entry.event_at.yday})"    
-        .contents
-          = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
+      = "(JD#{entry.event_at.yday})"    
+  .contents
+    = link_to link do
+      = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
   .ago
     Processed
     = time_ago_in_words(entry.event_at)
