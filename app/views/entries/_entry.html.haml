@@ -35,6 +35,7 @@
     = time_ago_in_words(entry.event_at)
     ago
   .sizes.btn-group
-    = link_to 'Medium', cw_image_url(entry.file.thumb), class: 'btn btn-large', 'data-skip-pjax' => true
-    = link_to 'Original', cw_image_url(entry.file), class: 'btn btn-large', 'data-skip-pjax' => true      
+    = link_to 'Medium', entry.image_jpg.try(:thumb, '1024x768').try(:url), class: 'btn btn-large', 'data-skip-pjax' => true
+    = link_to 'Large', entry.image_jpg.try(:thumb, '1600x1200').try(:url), class: 'btn btn-large', 'data-skip-pjax' => true
+    = link_to 'Original', entry.image.try(:url), class: 'btn btn-large', 'data-skip-pjax' => true      
 
