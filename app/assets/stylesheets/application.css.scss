@@ -1,16 +1,22 @@
 @import 'compass';
+
+$navbarBackground: #3F3F3F;
+$navbarBackgroundHighlight: #5F5F5F;
+
 @import 'bootstrap';
 @import "bootstrap-responsive";
 @import "bootstrap-datepicker";
 @import 'entries';
 @import 'feeds';
 
-$header_height: 40px;
+$header_height: 45px;
 
 #header {
   height: $header_height;
   a { text-decoration: none; }
-    
+  a.brand {
+  }
+  
   img.puffin {
     float: left;
     bottom: 0px;
@@ -23,7 +29,7 @@ $header_height: 40px;
     }        
     vertical-align: bottom;
     display: inline-block;
-    font-size: 20px;
+    font-size: 36px;
     color: #AAA;
     font-weight: bold;
   }
@@ -74,3 +80,11 @@ $header_height: 40px;
   margin-left: -4px;
 }
 
+.page a {
+  width: 15px; 
+}
+
+.icon-rss {
+  background-image: url(asset_path('feed-icon-14x14.png', image));
+  background-position: 0 0;
+}

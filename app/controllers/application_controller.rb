@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
 
   private
   def set_layout
-    logger.info '*********'
-    logger.info request.headers['X-PJAX']
-      
     if request.headers['X-PJAX']
       "pjax"
     else

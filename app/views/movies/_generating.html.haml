@@ -1,14 +1,9 @@
-- if movie.entries.count > 0 && movie.valid?
-  %h3 Please wait while the movie is being generated
-  %h4 This page will automatically refresh when the movie is available.
-  :javascript
-    (function () {
-      setTimeout(function() {
-        $('#feed').load('#{feed_movie_url(@feed, movie)}');
-      }, 5000)
-    })();
-- elsif !movie.valid?
-  - movie.errors.full_messages.each do |msg|
-    .alert.alert-error= msg
-- else
-  .alert.alert-error The specified date has no images to animate.
+.message
+  - if movie.entries.count > 0 && movie.valid?
+    %h3 Please wait while the movie is being generated
+    %h4 This page will automatically refresh when the movie is available.
+  - elsif !movie.valid?
+    - movie.errors.full_messages.each do |msg|
+      .alert.alert-error= msg
+  - else
+    .alert.alert-error The specified date has no images to animate.
