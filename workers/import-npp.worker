@@ -4,7 +4,7 @@ watch "/mnt/npp", :force_polling => true, :latency => 10 do
       path = File.dirname(filename)
       scene_id = File.basename(filename, '.md5')
       run "script/import_npp.sh \"#{path}/#{scene_id}_M05_M04_M03_I01.tif\""
-      run "script/import_npp_landcover.sh \"#{path}/#{scene_id}_I05_I04_I03.tif\""
+      run "script/import_npp_landcover.sh \"#{path}/#{scene_id}_I03_I02_I01.tif\""
     end
   end
 end
