@@ -1,0 +1,10 @@
+watch "/mnt/modis/images", :force_polling => true, :latency => 10 do
+  match extension finished do
+    Dir.chdir '/home/webdev/gits/feeder' do
+      path = File.dirname(filename)
+      scene_id = File.basename(filename, '.finished')
+      #run "script/import_modis.sh \"#{path}/#{scene_id}_M05_M04_M03_I01.tif\""
+      puts "#{path}/#{scene_id}"
+    end
+  end
+end
