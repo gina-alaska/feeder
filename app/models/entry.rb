@@ -26,20 +26,23 @@ class Entry < ActiveRecord::Base
     
     def regexps
       {
-        :npp_truecolor      => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_M05_M04_M03_I01\.tif$',
-        :npp_landcover      => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})_I03_I02_I01\.tif$',
+        :modis              => '^t1\.(\d{4})(\d{2})(\d{2})\.(\d{2})(\d{2})([_\d\w]+)\.alaska_albers\.tif$',
+        :npp                => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})([_\d\w]+)\.tif$',
         :barrow_radar_image => '^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_masked\.png$',
-        :barrow_radar_anim  => '^(\d{4})(\d{2})(\d{2})_(\d{1:2})day_animation\.mp4$',
         :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
       }
     end
     
     def fix_time_tz(time, zone)
-      Time.parse(time.strftime("%Y/%m/%d %H:%M:%S #{zone}"))
+      DateTime.parse(time.strftime("%Y/%m/%d %H:%M:%S #{zone}"))
     end
 
     def npp_regexp
-      Regexp.new(regexps[:npp_truecolor])
+      Regexp.new(regexps[:npp])
+    end
+    
+    def modis_regexp
+      Regexp.new(regexps[:modis])
     end
     
     def npp_landcover_regexp
@@ -57,80 +60,89 @@ class Entry < ActiveRecord::Base
     def barrow_animation_regexp
       Regexp.new(regexps[:barrow_radar_anim])
     end
+    
+    def modis_info(filename)
+      dummy, year, month, day, hour, minute = filename.match(modis_regexp).to_a
+      date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
+      
+      {
+        year: date.year,
+        month: date.month,
+        day: date.day,
+        hour: date.hour,
+        minute: date.minute,
+        date: date,
+        title: sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", date.year, date.month, date.day, date.hour, date.minute, date.yday),
+        category: 'npp',
+        where: "POINT(-147.723056 64.843611)"  
+      }
+    end
+    
+    def npp_info(filename)
+      dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
+      date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute} UTC", "%y-%j %H:%M %Z")
+      
+      
+      {
+        year: date.year,
+        month: date.month,
+        day: date.day,
+        hour: date.hour,
+        minute: date.minute,
+        date: date,
+        title: sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", date.year, date.month, date.day, date.hour, date.minute, date.yday),
+        category: 'npp',
+        where: "POINT(-147.723056 64.843611)"  
+      }
+    end
 
-    def metainfo(filename)
+    def metainfo(filename)      
       case filename
-      when barrow_animation_regexp
-        dummy, year, month, day, anim_type = filename.match(barrow_animation_regexp).to_a
-        title = sprintf('%4d-%02d-%02d %d day', year, month, day, anim_type)
-        category = "movie"
-        where = "POINT(-147.723056 64.843611)"
-      when npp_landcover_regexp
-        dummy, year, yday, hour, minute = filename.match(npp_landcover_regexp).to_a
-        date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute} UTC", "%y-%j %H:%M %Z")
-        day = date.day
-        month = date.month
-        year = date.year
-        title = sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, yday.to_i)
-        # title += sprintf("\nnpp.%2d%03d.%02d%02d", year[2..3], yday, hour, minute)
-        category = "npp"
-        where = "POINT(-147.723056 64.843611)"
+      when modis_regexp
+        info = modis_info(filename)
       when npp_regexp
-        dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
-        date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute} UTC", "%y-%j %H:%M %Z")
-        day = date.day
-        month = date.month
-        year = date.year
-        title = sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, yday.to_i)
-        # title += sprintf("\nnpp.%2d%03d.%02d%02d", year[2..3], yday, hour, minute)
-        category = "npp"
-        where = "POINT(-147.723056 64.843611)"
+        info = npp_info(filename)
       when barrow_radar_regexp
-        dummy, year, month, day, hour, minute = filename.match(
-          barrow_radar_regexp
-        ).to_a
-        title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
-        category = "image"
-        where = "POINT(-156.788333 71.2925)"
+        dummy, year, month, day, hour, minute = filename.match(barrow_radar_regexp).to_a
         #fix date to be local
         date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         date = fix_time_tz(date, date.to_time.localtime.zone)
-      # when barrow_day_animation_regexp
-      #   dummy, year, month, day = filename.match(
-      #     barrow_day_animation_regexp
-      #   ).to_a
-      # 
-      #   title = "#{year}-#{month}-#{day}"
-      #   category = "image"
-      #   where = "POINT(-156.788333 71.2925)"
-      #   tz = Time.now.strftime('%z')
+
+        info = {
+          year: date.year,
+          month: date.month,
+          day: date.day,
+          hour: date.hour,
+          minute: date.minute,
+          date: date,
+          title: "#{year}-#{month}-#{day} #{hour}:#{minute}",
+          category: 'image',
+          where: "POINT(-156.788333 71.2925)"
+        }
       when barrow_webcam_regexp
-        dummy, year, month, day, hour, minute = filename.match(
-          barrow_webcam_regexp
-        ).to_a
-        title = "#{year}-#{month}-#{day} #{hour}:#{minute}"
-        category = "image"
-        where = "POINT(-156.788333 71.2925)"
+        dummy, year, month, day, hour, minute = filename.match(barrow_webcam_regexp).to_a
         #fix date to be local
         date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         date = fix_time_tz(date, date.to_time.localtime.zone)
+        
+        info = {
+          year: date.year,
+          month: date.month,
+          day: date.day,
+          hour: date.hour,
+          minute: date.minute,
+          date: date,
+          title: "#{year}-#{month}-#{day} #{hour}:#{minute}",
+          category: 'image',
+          where: "POINT(-156.788333 71.2925)"
+        }
       else
-        #raise "Unable to breakdown filename, #{filename}"
+        raise "Unable to breakdown filename, #{filename}"
         return nil
       end
 
-      { 
-        entry_slug: Entry.build_slug(title), 
-        title: title, 
-        category: category, 
-        year: year, 
-        month: month, 
-        day: day, 
-        hour: hour, 
-        minute: minute, 
-        where: where,
-        date: date
-      }
+      info[:entry_slug] = Entry.build_slug(info[:title])
+      info
     end
   end
 end

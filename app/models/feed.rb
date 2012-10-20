@@ -40,7 +40,7 @@ class Feed < ActiveRecord::Base
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
   end
   
-  def import_movie(item)
+  def import(item)
     if File.directory? item
       files = Dir.glob(File.join(item, '**/*')) 
     elsif File.exists? item
@@ -49,27 +49,10 @@ class Feed < ActiveRecord::Base
       raise "Unable to find #{item}"
     end
     
-    files.each do |filename|
-      next if filename[0] == ?.
+    files.each do |filename|    
+      next if File.basename(filename)[0] == ?.
       next if File.directory? filename
       
-      file = File.basename(filename)
-    end
-  end
-  
-  def import_image(item)
-    if File.directory? item
-      files = Dir.glob(File.join(item, '**/*')) 
-    elsif File.exists? item
-      files = [item]
-    else
-      raise "Unable to find #{item}"
-    end
-
-    files.each do |filename|    
-      next if filename[0] == ?.
-      next if File.directory? filename
-
       file = File.basename(filename)
       metainfo = Entry.metainfo(file)
       next if metainfo.nil?
@@ -110,12 +93,7 @@ class Feed < ActiveRecord::Base
       feed = where(:slug => slug).first
       raise "Unable to find feed for #{slug}" if feed.nil?
 
-      case type.to_sym 
-      when :movie
-        feed.import_movie(item)
-      when :image
-        feed.import_image(item)
-      end
+      feed.import(item)
     end
   end
 end
