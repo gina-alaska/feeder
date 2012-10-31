@@ -46,6 +46,14 @@ npp = Feed.create({
   where: 'POINT(-147.723056 64.843611)'  
 })
 
+dnb = Feed.create({
+  slug: 'npp-gina-alaska-dnb-images',
+  title: 'NPP DNB Images',
+  description: 'NPP DNB Images',
+  author: 'GINA',
+  where: 'POINT(-147.723056 64.843611)'  
+})
+
 Feed.create({
   slug: 'modis-gina-alaska-naturalcolor-images',
   title: 'MODIS Naturalcolor',

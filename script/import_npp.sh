@@ -1,6 +1,10 @@
-if [ -n "$1" ]
-then
-  bundle exec rails runner "Feed.import('npp-gina-alaska-truecolor-images', '$1')" -e production
-else
-  echo "File name is required"
+if [ -z "$1" ]; then
+  echo "NPP slug required"
+  exit 1
 fi
+if [ -z "$2" ]; then
+  echo "Filename is required"
+  exit 1
+fi
+
+bundle exec rails runner "Feed.import('$1', '$2')" -e production
