@@ -26,7 +26,7 @@ class Entry < ActiveRecord::Base
     
     def regexps
       {
-        :modis              => '^t1\.(\d{4})(\d{2})(\d{2})\.(\d{2})(\d{2})([_\d\w]+)\.alaska_albers\.tif$',
+        :modis              => '^[at]1\.(\d{4})(\d{2})(\d{2})\.(\d{2})(\d{2})([_\d\w]+)\.alaska_albers\.tif$',
         :npp                => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})([_\d\w]+)\.tif$',
         :barrow_radar_image => '^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_masked\.png$',
         :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
