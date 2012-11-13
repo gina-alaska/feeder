@@ -72,13 +72,14 @@
       .row-fluid.embeded
         .span12
           %h3 Embed
-          %ul.nav.nav-tabs
+          %ul.nav.nav-tabs{style:"margin:0;"}
             %li.active= link_to 'Viewed animation', '#current_animation', "data-toggle"=>"tab"
             %li= link_to 'Latest Animation', '#latest_animation', "data-toggle"=>"tab"
         
           .tab-content{style:"border: 1px solid #e5e5e5; border-top: none;"}
             #current_animation.tab-pane.active
               %textarea.span12{rows: 10, style:"margin:0; border:none;"}
+                = render @movie
             #latest_animation.tab-pane
               %textarea.span12{rows: 10, style:"margin:0; border:none;"}
                 = render 'current', feed: @feed
