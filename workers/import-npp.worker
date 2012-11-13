@@ -3,9 +3,13 @@ watch "/mnt/npp", :force_polling => true, :latency => 10 do
     Dir.chdir '/home/webdev/gits/feeder' do
       path = File.dirname(filename)
       scene_id = File.basename(filename, '.md5')
-      run "script/import_npp.sh \"npp-gina-alaska-truecolor-images\" \"#{path}/#{scene_id}_M05_M04_M03_I01.tif\""
-      run "script/import_npp_landcover.sh \"#{path}/#{scene_id}_I03_I02_I01.tif\""
-      run "script/import_npp.sh \"npp-gina-alaska-dnb-images\" \"#{path}/#{scene_id}_DNB.tif\""
+      
+      ['npp-gina-alaska-truecolor-images' => "#{path}/#{scene_id}_M05_M04_M03_I01.tif",
+       'npp-gina-alaska-dnb-images' => "#{path}/#{scene_id}_DNB.tif",
+       'npp-gina-alaska-landcover-images' => "#{path}/#{scene_id}_I03_I02_I01.tif"].each do |feed,file|
+         run "script/import_npp.sh \"#{feed}\" \"#{file}\"" if File.exists?(file)         
+      end
+      #run "script/import_npp_landcover.sh \"#{path}/#{scene_id}_I03_I02_I01.tif\""
     end
   end
 end
