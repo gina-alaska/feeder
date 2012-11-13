@@ -1,7 +1,9 @@
-- if @entries.count > 1
-  %p{style:"text-align: center;"}
-    Curent view dates:
-    = current_date_range(@entries)
+%h2
+  = @feed.title
+  - if @entries.count > 1
+    %small
+      Curent view dates:
+      = current_date_range(@entries)
 
 .entries
   = render @entries, :feed => feed

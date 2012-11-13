@@ -22,8 +22,11 @@
       = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
       = "(JD#{entry.event_at.yday})"    
   .contents
-    = link_to link do
-      = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
+    - if current_page?(slug_entry_path(feed, entry))
+      = render entry.category, :feed => feed, :entry => entry
+    - else
+      = link_to link do
+        = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
   .ago
     Processed
     = time_ago_in_words(entry.event_at)
