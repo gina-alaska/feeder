@@ -1,5 +1,4 @@
-%h4= @feed.title
-%ul.nav.nav-list.well
+%ul.nav.nav-list.feed-picker
   %li
     = link_to root_path do
       %i.icon-home
@@ -17,14 +16,16 @@
   - first_date = @feed.entries.order('event_at ASC').first.event_at.to_date
   - date = @feed.entries.order('event_at DESC').first.event_at.to_date.end_of_month
   %li.by_month{ "data-toggle" => "collapse", "data-target" => "#by_date" }
-    %i.icon-list
-    Images by month
-  %ul#by_date.nav.nav-list{ class: collapse_current_slug_without_date(@feed.slug) }
+    .item
+      %i.icon-list
+      Images by month
+  %ul#by_date.nav.submenu{ class: collapse_current_slug_without_date(@feed.slug) }
     - while(date >= first_date.beginning_of_month)
       - date_str = date.strftime('%Y-%m')
       %li
-        /{ class: month_images_active_class(feed.slug, date_str) }
-        = link_to date_str, slug_path(@feed, date: date_str)
+        = link_to slug_path(@feed, date: date_str) do
+          = date_str
+          %i.icon-chevron-right.pull-right
       - date = date >> -1
 
   - if @feed.animate

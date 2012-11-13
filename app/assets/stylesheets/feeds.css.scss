@@ -32,20 +32,46 @@
 }
 
 .feed-picker {
-  li > a {
+  min-width: 175px;
+  
+  ul {
+    margin-left: 14px;
+  }
+  
+  li {
+    display: block;
     border: 1px solid #e5e5e5;
     margin: 0 0 -1px;
-    padding: 8px 14px;
+  }
+  
+  .item {
+    padding: 6px;
+    margin: 0;
+  }
+  
+  li > a {
+    padding: 6px;
+    margin: 0;
   }
 
   li > a i.icon-chevron-right {
     @include opacity(0.25);
   }
   
-  li:first-child > a {
+  li:first-child {
     @include border-top-radius(6px);
   }
-  li:last-child > a {
+  li:last-child {
     @include border-bottom-radius(6px);
+  }
+  
+  ul.submenu {
+    margin: 0;
+    li {
+      @include border-radius(0px);
+    }
+    li > a {
+      padding: 6px 6px 6px 30px;
+    }
   }
 }

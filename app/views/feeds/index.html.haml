@@ -1,6 +1,6 @@
 .row-fluid
   .span3
-    %ul.nav.nav-list.feed-picker
+    %ul.nav.nav-list.feed-picker.hidden-phone
       %li
         = link_to root_path do
           All
@@ -10,7 +10,6 @@
             
       - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.sort.each do |i|
         - c = Feed.select('feeds.title, count(*) as c').joins(:entries).where('feeds.title like ?', "%#{i}%").group('feeds.title').having('count(*) > 0').to_a.count
-        / Feed.joins(:entries).where('feeds.title like ?', "%#{i}%").to_a.count
         - next unless c > 0
         %li
           = link_to root_path(:q => i) do
