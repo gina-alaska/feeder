@@ -30,7 +30,7 @@ $header_height: 45px;
     vertical-align: bottom;
     display: inline-block;
     font-size: 36px;
-    color: #AAA;
+    color: #F9F9F9;
     font-weight: bold;
   }
     
@@ -55,6 +55,10 @@ $header_height: 45px;
 }
 #header-spacer {
   height: $header-height;
+}
+
+#content {
+  padding: 0 20px;
 }
 
 .carousel {
