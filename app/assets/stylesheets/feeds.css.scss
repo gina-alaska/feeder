@@ -37,6 +37,10 @@
     margin: 0 0 -1px;
     padding: 8px 14px;
   }
+
+  li > a i.icon-chevron-right {
+    @include opacity(0.25);
+  }
   
   li:first-child > a {
     @include border-top-radius(6px);

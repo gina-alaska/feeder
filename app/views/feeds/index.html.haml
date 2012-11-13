@@ -4,8 +4,9 @@
       %li
         = link_to root_path do
           All
-          %i.icon-chevron-right.pull-right
-          %span.badge.pull-right= Feed.select('feeds.title, count(*) as c').joins(:entries).group('feeds.title').having('count(*) > 0').to_a.count
+          .pull-right
+            %span.badge= Feed.select('feeds.title, count(*) as c').joins(:entries).group('feeds.title').having('count(*) > 0').to_a.count
+            %i.icon-chevron-right
             
       - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.sort.each do |i|
         - c = Feed.select('feeds.title, count(*) as c').joins(:entries).where('feeds.title like ?', "%#{i}%").group('feeds.title').having('count(*) > 0').to_a.count
@@ -14,8 +15,9 @@
         %li
           = link_to root_path(:q => i) do
             = i
-            %i.icon-chevron-right.pull-right
-            %span.badge.pull-right= c
+            .pull-right
+              %span.badge= c
+              %i.icon-chevron-right
   .span9
     .entries
       - @feeds.each do |feed|
