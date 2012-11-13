@@ -95,21 +95,23 @@
     .modal-body
       %h3 Link
       %textarea{rows: 2, style:"width:98%"}
-        = slug_entry_url(@feed, @entries.first)
+        = current_image_url(@feed.slug, @entries.first)
     
-      %h3 Embed
-      %ul.nav.nav-tabs
-        %li.active= link_to 'Viewed image', '#current_image', "data-toggle"=>"tab"
-        %li= link_to 'Latest image', '#latest_image', "data-toggle"=>"tab"
-        
       
-      .tab-content
-        #current_image.tab-pane.active
-          %textarea{rows: 3, style: "width: 98%;"}
-            = image_tag current_image_url(@feed.slug, @entries.first), alt: "#{@feed.title} #{@entries.first.title}"
-        #latest_image.tab-pane
-          %textarea{rows: 3, style: "width: 98%;"}
-            = image_tag current_image_url(@feed.slug, 'current'), alt: "Current #{@feed.title} image"
+      .row-fluid.embeded
+        .span12
+          %h3 Embed
+          %ul.nav.nav-tabs{style:"margin:0;"}
+            %li.active= link_to 'Viewed image', '#current_image', "data-toggle"=>"tab"
+            %li= link_to 'Latest image', '#latest_image', "data-toggle"=>"tab"
+        
+          .tab-content{style:"border: 1px solid #e5e5e5; border-top: none;"}
+            #current_image.tab-pane.active
+              %textarea.span12{rows: 3, style:"margin:0; border:none;"}
+                = image_tag current_image_url(@feed.slug, @entries.first), alt: "#{@feed.title} #{@entries.first.title}"
+            #latest_image.tab-pane
+              %textarea.span12{rows: 3, style:"margin:0; border:none;"}
+                = image_tag current_image_url(@feed.slug, 'current'), alt: "Current #{@feed.title} image"
           
       %p Paste the above html snippet into your webpage to embed the image
     .modal-footer
