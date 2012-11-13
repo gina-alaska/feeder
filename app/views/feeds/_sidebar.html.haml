@@ -69,19 +69,21 @@
       %textarea{rows: 2, style:"width:98%"}
         = feed_movie_url(@feed, @movie)
       
-      
-      %h3 Embed
-      %ul.nav.nav-tabs
-        %li.active= link_to 'Viewed animation', '#current_animation', "data-toggle"=>"tab"
-        %li= link_to 'Latest Animation', '#latest_animation', "data-toggle"=>"tab"
+      .row-fluid.embeded
+        .span12
+          %h3 Embed
+          %ul.nav.nav-tabs
+            %li.active= link_to 'Viewed animation', '#current_animation', "data-toggle"=>"tab"
+            %li= link_to 'Latest Animation', '#latest_animation', "data-toggle"=>"tab"
         
-      .tab-content
-        #current_animation.tab-pane.active
-          %textarea{rows: 10, style: "width: 98%;"}= render @movie
-        #latest_animation.tab-pane
-          %textarea{rows: 10, style: "width: 98%;"}= render 'current', feed: @feed
+          .tab-content{style:"border: 1px solid #e5e5e5; border-top: none;"}
+            #current_animation.tab-pane.active
+              %textarea.span12{rows: 10, style:"margin:0; border:none;"}
+            #latest_animation.tab-pane
+              %textarea.span12{rows: 10, style:"margin:0; border:none;"}
+                = render 'current', feed: @feed
           
-      %p Paste the above html snippet into your webpage to embed the animation
+          %p Paste the above html snippet into your webpage to embed the animation
       
     .modal-footer
       = link_to 'Close', '#', class: 'btn', "data-dismiss" => "modal"
@@ -112,7 +114,7 @@
             #latest_image.tab-pane
               %textarea.span12{rows: 3, style:"margin:0; border:none;"}
                 = image_tag current_image_url(@feed.slug, 'current'), alt: "Current #{@feed.title} image"
+          %p Paste the above html snippet into your webpage to embed the image
           
-      %p Paste the above html snippet into your webpage to embed the image
     .modal-footer
       = link_to 'Close', '#', class: 'btn', "data-dismiss" => "modal"
