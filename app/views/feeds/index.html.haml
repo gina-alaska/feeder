@@ -7,7 +7,7 @@
           %i.icon-chevron-right.pull-right
           %span.badge.pull-right= Feed.select('feeds.title, count(*) as c').joins(:entries).group('feeds.title').having('count(*) > 0').to_a.count
             
-      - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.each do |i|
+      - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.sort.each do |i|
         - c = Feed.select('feeds.title, count(*) as c').joins(:entries).where('feeds.title like ?', "%#{i}%").group('feeds.title').having('count(*) > 0').to_a.count
         / Feed.joins(:entries).where('feeds.title like ?', "%#{i}%").to_a.count
         - next unless c > 0
