@@ -30,3 +30,18 @@
     padding-bottom: 3px;
   }
 }
+
+.feed-picker {
+  li > a {
+    border: 1px solid #e5e5e5;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+  }
+  
+  li:first-child > a {
+    @include border-top-radius(6px);
+  }
+  li:last-child > a {
+    @include border-bottom-radius(6px);
+  }
+}
