@@ -8,7 +8,7 @@
           %span.badge.pull-right= Feed.joins(:entries).count
             
       - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.each do |i|
-        - c = Feed.joins(:entries).where('feeds.title like ?', "%#{i}%").count
+        - c = Feed.joins(:entries).where('feeds.title like ?', "%#{i}%").to_a.count
         - next unless c > 0
         %li
           = link_to root_path(:q => i) do
