@@ -1,6 +1,24 @@
-.entries
-  - @feeds.each do |feed|
-    - next if feed.entries.count == 0
-    .feed
-      %h4= feed.title
-      = render feed.entries.current.first, :feed => feed
+.row-fluid
+  .span3
+    %ul.nav.nav-list.feed-picker
+      %li
+        = link_to root_path do
+          All
+          %i.icon-chevron-right.pull-right
+          %span.badge.pull-right= Feed.joins(:entries).count
+            
+      - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.each do |i|
+        - c = Feed.joins(:entries).where('feeds.title like ?', "%#{i}%").count
+        - next unless c > 0
+        %li
+          = link_to root_path(:q => i) do
+            = i
+            %i.icon-chevron-right.pull-right
+            %span.badge.pull-right= c
+  .span9
+    .entries
+      - @feeds.each do |feed|
+        - next if feed.entries.count == 0
+        .feed
+          %h4= feed.title
+          = render feed.entries.current.first, :feed => feed

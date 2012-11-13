@@ -3,6 +3,9 @@ class FeedsController < ApplicationController
   
   def index
     @feeds = Feed.order('slug ASC')
+    if params[:q]
+      @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
+    end
   end
   
   def show
