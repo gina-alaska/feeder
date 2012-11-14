@@ -15,5 +15,5 @@
             No animation available
         - else
           = link_to feed_movie_url(@feed, @movies[duration]) do
-            = image_tag cw_image_url(@movies[duration].entries.first.file.thumb.small)
+            = image_tag cw_image_url(@movies[duration].entries.first.preview.thumb('200x200#'))
             Play animation

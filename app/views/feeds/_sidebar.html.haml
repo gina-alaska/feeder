@@ -82,7 +82,7 @@
                 = render @movie
             #latest_animation.tab-pane
               %textarea.span12{rows: 10, style:"margin:0; border:none;"}
-                = render 'current', feed: @feed
+                = render 'current', feed: @feed, movie: @movie
           
           %p Paste the above html snippet into your webpage to embed the animation
       

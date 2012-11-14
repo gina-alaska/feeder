@@ -1,4 +1,4 @@
-%video{style:"width:480px; max-width: 100%;", controls:"controls", preload:"auto", autoplay: "true", poster:feed_cdn_url(feed_movie_path(feed, 'current', format: 'png'))}
-  %source{src:feed_cdn_url(feed_movie_path(feed, 'current', format: 'mp4')), type:"video/mp4"}/
-  %source{src:feed_cdn_url(feed_movie_path(feed, 'current', format: 'webm')), type:"video/webm"}/ 
+%video{style:"width:480px; max-width: 100%;", controls:"controls", preload:"auto", autoplay: "true", poster:feed_cdn_url(feed_movie_path(feed, "current-#{movie.duration}_day_animation", format: 'jpg'))}
+  %source{src:feed_cdn_url(feed_movie_path(feed, "current-#{movie.duration}_day_animation", format: 'mp4')), type:"video/mp4"}/
+  %source{src:feed_cdn_url(feed_movie_path(feed, "current-#{movie.duration}_day_animation", format: 'webm')), type:"video/webm"}/ 
   Your browser does not support the video tag

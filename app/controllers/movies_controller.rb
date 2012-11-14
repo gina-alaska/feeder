@@ -43,8 +43,8 @@ class MoviesController < ApplicationController
       format.webm {
         send_file(@movie.as_webm)
       }
-      format.png {
-        send_file(File.join(Rails.public_path, @movie.entries.first.file.thumb.url), :disposition => 'inline')
+      format.jpg {
+        send_file(@movie.entries.first.preview.path, :disposition => 'inline')
       }
     end
   end

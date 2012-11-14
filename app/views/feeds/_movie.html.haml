@@ -2,7 +2,7 @@
 .npp
   - if current
     %video{width:400, height:400, controls:'controls'}
-      %source{src: "#{entry.remove_url}", type: "video/mp4"}
+      %source{src: "#{entry.remote_url}", type: "video/mp4"}
       Your browser does not support html5 video<br />
     = link_to 'Click here to download the movie', entry.remote_url, :target => '_blank'
   - else
