@@ -78,12 +78,18 @@ class Movie < ActiveRecord::Base
     
     self.save!
     
-    mencoder_opts = '-mf fps=8:type=png -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy'
+    mencoder_opts = '-mf fps=8 -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy'
     #mencoder_opts = '-oac faac -faacopts br=192:mpeg=4:object=2:raw -channels 2 -srate 48000 -ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-mf fps=8 -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -of lavf -ovc lavc'
+    
+    puts "Starting"
+    
+    frame_files = entries.collect { |e| e.image.path }
+    puts frame_files.inspect
+
     frames = Tempfile.new('frames')
-    frames << entries.collect { |e| e.file.thumb.path }.join("\n")
+    frames << frame_files.join("\n")
     frames.close
     
     tmpfile = File.join(Rails.root, 'tmp/movies', File.basename(as_format(:avi)))
