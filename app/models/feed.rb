@@ -65,7 +65,7 @@ class Feed < ActiveRecord::Base
       attributes = {
         slug: metainfo[:entry_slug],
         title: metainfo[:title],
-        file: File.open(filename),
+        image: File.open(filename),
         category: metainfo[:category],
         event_at: metainfo[:date],
         where: metainfo[:where] 
