@@ -6,6 +6,15 @@ class Entry < ActiveRecord::Base
   belongs_to :feed
 
   mount_uploader :file, EntryFileUploader
+  
+  image_accessor :image do |a|
+    copy_to(:preview) do |a|
+      a.process(:layer, 0, :jpg).thumb('3000x3000>')
+    end
+  end
+  image_accessor :preview do |a|
+    after_assign { |a| a.name = "#{a.basename}.jpg" }
+  end
 
   validates_presence_of :slug
   validates_presence_of :title
