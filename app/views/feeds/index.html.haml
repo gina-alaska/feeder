@@ -8,7 +8,7 @@
             %span.badge= Feed.select('feeds.title, count(*) as c').joins(:entries).group('feeds.title').having('count(*) > 0').to_a.count
             %i.icon-chevron-right
             
-      - %w{ MODIS NPP Barrow Landcover Snowcover Naturalcolor Truecolor}.sort.each do |i|
+      - %w{ MODIS SNPP Barrow}.sort.each do |i|
         - c = Feed.select('feeds.title, count(*) as c').joins(:entries).where('feeds.title like ?', "%#{i}%").group('feeds.title').having('count(*) > 0').to_a.count
         - next unless c > 0
         %li
