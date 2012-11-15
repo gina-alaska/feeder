@@ -19,6 +19,8 @@ gem 'quiet_assets', :group => :development
 gem 'aasm'
 gem 'resque'
 gem 'bootstrap-datepicker-rails'
+gem 'omniauth'
+gem 'omniauth-openid'
 
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'

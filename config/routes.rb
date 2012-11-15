@@ -9,6 +9,9 @@ Feeder::Application.routes.draw do
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
+  match '/signin' => 'sessions#new', :as => :sigin
+  match '/signout' => 'sessions#destroy', :as => :signout
+  match '/auth/:provider/callback', :to => 'sessions#create'  
 
   match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
   match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
