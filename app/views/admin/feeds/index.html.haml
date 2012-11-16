@@ -1,0 +1,29 @@
+.navbar
+  .navbar-inner
+    .brand Feeds
+    .pull-right
+      = link_to new_admin_feed_path, class: 'btn btn-success' do
+        %i.icon-plus.icon-white
+        New Feed
+%table.table.table-bordered.table-striped.table-condensed
+  %thead
+    %tr
+      %th Title
+      %th Slug
+      %th Entries
+      %th Actions
+  %body
+    - @feeds.each do |feed|
+      %tr
+        %td= feed.title
+        %td= feed.slug
+        %td= feed.entries.count
+        %td.actions
+          = link_to slug_path(feed), class: 'btn', data: { title: 'View' } do
+            %i.icon-eye-open
+          = link_to edit_admin_feed_path(feed), class: 'btn btn-primary', data: { title: 'Edit' } do
+            %i.icon-edit.icon-white
+          = link_to admin_feed_path(feed), method: 'DELETE', class: 'btn btn-danger', data: { confirm: 'Are you sure?', title: 'Delete' } do
+            %i.icon-trash.icon-white
+:javascript
+  $('.actions a').tooltip();

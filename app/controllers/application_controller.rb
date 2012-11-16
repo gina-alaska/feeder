@@ -28,6 +28,16 @@ class ApplicationController < ActionController::Base
       redirect_to url
     end
   end
+  
+  def require_admin_auth
+    if current_user.nil?
+      session[:redirect_back_location] = request.url
+      redirect_to signin_path
+    elsif not current_user.admin?
+      flash[:error] = 'You do not have permission to access this page'
+      redirect_to root_url
+    end
+  end
 
   private
   def set_layout

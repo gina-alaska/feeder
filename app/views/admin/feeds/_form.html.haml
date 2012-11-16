@@ -1,0 +1,15 @@
+= form_for feed do |f|
+  = f.label :title
+  = f.text_field :title, class: 'span12'
+
+  = f.label :slug
+  = f.text_field :slug, class: 'span12'
+      
+  = f.label :description
+  = f.text_area :title, rows: 5, class: 'span12'
+      
+  .pull-right
+    = link_to admin_feeds_path, class: 'btn' do
+      %i.icon-arrow-left
+      Back
+    = f.submit class: 'btn btn-primary'

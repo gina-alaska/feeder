@@ -1,0 +1,28 @@
+.navbar.navbar-static-top.navbar-inverse
+  .navbar-inner
+    / .container
+    = image_tag("puffin.png", :class => :puffin)
+    = link_to '/', :class => 'brand' do
+      %span.gina.text GINA 
+      %span.text Puffin Feeder
+          
+    %ul.nav.pull-right
+      %li
+        = link_to root_url, "data-skip-pjax" => true do
+          %i.icon-home.icon-white
+          Home
+      - if current_user.nil?
+        %li
+          = link_to signin_path, "data-skip-pjax" => true do
+            %i.icon-lock.icon-white
+            Sign in
+      - else
+        - if current_user.admin?
+          %li 
+            = link_to admin_feeds_path do
+              %i.icon-briefcase.icon-white
+              Admin
+        %li
+          = link_to signout_path, "data-skip-pjax" => true do
+            %i.icon-lock.icon-white
+            Sign out

@@ -6,10 +6,14 @@ Feeder::Application.routes.draw do
     
     resources :movies
   end
+  
+  namespace :admin do
+    resources :feeds
+  end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
-  match '/signin' => 'sessions#new', :as => :sigin
+  match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
   match '/auth/:provider/callback', :to => 'sessions#create'  
 

@@ -22,10 +22,17 @@
   %body
     #header
       = render 'layouts/header'
-    / .container
-    #content
-      = flash_messages
-      = yield
+    .container
+      .row
+        .span2
+          %ul.nav
+            %li
+              = link_to admin_feeds_path do
+                Feeds
+        .span10
+          #content
+            = flash_messages
+            = yield
     #footer.row
       #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
       #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
