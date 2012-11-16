@@ -15,6 +15,10 @@ class FeedsController < ApplicationController
       @feed = Feed.where(:slug => params[:id]).order('slug ASC').first
     end
     
+    if @feed.nil?
+      render 'public/404.html', status: :not_found
+      return
+    end
     
     if params[:date]
       year, month = params[:date].split('-')
