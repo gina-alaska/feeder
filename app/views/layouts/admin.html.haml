@@ -25,10 +25,15 @@
     .container
       .row
         .span2
-          %ul.nav
+          %ul.nav.feed-picker
             %li
               = link_to admin_feeds_path do
                 Feeds
+                %i.icon-chevron-right.pull-right
+            %li
+              = link_to '#' do
+                Users
+                %i.icon-chevron-right.pull-right                
         .span10
           #content
             = flash_messages
