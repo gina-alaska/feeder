@@ -8,6 +8,7 @@
 %table.table.table-bordered.table-striped.table-condensed
   %thead
     %tr
+      %th Preview
       %th Title
       %th Slug
       %th Entries
@@ -15,13 +16,21 @@
   %body
     - @feeds.each do |feed|
       %tr
+        %td
+          - if feed.entries.empty?
+            / = image_tag Dragonfly[:images].generate(:plasma, 75, 50).url
+            - txtimg = Dragonfly[:images].generate(:text, 'No Image', font_size: 20, padding: '20 10')
+            = image_tag txtimg.thumb('75x50').url
+          - else
+            = image_tag feed.entries.first.preview.thumb('75x50#').url
         %td= feed.title
         %td= feed.slug
         %td= feed.entries.count
         %td.actions
-          = link_to slug_path(feed), class: 'btn' do
-            %i.icon-eye-open
-          = link_to edit_admin_feed_path(feed), class: 'btn btn-primary' do
-            %i.icon-edit.icon-white
-          = link_to admin_feed_path(feed), method: 'DELETE', class: 'btn btn-danger', data: { confirm: 'Are you sure?' } do
-            %i.icon-trash.icon-white
+          %nobr
+            = link_to slug_path(feed), class: 'btn' do
+              %i.icon-eye-open
+            = link_to edit_admin_feed_path(feed), class: 'btn btn-primary' do
+              %i.icon-edit.icon-white
+            = link_to admin_feed_path(feed), method: 'DELETE', class: 'btn btn-danger', data: { confirm: 'Are you sure?' } do
+              %i.icon-trash.icon-white
