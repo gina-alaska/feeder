@@ -19,7 +19,7 @@
       - else
         - if current_user.admin?
           %li 
-            = link_to admin_feeds_path do
+            = link_to admin_feeds_path, "data-skip-pjax" => true do
               %i.icon-briefcase.icon-white
               Admin
         %li

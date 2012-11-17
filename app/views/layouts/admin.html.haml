@@ -5,8 +5,6 @@
     %title GINA Puffin Feeder
     = favicon_link_tag 'puffin.png'
     = stylesheet_link_tag "application", :media => "all"
-    = auto_discovery_link_tag(:rss, slug_path(@feed, :xml), :title=>"#{@feed.title} GeoRSS feed") unless @feed.nil?
-    =# link_tag(:href=>feeds_path(@feed), :type => "application/atom+xml", :rel=> "alternate", ) unless @feed.nil?
     = javascript_include_tag "application"
     = csrf_meta_tags 
     :javascript

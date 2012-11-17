@@ -2,7 +2,10 @@ class Feed < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
+  validates_uniqueness_of :slug
+  
   validates_presence_of :title
+  validates_uniqueness_of :title
 
   has_many :movies
 

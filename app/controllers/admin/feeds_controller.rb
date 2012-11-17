@@ -14,22 +14,57 @@ class Admin::FeedsController < AdminController
     respond_with @feed
   end
   
-  def new
-    @feed = Feed.new
-  end
-  
-  def destroy
-    if @feed.destroy
+  def update
+    if @feed.update_attributes(params[:feed])
       respond_to do |format|
-        format.html { 
-          flash[:success] = "Deleted feed #{@feed.title}"
+        format.html {
+          flash[:success] = "#{@feed.title} sucessfully updated"
           redirect_to admin_feeds_path
         }
       end
     else
       respond_to do |format|
         format.html {
-          flash[:error] = "Unable to delete feed #{@feed.title}"
+          render :action => :edit
+        }
+      end
+    end
+  end
+  
+  def new
+    @feed = Feed.new
+  end
+  
+  def create
+    @feed = Feed.new(params[:feed])
+    if @feed.save
+      respond_to do |format|
+        format.html {
+          flash[:success] = "#{@feed.title} sucessfully created"
+          redirect_to admin_feeds_path
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          render :action => :edit
+        }
+      end
+    end
+  end
+  
+  def destroy
+    if @feed.destroy
+      respond_to do |format|
+        format.html { 
+          flash[:success] = "#{@feed.title} feed deleted"
+          redirect_to admin_feeds_path
+        }
+      end
+    else
+      respond_to do |format|
+        format.html {
+          flash[:error] = "Unable to delete feed"
           redirect_to admin_feeds_path
         }
       end

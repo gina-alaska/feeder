@@ -19,11 +19,9 @@
         %td= feed.slug
         %td= feed.entries.count
         %td.actions
-          = link_to slug_path(feed), class: 'btn', data: { title: 'View' } do
+          = link_to slug_path(feed), class: 'btn' do
             %i.icon-eye-open
-          = link_to edit_admin_feed_path(feed), class: 'btn btn-primary', data: { title: 'Edit' } do
+          = link_to edit_admin_feed_path(feed), class: 'btn btn-primary' do
             %i.icon-edit.icon-white
-          = link_to admin_feed_path(feed), method: 'DELETE', class: 'btn btn-danger', data: { confirm: 'Are you sure?', title: 'Delete' } do
+          = link_to admin_feed_path(feed), method: 'DELETE', class: 'btn btn-danger', data: { confirm: 'Are you sure?' } do
             %i.icon-trash.icon-white
-:javascript
-  $('.actions a').tooltip();
