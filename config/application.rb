@@ -59,8 +59,8 @@ module Feeder
 
     config.middleware.insert 0, 'Rack::Cache', {
       :verbose     => true,
-      :metastore   => URI.encode("file:#{Rails.root}/public/uploads/dragonfly/cache/meta"),
-      :entitystore => URI.encode("file:#{Rails.root}/public/uploads/dragonfly/cache/body")
+      :metastore   => URI.encode("file:#{Rails.root}/public/dragonfly/cache/meta"),
+      :entitystore => URI.encode("file:#{Rails.root}/public/dragonfly/cache/body")
     } # unless Rails.env.production?  ## uncomment this 'unless' in Rails 3.1,
                                       ## because it already inserts Rack::Cache in production
 
