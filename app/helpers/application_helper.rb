@@ -24,7 +24,7 @@ module ApplicationHelper
   end
   
   def cw_image_url(img)
-    feed_cdn_url(img.url) unless img.nil? or img.url.nil?
+    img.url unless img.nil? or img.url.nil?
   end
   
   def feed_select_options
