@@ -54,7 +54,7 @@ class FeedsController < ApplicationController
   def image
     @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
     if params[:id] == 'current'
-      @entry = @feed.entries.current
+      @entry = @feed.entries.current.first
     elsif params[:id]
       @entry = @feed.entries.where(slug: params[:id]).first
     end
