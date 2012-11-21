@@ -24,7 +24,11 @@ module ApplicationHelper
   end
   
   def cw_image_url(img)
-    img.url unless img.nil? or img.url.nil?
+    if img.nil? or img.url.nil?
+      'http://placehold.it/200x200&text=Not+available'
+    else
+      img.url
+    end
   end
   
   def feed_select_options
