@@ -44,7 +44,10 @@ class MoviesController < ApplicationController
         send_file(@movie.as_webm)
       }
       format.jpg {
-        send_file(@movie.entries.first.preview.path, :disposition => 'inline')
+        send_file(@movie.entries.first.preview.jpg.path, :disposition => 'inline')
+      }
+      format.png {
+        send_file(@movie.entries.first.preview.png.path, :disposition => 'inline')
       }
     end
   end
