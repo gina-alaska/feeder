@@ -9,7 +9,11 @@ class Entry < ActiveRecord::Base
   
   image_accessor :image do |a|
     copy_to(:preview) do |a|
-      a.process(:layer, 0, :jpg).thumb('3000x3000>')
+      if a.format == :tif
+      	a.process(:layer, 0, :jpg).thumb('3000x3000>')
+      else
+ 	a.encode(:jpg).thumb('3000x3000')
+      end
     end
   end
   image_accessor :preview do |a|
