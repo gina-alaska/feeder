@@ -1,6 +1,6 @@
 - current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
 .image
   - if current
-    = image_tag(cw_image_url(entry.preview.try(:thumb, '800x800')))
+    = image_tag(cw_image_url(entry.preview.try(:thumb, '800x800')), alt: entry.title)
   - else
-    = image_tag(cw_image_url(entry.preview.try(:thumb, '200x200#')))
+    = image_tag(cw_image_url(entry.preview.try(:thumb, '200x200#')), alt: entry.title)
