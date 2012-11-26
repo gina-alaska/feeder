@@ -5,7 +5,7 @@
       Curent view dates:
       = current_date_range(@entries)
 
-.entries
+.entries.clearfix
   = render @entries, :feed => feed
 
 = paginate @entries, inner_window: 3 if @entries.respond_to? :current_page
