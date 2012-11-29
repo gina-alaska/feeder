@@ -59,7 +59,8 @@ class FeedsController < ApplicationController
       @entry = @feed.entries.where(slug: params[:id]).first
     end
     if @feed.status.to_sym == :offline
-      send_data(@entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 2 -pointsize 90 -draw 'text 0 0 \"The #{@feed.title}\nis offline\"'").data, :type => @entry.preview.format, :disposition => 'inline')
+      txt = "-draw 'text 0 0 \"The #{@feed.title}\nis offline\"'"
+      send_data(@entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").data, :type => @entry.preview.format, :disposition => 'inline')
     else
       send_file(@entry.image.path, :disposition => 'inline')
     end

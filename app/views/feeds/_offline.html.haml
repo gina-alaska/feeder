@@ -1,5 +1,6 @@
 - entry = feed.entries.current.first
-- txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 2 -pointsize 90 -draw 'text 0 0 \"The #{feed.title}\nis offline\"'").thumb('250x250#')
+- txt = "-draw 'text 0 0 \"The #{feed.title}\nis offline\"'"
+- txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").thumb('250x250#')
   
 .entry
   .title.clearfix
