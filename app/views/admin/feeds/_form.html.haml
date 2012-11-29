@@ -13,6 +13,9 @@
 
   = f.label :slug
   = f.text_field :slug, class: 'span12'
+  
+  = f.label :status
+  = f.select :status, [['Online', 'online'], ['Offline', 'offline']]
       
   = f.label :description
   = f.text_area :description, rows: 5, class: 'span12'

@@ -1,0 +1,17 @@
+- entry = feed.entries.current.first
+- txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 2 -pointsize 90 -draw 'text 0 0 \"The #{feed.title}\nis offline\"'").thumb('250x250#')
+  
+.entry
+  .title.clearfix
+    = render 'entry_header', feed: feed, prev_entry: @prev_entry, entry: entry, next_entry: @next_entry, link: slug_path(feed)
+  .contents
+    = link_to slug_path(feed), class: 'clearfix' do
+      = image_tag txtimg.url
+  .ago
+    Last image recieved
+    = time_ago_in_words(entry.event_at)
+    ago
+  .sizes.btn-group
+    = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true  

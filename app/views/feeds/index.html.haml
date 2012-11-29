@@ -23,4 +23,7 @@
         - next if feed.entries.count == 0
         .feed
           %h4= feed.title
-          = render feed.entries.current.first, :feed => feed
+          - if feed.status.to_sym == :online
+            = render feed.entries.current.first, :feed => feed
+          - else
+            = render 'offline', :feed => feed

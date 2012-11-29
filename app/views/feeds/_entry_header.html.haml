@@ -1,0 +1,22 @@
+- if prev_entry.nil? and next_entry.nil?
+  = link_to link, class: 'clearfix' do
+    = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+    = "(JD#{entry.event_at.yday})"    
+- else
+  .row-fluid
+    .span2.prev
+      - if prev_entry
+        - prev_page = prev_entry ? slug_entry_path(feed, prev_entry) : '#'
+        = link_to prev_page, class: 'btn btn-large btn-block' do
+          %i.icon-arrow-left
+          Prev
+    .span8
+      = link_to link, class: 'clearfix' do
+        = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+        = "(JD#{entry.event_at.yday})"    
+    .span2.next
+      - if next_entry
+        - next_page = next_entry ? slug_entry_path(feed, next_entry) : '#'
+        = link_to next_page, class: 'btn btn-large btn-block' do
+          Next
+          %i.icon-arrow-right

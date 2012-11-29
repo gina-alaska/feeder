@@ -7,23 +7,7 @@
   - link = slug_entry_path(feed, entry)
 .entry
   .title.clearfix
-    .row-fluid
-      .span2.prev
-        - if @prev_entry
-          - @prev_page = @prev_entry ? slug_entry_path(feed, @prev_entry) : '#'
-          = link_to @prev_page, class: 'btn btn-large btn-block' do
-            %i.icon-arrow-left
-            Prev
-      .span8
-        = link_to link, class: 'clearfix' do
-          = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-          = "(JD#{entry.event_at.yday})"    
-      .span2.next
-        - if @next_entry
-          - next_page = @next_entry ? slug_entry_path(feed, @next_entry) : '#'
-          = link_to next_page, class: 'btn btn-large btn-block' do
-            Next
-            %i.icon-arrow-right
+    = render 'entry_header', feed: feed, prev_entry: @prev_entry, entry: entry, next_entry: @next_entry, link: link
   .contents
     - if current_page?(slug_entry_path(feed, entry))
       = render entry.category, :feed => feed, :entry => entry
