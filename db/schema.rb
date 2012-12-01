@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121129000924) do
+ActiveRecord::Schema.define(:version => 20121201021618) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -27,14 +27,15 @@ ActiveRecord::Schema.define(:version => 20121129000924) do
     t.text     "content"
     t.string   "where"
     t.datetime "event_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "file"
     t.string   "category"
     t.string   "slug"
     t.string   "image_uid"
     t.string   "image_name"
     t.string   "preview_uid"
+    t.string   "preview_name"
   end
 
   create_table "feeds", :force => true do |t|
