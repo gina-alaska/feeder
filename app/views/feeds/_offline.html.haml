@@ -1,6 +1,9 @@
-- entry = feed.entries.current.first
+- entry = feed.entries.first
 - txt = "-draw 'text 0 0 \"The #{feed.title}\nis offline\"'"
-- txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").thumb('250x250#')
+- if entry.nil?
+  - txtimg = Dragonfly[:images].generate(:plain, 400, 400, '#FFF').process(:convert, "-gravity center -fill white -stroke black -strokewidth 10 -pointsize 20 #{txt} -stroke none #{txt}").thumb('250x250#')
+- else
+  - txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").thumb('250x250#')
   
 .entry
   .title.clearfix
@@ -10,9 +13,10 @@
       = image_tag txtimg.url
   .ago
     Last image recieved
-    = time_ago_in_words(entry.event_at)
+    = time_ago_in_words(entry.event_at) unless entry.nil?
     ago
   .sizes.btn-group
-    = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true  
+    - unless entry.nil?
+      = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
+      = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
+      = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true  

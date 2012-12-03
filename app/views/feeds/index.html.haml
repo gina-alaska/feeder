@@ -5,25 +5,23 @@
         = link_to root_path do
           All
           .pull-right
-            %span.badge= Feed.select('feeds.title, count(*) as c').joins(:entries).group('feeds.title').having('count(*) > 0').to_a.count
+            %span.badge= @all
             %i.icon-chevron-right
             
-      - %w{ MODIS SNPP Barrow}.sort.each do |i|
-        - c = Feed.select('feeds.title, count(*) as c').joins(:entries).where('feeds.title like ?', "%#{i}%").group('feeds.title').having('count(*) > 0').to_a.count
-        - next unless c > 0
+      - @keywords.sort.each do |i|
         %li
           = link_to root_path(:q => i) do
             = i
             .pull-right
-              %span.badge= c
+              %span.badge= @counts[i]
               %i.icon-chevron-right
   .span9
     .entries
       - @feeds.each do |feed|
-        - next if feed.entries.count == 0
+        - next if feed.entries.size == 0
         .feed
           %h4= feed.title
-          - if feed.status.to_sym == :online
-            = render feed.entries.current.first, :feed => feed
+          - if feed.entries.first and feed.status.to_sym == :online
+            = render feed.entries.first, :feed => feed
           - else
             = render 'offline', :feed => feed
