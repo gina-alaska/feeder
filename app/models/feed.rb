@@ -15,6 +15,8 @@ class Feed < ActiveRecord::Base
     end
   end
   
+  has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
+  
   serialize :active_animations
   
   def to_param

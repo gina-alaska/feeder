@@ -18,10 +18,10 @@
   .span9
     .entries
       - @feeds.each do |feed|
-        - next if feed.entries.size == 0
+        - next if feed.current_entries.empty?
         .feed
           %h4= feed.title
-          - if feed.entries.first and feed.status.to_sym == :online
-            = render feed.entries.first, :feed => feed
+          - if feed.current_entries.first and feed.status.to_sym == :online
+            = render feed.current_entries.first, :feed => feed
           - else
             = render 'offline', :feed => feed

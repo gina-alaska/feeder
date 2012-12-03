@@ -1,4 +1,4 @@
-- entry = feed.entries.first
+- entry = feed.current_entries.first
 - txt = "-draw 'text 0 0 \"The #{feed.title}\nis offline\"'"
 - if entry.nil?
   - txtimg = Dragonfly[:images].generate(:plain, 400, 400, '#FFF').process(:convert, "-gravity center -fill white -stroke black -strokewidth 10 -pointsize 20 #{txt} -stroke none #{txt}").thumb('250x250#')

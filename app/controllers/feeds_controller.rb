@@ -2,7 +2,7 @@ class FeedsController < ApplicationController
   respond_to :html
   
   def index
-    @feeds = Feed.includes(:entries)
+    @feeds = Feed #.includes(:current_entries)
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
