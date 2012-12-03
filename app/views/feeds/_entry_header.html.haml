@@ -1,7 +1,7 @@
 - if prev_entry.nil? and next_entry.nil?
   = link_to link, class: 'clearfix' do
-    = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-    = "(JD#{entry.event_at.yday})"    
+    = entry.try(:event_at).try(:strftime, '%Y-%m-%d %H:%M %Z')
+    = "(JD#{entry.try(:event_at).try(:yday)})"    
 - else
   .row-fluid
     .span2.prev

@@ -2,9 +2,24 @@ class FeedsController < ApplicationController
   respond_to :html
   
   def index
-    @feeds = Feed.order('slug ASC')
+    @feeds = Feed.includes(:entries)
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
+    end
+    @feeds = @feeds.order('slug ASC')
+    
+    @keywords = %w{ MODIS SNPP Barrow }
+    @titles = Feed.select('feeds.title').joins(:entries).group('feeds.title').having('count(*) > 0')
+    @all = @titles.to_a.count
+    
+    @counts = {}
+    @keywords.each do |kw|
+      @titles.each do |k|
+        if k.title =~ /#{kw}/
+          @counts[kw] ||= 0
+          @counts[kw] += 1
+        end
+      end
     end
   end
   
