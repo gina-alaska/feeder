@@ -9,15 +9,17 @@ class FeedsController < ApplicationController
     @feeds = @feeds.order('slug ASC')
     
     @keywords = %w{ MODIS SNPP Barrow }
-    @titles = Feed.select('feeds.title').joins(:entries).group('feeds.title').having('count(*) > 0')
-    @all = @titles.to_a.count
-    
+
+    @total = 0
     @counts = {}
-    @keywords.each do |kw|
-      @titles.each do |k|
-        if k.title =~ /#{kw}/
-          @counts[kw] ||= 0
+    @all_feeds = Feed.all
+    Feed.all.each do |f|
+      next if f.entries.current.empty?
+      @keywords.each do |kw|
+        @counts[kw] ||= 0
+        if f.title =~ /#{kw}/
           @counts[kw] += 1
+          @total += 1
         end
       end
     end

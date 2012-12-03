@@ -5,7 +5,7 @@
         = link_to root_path do
           All
           .pull-right
-            %span.badge= @all
+            %span.badge= @total
             %i.icon-chevron-right
             
       - @keywords.sort.each do |i|
@@ -18,10 +18,11 @@
   .span9
     .entries
       - @feeds.each do |feed|
-        - next if feed.current_entries.empty?
+      - next if feed.entries.current.empty?
+        - entry = feed.entries.current.first
         .feed
           %h4= feed.title
-          - if feed.current_entries.first and feed.status.to_sym == :online
-            = render feed.current_entries.first, :feed => feed
+          - if feed.status.to_sym == :online and entry
+            = render entry, :feed => feed
           - else
             = render 'offline', :feed => feed
