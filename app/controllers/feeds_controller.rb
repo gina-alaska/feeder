@@ -14,7 +14,7 @@ class FeedsController < ApplicationController
     @counts = {}
     @all_feeds = Feed.all
     Feed.all.each do |f|
-      next if f.entries.current.empty?
+      next if f.current_entries.empty?
       @keywords.each do |kw|
         @counts[kw] ||= 0
         if f.title =~ /#{kw}/

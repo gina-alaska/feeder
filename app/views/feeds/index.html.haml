@@ -18,8 +18,8 @@
   .span9
     .entries
       - @feeds.each do |feed|
-      - next if feed.entries.current.empty?
-        - entry = feed.entries.current.first
+      - next if feed.current_entries.empty?
+        - entry = feed.current_entries.first
         .feed
           %h4= feed.title
           - if feed.status.to_sym == :online and entry
