@@ -1,28 +1,30 @@
-.row-fluid
-  .span3
-    %ul.nav.feed-picker.hidden-phone
-      %li
-        = link_to root_path do
-          All
-          .pull-right
-            %span.badge= @total
-            %i.icon-chevron-right
-            
-      - @keywords.sort.each do |i|
+- cache('all_available_feeds') do
+  - total, counts = keyword_counts(@keywords)
+  .row-fluid
+    .span3
+      %ul.nav.feed-picker.hidden-phone
         %li
-          = link_to root_path(:q => i) do
-            = i
+          = link_to root_path do
+            All
             .pull-right
-              %span.badge= @counts[i]
+              %span.badge= total
               %i.icon-chevron-right
-  .span9
-    .entries
-      - @feeds.each do |feed|
-      - next if feed.current_entries.empty?
-        - entry = feed.current_entries.first
-        .feed
-          %h4= feed.title
-          - if feed.status.to_sym == :online and entry
-            = render entry, :feed => feed
-          - else
-            = render 'offline', :feed => feed
+            
+        - @keywords.sort.each do |i|
+          %li
+            = link_to root_path(:q => i) do
+              = i
+              .pull-right
+                %span.badge= counts[i]
+                %i.icon-chevron-right
+    .span9
+      .entries
+        - @feeds.each do |feed|
+        - next if feed.current_entries.empty?
+          - entry = feed.current_entries.first
+          .feed
+            %h4= feed.title
+            - if feed.status.to_sym == :online and entry
+              = render entry, :feed => feed
+            - else
+              = render 'offline', :feed => feed

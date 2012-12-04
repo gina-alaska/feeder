@@ -4,6 +4,8 @@ class Admin::FeedsController < AdminController
   
   respond_to :html
   
+  cache_sweeper :feeds_sweeper
+  
   def index
     @feeds = Feed.includes(:entries).all
     

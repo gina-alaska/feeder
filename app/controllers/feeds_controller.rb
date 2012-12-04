@@ -1,6 +1,9 @@
 class FeedsController < ApplicationController
   respond_to :html
   
+  cache_sweeper :feeds_sweeper
+  cache_sweeper :entries_sweeper
+  
   def index
     @feeds = Feed #.includes(:current_entries)
     if params[:q]
@@ -9,20 +12,6 @@ class FeedsController < ApplicationController
     @feeds = @feeds.order('slug ASC')
     
     @keywords = %w{ MODIS SNPP Barrow }
-
-    @total = 0
-    @counts = {}
-    @all_feeds = Feed.all
-    Feed.all.each do |f|
-      next if f.current_entries.empty?
-      @keywords.each do |kw|
-        @counts[kw] ||= 0
-        if f.title =~ /#{kw}/
-          @counts[kw] += 1
-          @total += 1
-        end
-      end
-    end
   end
   
   def show
