@@ -1,19 +1,9 @@
-- current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
-- if current
-  - link = nil
-- elsif current_page?(root_path)
-  - link = slug_path(feed)
-- else
-  - link = slug_entry_path(feed, entry)
+- size ||= 'small'
 .entry
   .title.clearfix
-    = render 'entry_header', feed: feed, prev_entry: @prev_entry, entry: entry, next_entry: @next_entry, link: link
+    = render 'entry_header', feed: feed, prev_entry: @prev_entry, entry: entry, next_entry: @next_entry, link: slug_entry_path(feed, entry)
   .contents
-    - if current_page?(slug_entry_path(feed, entry))
-      = render entry.category, :feed => feed, :entry => entry
-    - else
-      = link_to link do
-        = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
+    = render size, :feed => feed, :entry => entry
   .ago
     Processed
     = time_ago_in_words(entry.event_at)

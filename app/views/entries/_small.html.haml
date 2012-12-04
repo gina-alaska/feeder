@@ -1,0 +1,2 @@
+= link_to slug_entry_path(feed, entry) do
+  .image= image_tag(cw_image_url(entry.preview.try(:thumb, '250x250#')), alt: entry.title)

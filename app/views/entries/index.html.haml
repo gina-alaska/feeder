@@ -1,0 +1,13 @@
+.row-fluid
+  #sidebar.span3
+    = render 'sidebar'
+  .span9
+    %h2
+      = @feed.title
+      - if @entries.count > 1
+        %small
+          Curent view dates:
+          = current_date_range(@entries)
+    .entries.clearfix
+      = render @entries, :feed => @feed
+      = paginate @entries, inner_window: 3 if @entries.respond_to? :current_page
