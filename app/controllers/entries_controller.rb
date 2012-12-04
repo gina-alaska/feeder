@@ -10,9 +10,6 @@ class EntriesController < ApplicationController
       @entry = @feed.entries.where(slug: params[:id]).first    
     end
     
-    @prev_entry = @feed.entries.where('event_at < ?', @entry.event_at).first      
-    @next_entry = @feed.entries.where('event_at > ?', @entry.event_at).first      
-    
     respond_with @entry
   end
   

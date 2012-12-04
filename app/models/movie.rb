@@ -20,7 +20,7 @@ class Movie < ActiveRecord::Base
   end
   
   # attr_accessible :title, :body
-  belongs_to :feed
+  belongs_to :feed, touch: true
 
   validates_presence_of :title, :event_at, :duration
   validate :valid_dates

@@ -3,7 +3,7 @@ class Entry < ActiveRecord::Base
   
   # paginates_per 16
 
-  belongs_to :feed
+  belongs_to :feed, touch: true
 
   mount_uploader :file, EntryFileUploader
   
@@ -30,6 +30,14 @@ class Entry < ActiveRecord::Base
   
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
+  end
+  
+  def next
+    self.feed.entries.where('event_at > ?', self.event_at).last      
+  end
+  
+  def prev
+    self.feed.entries.where('event_at < ?', self.event_at).first      
   end
 
   class << self

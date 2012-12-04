@@ -1,4 +1,4 @@
-- cache('all_available_feeds') do
+- cache(Feed.order('updated_at DESC').first) do
   - total, counts = keyword_counts(@keywords)
   .row-fluid
     .span3

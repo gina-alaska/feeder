@@ -7,7 +7,9 @@
   
 .entry
   .title.clearfix
-    = render '/entries/entry_header', feed: feed, prev_entry: @prev_entry, entry: entry, next_entry: @next_entry, link: slug_path(feed)
+    = link_to slug_path(feed) do
+      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+      = "(JD#{entry.event_at.yday})"
   .contents
     = link_to slug_path(feed), class: 'clearfix' do
       = image_tag txtimg.url
