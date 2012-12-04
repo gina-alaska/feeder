@@ -29,7 +29,7 @@ module FeedsHelper
     end
   end
   
-  def keyword_counds(keywords)
+  def keyword_counts(keywords)
     total = 0
     counts = {}
     Feed.all.each do |f|
