@@ -1,9 +1,6 @@
 class FeedsController < ApplicationController
   respond_to :html
   
-  cache_sweeper :feeds_sweeper
-  cache_sweeper :entries_sweeper
-  
   def index
     @feeds = Feed #.includes(:current_entries)
     if params[:q]
