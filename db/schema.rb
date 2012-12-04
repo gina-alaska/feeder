@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121201021618) do
+ActiveRecord::Schema.define(:version => 20121204213322) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -38,6 +38,9 @@ ActiveRecord::Schema.define(:version => 20121201021618) do
     t.string   "preview_name"
   end
 
+  add_index "entries", ["slug"], :name => "index_entries_on_slug"
+  add_index "entries", ["updated_at"], :name => "index_entries_on_updated_at"
+
   create_table "feeds", :force => true do |t|
     t.string   "slug"
     t.string   "title"
@@ -51,6 +54,9 @@ ActiveRecord::Schema.define(:version => 20121201021618) do
     t.string   "active_animations"
     t.string   "status",            :default => "online"
   end
+
+  add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
+  add_index "feeds", ["updated_at"], :name => "index_feeds_on_updated_at"
 
   create_table "movies", :force => true do |t|
     t.string   "title"
