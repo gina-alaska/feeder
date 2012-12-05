@@ -9,7 +9,11 @@ entry_xml.item {
   
   entry_xml.image cw_image_url(entry.file.thumb)
   entry_xml.description {
-    render :partial => 'image', :locals => { :content_xml => entry_xml, :entry => entry }
+    if params[:rss]
+      render :partial => 'iframe', :locals => { :content_xml => entry_xml, :entry => entry }
+    else
+      render :partial => 'image', :locals => { :content_xml => entry_xml, :entry => entry }
+    end
   }
   entry_xml.pubDate entry.updated_at.rfc822
 }
