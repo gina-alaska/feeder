@@ -1,6 +1,9 @@
-.entries
-  - @feeds.each do |feed|
-    - next if feed.entries.count == 0
-    .feed
-      %h4= feed.title
-      = render feed.entries.current.first, :feed => feed
+- cache([Feed.order('updated_at DESC').first, 'index']) do
+  - total, counts = keyword_counts(@keywords)
+  .row-fluid
+    .span3
+      = render 'keywords'
+    .span9
+      .entries
+        = render 'list', feeds: @feeds
+        

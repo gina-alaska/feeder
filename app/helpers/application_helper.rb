@@ -1,4 +1,14 @@
 module ApplicationHelper
+  def flash_messages
+    output = ""
+    flash.each do |type,msg|
+      output << content_tag(:div, class: "alert alert-#{type}") do
+        "#{msg} #{link_to 'x', '#', class: 'close', "data-dismiss" => "alert"}".html_safe
+      end
+    end
+    output.html_safe
+  end
+  
   def feed_cdn_url(path= nil)
     if Feeder::Application.config.feed_cdn_urls.nil?
       url = root_url
@@ -14,7 +24,11 @@ module ApplicationHelper
   end
   
   def cw_image_url(img)
-    feed_cdn_url(img.url) unless img.url.nil?
+    if img.nil? or img.url.nil?
+      'http://placehold.it/200x200&text=Not+available'
+    else
+      img.url
+    end
   end
   
   def feed_select_options

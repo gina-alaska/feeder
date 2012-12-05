@@ -1,0 +1,8 @@
+- cache([@feeds.order('updated_at DESC').first, 'search', params[:q]]) do
+  .row-fluid
+    .span3
+      = render 'keywords'
+    .span9
+      .entries
+        = render 'list', feeds: @feeds
+        

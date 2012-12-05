@@ -1,0 +1,18 @@
+- entry = feed.current_entries.first
+.entry
+  .title.clearfix
+    = link_to slug_path(feed) do
+      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+      = "(JD#{entry.event_at.yday})"
+  .contents
+    = link_to slug_path(feed), class: 'clearfix' do
+      = image_tag entry.preview.thumb('250x250#').url
+  .ago
+    Processed
+    %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+    /= time_ago_in_words(entry.event_at) unless entry.nil?
+    /ago
+  .sizes.btn-group
+    = link_to 'All', slug_path(feed), class: 'btn'
+    = link_to 'Current', slug_entry_path(feed, 'current'), class: 'btn'
+    = link_to 'Movies', slug_movies_path(feed), class: 'btn' if feed.animate

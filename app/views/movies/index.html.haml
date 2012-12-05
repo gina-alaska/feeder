@@ -1,6 +1,6 @@
-.row
+.row-fluid
   #sidebar.span3
-    = render 'feeds/sidebar'
+    = render 'entries/sidebar'
   
   #feed.span9{style:"text-align:center;"}
     %h4= "Latest #{@feed.title} animations"
@@ -15,5 +15,5 @@
             No animation available
         - else
           = link_to feed_movie_url(@feed, @movies[duration]) do
-            = image_tag cw_image_url(@movies[duration].entries.first.file.thumb.small)
+            = image_tag cw_image_url(@movies[duration].entries.first.preview.try(:thumb, '200x200#'))
             Play animation

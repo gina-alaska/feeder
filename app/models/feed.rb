@@ -2,15 +2,20 @@ class Feed < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
+  validates_uniqueness_of :slug
+  
   validates_presence_of :title
+  validates_uniqueness_of :title
 
   has_many :movies
 
-  has_many :entries do
+  has_many :entries, order: 'event_at DESC' do
     def current
       order('event_at DESC').limit(1)
     end
   end
+  
+  has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
   
   serialize :active_animations
   
@@ -65,7 +70,7 @@ class Feed < ActiveRecord::Base
       attributes = {
         slug: metainfo[:entry_slug],
         title: metainfo[:title],
-        file: File.open(filename),
+        image: File.open(filename),
         category: metainfo[:category],
         event_at: metainfo[:date],
         where: metainfo[:where] 

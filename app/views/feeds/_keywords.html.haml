@@ -1,0 +1,16 @@
+- total, counts = keyword_counts(@keywords)
+%ul.nav.feed-picker.hidden-phone
+  %li
+    = link_to root_path do
+      All
+      .pull-right
+        %span.badge= total
+        %i.icon-chevron-right
+            
+  - @keywords.sort.each do |i|
+    %li
+      = link_to search_path(:q => i) do
+        = i
+        .pull-right
+          %span.badge= counts[i]
+          %i.icon-chevron-right

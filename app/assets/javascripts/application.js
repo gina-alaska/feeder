@@ -17,8 +17,25 @@
 //= require_tree .
 //= require_self
 
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});
+
 $(function() {
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content', { timeout: 3000 });
+  // $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content', { timeout: 3000 });
   $('#feed_select select').on('change', function() {
     var url = $(this).find('option:selected').val();
     if(url.length > 0) { top.location = url; }
@@ -39,3 +56,12 @@ $.fn.poll = function(fn, timeout) {
     }
   });
 }
+
+var timeago_init = function() {
+  $('abbr.timeago').timeago();
+};
+
+$(document).ready(timeago_init);
+$(document).on('pjax:end', timeago_init);
+
+

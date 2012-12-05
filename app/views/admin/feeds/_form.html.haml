@@ -1,0 +1,27 @@
+= form_for [:admin, feed] do |f|
+  - if feed.errors.any?
+    #error_explanation.alert.alert-error
+      %h4
+        = pluralize(feed.errors.count, "error")
+        prohibited this feed from being saved:
+      %ul
+        - feed.errors.full_messages.each do |msg|
+          %li= msg
+
+  = f.label :title
+  = f.text_field :title, class: 'span12'
+
+  = f.label :slug
+  = f.text_field :slug, class: 'span12'
+  
+  = f.label :status
+  = f.select :status, [['Online', 'online'], ['Offline', 'offline']]
+      
+  = f.label :description
+  = f.text_area :description, rows: 5, class: 'span12'
+      
+  .pull-right
+    = link_to admin_feeds_path, class: 'btn' do
+      %i.icon-arrow-left
+      Back
+    = f.submit class: 'btn btn-primary'

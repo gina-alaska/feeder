@@ -20,19 +20,12 @@
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
   %body
-    #header.navbar.navbar-fixed-top
-      .navbar-inner
-        .container
-          = image_tag("puffin.png", :class => :puffin)
-          = link_to '/', :class => 'brand' do
-            %span.gina.text GINA 
-            %span.text Puffin Feeder
-          %form#feed_select.navbar-form.form-search.pull-right
-            = select_tag :feed_id, feed_select_options, prompt: "Jump to a feed"
-    .container
-      #header-spacer.row.visible-desktop &nbsp;
-      #content
-        = yield
-      #footer.row
-        #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
-        #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
+    #header
+      = render 'layouts/header'
+    / .container
+    #content
+      = flash_messages
+      = yield
+    #footer.row
+      #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
+      #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank

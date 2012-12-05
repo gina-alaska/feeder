@@ -6,9 +6,16 @@ Feeder::Application.routes.draw do
     
     resources :movies
   end
+  
+  namespace :admin do
+    resources :feeds
+  end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
+  match '/signin' => 'sessions#new', :as => :signin
+  match '/signout' => 'sessions#destroy', :as => :signout
+  match '/auth/:provider/callback', :to => 'sessions#create'  
 
   match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
   match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
@@ -22,10 +29,12 @@ Feeder::Application.routes.draw do
   match ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
   match ':slug/movies' => 'movies#index', :as => :slug_movies
   
-  match ':slug' => 'feeds#show', :as => :slug
+  match 'search/:q' => 'feeds#search', :as => :search
+  
+  match ':slug' => 'entries#index', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
-  match ':slug/:id' => 'feeds#show', :as => :slug_entry
-  match ':slug/:id/image' => 'feeds#image', :as => :current_image
+  match ':slug/:id' => 'entries#show', :as => :slug_entry
+  match ':slug/:id/image' => 'entries#image', :as => :current_image
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

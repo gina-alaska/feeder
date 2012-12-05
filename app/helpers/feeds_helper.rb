@@ -28,4 +28,21 @@ module FeedsHelper
       "collapse"
     end
   end
+  
+  def keyword_counts(keywords)
+    total = 0
+    counts = {}
+    Feed.all.each do |f|
+      next if f.current_entries.empty?
+      keywords.each do |kw|
+        counts[kw] ||= 0
+        if f.title =~ /#{kw}/
+          counts[kw] += 1
+          total += 1
+        end
+      end
+    end
+    
+    return [total, counts]
+  end
 end

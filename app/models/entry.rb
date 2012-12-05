@@ -3,9 +3,22 @@ class Entry < ActiveRecord::Base
   
   # paginates_per 16
 
-  belongs_to :feed
+  belongs_to :feed, touch: true
 
   mount_uploader :file, EntryFileUploader
+  
+  image_accessor :image do |a|
+    copy_to(:preview) do |a|
+      if a.format == :tif
+      	a.process(:layer, 0, :jpg).thumb('3000x3000>')
+      else
+ 	a.encode(:jpg).thumb('3000x3000')
+      end
+    end
+  end
+  image_accessor :preview do |a|
+    after_assign { |a| a.name = "#{a.basename}.jpg" }
+  end
 
   validates_presence_of :slug
   validates_presence_of :title
@@ -17,6 +30,14 @@ class Entry < ActiveRecord::Base
   
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
+  end
+  
+  def next
+    self.feed.entries.where('event_at > ?', self.event_at).last      
+  end
+  
+  def prev
+    self.feed.entries.where('event_at < ?', self.event_at).first      
   end
 
   class << self

@@ -2,7 +2,7 @@
   .carousel-inner
     - @entries.each do |entry|
       .item
-        = image_tag(cw_image_url(entry.file.thumb.large))
+        = image_tag(cw_image_url(entry.file.preview.try(:thumb, '1600x>'))
         .carousel-caption= link_to entry.title, slug_entry_url(@feed, entry)
       
   = link_to raw('&lsaquo;'), '#feeder-carousel', :class => "carousel-control left", "data-slide" => "prev"
