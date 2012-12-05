@@ -2,7 +2,7 @@
   #sidebar.span3
     = render 'sidebar'
   .span9
-    - cache(['entry_pages', @entries.first, params[:date], params[:page] || 1]) do
+    - cache([@feed, 'entries', params[:date], params[:page] || 1]) do
       %h2
         = @feed.title
         %small= "Curent view dates: #{current_date_range(@entries)}" if @entries.count > 1
