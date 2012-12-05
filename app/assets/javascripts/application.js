@@ -56,3 +56,12 @@ $.fn.poll = function(fn, timeout) {
     }
   });
 }
+
+var timeago_init = function() {
+  $('abbr.timeago').timeago();
+};
+
+$(document).ready(timeago_init);
+$(document).on('pjax:end', timeago_init);
+
+
