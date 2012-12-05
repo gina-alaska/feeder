@@ -13,8 +13,8 @@
     = link_to slug_entry_path(@feed, 'current') do
       %i.icon-picture
       Current image 
-  - first_date = @feed.entries.order('event_at ASC').first.event_at.to_date
-  - date = @feed.entries.order('event_at DESC').first.event_at.to_date.end_of_month
+  - first_date = @feed.entries.last.event_at.to_date
+  - date = @feed.entries.first.event_at.to_date.end_of_month
   %li.by_month{ "data-toggle" => "collapse", "data-target" => "#by_date" }
     .item
       %i.icon-list
