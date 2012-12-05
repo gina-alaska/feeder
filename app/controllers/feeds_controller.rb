@@ -8,7 +8,7 @@ class FeedsController < ApplicationController
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
-    @feeds = @feeds.order('title ASC')
+    @feeds = @feeds.order('status DESC, title ASC')
   end
   
   def search
@@ -16,13 +16,13 @@ class FeedsController < ApplicationController
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
-    @feeds = @feeds.order('title ASC')    
+    @feeds = @feeds.order('status DESC, title ASC')    
   end
   
   def carousel
     @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
     @entries = @feed.entries.includes(:feed)
-    @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
+    @entries = @entries.order('event_at ASC').page(params[:page]).per(12)
     
     respond_with @feed, @entries
   end
