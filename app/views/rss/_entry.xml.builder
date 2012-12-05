@@ -9,7 +9,7 @@ entry_xml.item {
   
   entry_xml.image cw_image_url(entry.file.thumb)
   entry_xml.description {
-    render :partial => entry.category, :locals => { :content_xml => entry_xml, :entry => entry }
+    render :partial => 'image', :locals => { :content_xml => entry_xml, :entry => entry }
   }
   entry_xml.pubDate entry.updated_at.rfc822
 }

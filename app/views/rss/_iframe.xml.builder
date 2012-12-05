@@ -12,6 +12,6 @@ content_xml.cdata!(
   border: none;
 }
 </style>
-#{image_tag(File.join(root_url, entry.preview.try(:thumb, '800x800').try(:url)), alt: entry.title)}
+<iframe src="#{slug_entry_url(@feed, entry)}?rss=true" class="gina_feeder" frameborder="0"></iframe> 
 EOHTML
 )
