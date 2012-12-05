@@ -14,13 +14,13 @@
       = link_to slug_entry_path(@feed, 'current') do
         %i.icon-picture
         Current image 
-    - first_date = @feed.entries.order('event_at ASC').first.event_at.to_date
-    - date = @feed.entries.order('event_at DESC').first.event_at.to_date.end_of_month
+    - first_date = @feed.entries.last.event_at.to_date
+    - date = @feed.entries.first.event_at.to_date.end_of_month
     %li.by_month{ "data-toggle" => "collapse", "data-target" => "#by_date" }
       .item
         %i.icon-list
         Images by month
-    %ul#by_date.nav.submenu{ class: collapse_current_slug_without_date(@feed.slug) }
+    %ul#by_date.nav.submenu.collapse
       - while(date >= first_date.beginning_of_month)
         - date_str = date.strftime('%Y-%m')
         %li
@@ -28,7 +28,10 @@
             = date_str
             %i.icon-chevron-right.pull-right
         - date = date >> -1
-
+    :javascript
+      if ($.getUrlVar('date')) {
+        $('#by_date').addClass('in');
+      }
     - if @feed.animate
       %li
         = link_to slug_movies_path(@feed) do
