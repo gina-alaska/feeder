@@ -29,6 +29,8 @@ Feeder::Application.routes.draw do
   match ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
   match ':slug/movies' => 'movies#index', :as => :slug_movies
   
+  match 'search/:q' => 'feeds#search', :as => :search
+  
   match ':slug' => 'entries#index', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
   match ':slug/:id' => 'entries#show', :as => :slug_entry

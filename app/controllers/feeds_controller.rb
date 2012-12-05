@@ -1,14 +1,22 @@
 class FeedsController < ApplicationController
   respond_to :html
   
+  before_filter :fetch_keywords, :only => [:index, :search]
+  
   def index
     @feeds = Feed #.includes(:current_entries)
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
-    @feeds = @feeds.order('slug ASC')
-    
-    @keywords = %w{ MODIS SNPP Barrow }
+    @feeds = @feeds.order('slug DESC')
+  end
+  
+  def search
+    @feeds = Feed #.includes(:current_entries)
+    if params[:q]
+      @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
+    end
+    @feeds = @feeds.order('slug DESC')    
   end
   
   def carousel
@@ -17,5 +25,11 @@ class FeedsController < ApplicationController
     @entries = @entries.order('event_at DESC').page(params[:page]).per(12)
     
     respond_with @feed, @entries
+  end
+  
+  protected
+  
+  def fetch_keywords
+    @keywords = %w{ MODIS SNPP Barrow }
   end
 end
