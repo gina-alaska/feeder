@@ -14,9 +14,10 @@
     = link_to slug_path(feed), class: 'clearfix' do
       = image_tag txtimg.url
   .ago
-    Last image recieved
-    = time_ago_in_words(entry.event_at) unless entry.nil?
-    ago
+    Processed
+    %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+    /= time_ago_in_words(entry.event_at) unless entry.nil?
+    /ago
   .sizes.btn-group
     = link_to 'All', slug_path(feed), class: 'btn'
     = link_to 'Current', slug_entry_path(feed, 'current'), class: 'btn'

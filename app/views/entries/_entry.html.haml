@@ -4,8 +4,9 @@
     = render size, :feed => feed, :entry => entry
     .ago
       Processed
-      = time_ago_in_words(entry.event_at)
-      ago
+      %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+      /= time_ago_in_words(entry.event_at)
+      /ago
     .sizes.btn-group
       = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
       = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
