@@ -1,1 +1,7 @@
-#feed= render @entry
+.row-fluid
+  #sidebar.span3
+    = render 'sidebar'
+  .span9
+    %h2= @feed.title
+    .entries.clearfix
+      = render @entry, feed: @feed, size: 'large'

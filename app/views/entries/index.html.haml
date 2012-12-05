@@ -1,0 +1,11 @@
+.row-fluid
+  #sidebar.span3
+    = render 'sidebar'
+  .span9
+    - cache([@feed, 'entries', params[:date], params[:page] || 1]) do
+      %h2
+        = @feed.title
+        %small= "Curent view dates: #{current_date_range(@entries)}" if @entries.count > 1
+      .entries.clearfix
+        = render @entries, :feed => @feed
+        = paginate @entries, :params => { :date => params[:date] }, inner_window: 3 if @entries.respond_to? :current_page

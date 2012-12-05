@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115221149) do
+ActiveRecord::Schema.define(:version => 20121204213322) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -27,15 +27,19 @@ ActiveRecord::Schema.define(:version => 20121115221149) do
     t.text     "content"
     t.string   "where"
     t.datetime "event_at"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.string   "file"
     t.string   "category"
     t.string   "slug"
     t.string   "image_uid"
     t.string   "image_name"
     t.string   "preview_uid"
+    t.string   "preview_name"
   end
+
+  add_index "entries", ["slug"], :name => "index_entries_on_slug"
+  add_index "entries", ["updated_at"], :name => "index_entries_on_updated_at"
 
   create_table "feeds", :force => true do |t|
     t.string   "slug"
@@ -43,12 +47,16 @@ ActiveRecord::Schema.define(:version => 20121115221149) do
     t.string   "description"
     t.string   "author"
     t.string   "where"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                              :null => false
+    t.datetime "updated_at",                              :null => false
     t.string   "valid_animations"
     t.boolean  "animate"
     t.string   "active_animations"
+    t.string   "status",            :default => "online"
   end
+
+  add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
+  add_index "feeds", ["updated_at"], :name => "index_feeds_on_updated_at"
 
   create_table "movies", :force => true do |t|
     t.string   "title"

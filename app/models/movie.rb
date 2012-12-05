@@ -20,9 +20,8 @@ class Movie < ActiveRecord::Base
   end
   
   # attr_accessible :title, :body
-  belongs_to :feed
-  
-  
+  belongs_to :feed, touch: true
+
   validates_presence_of :title, :event_at, :duration
   validate :valid_dates
   validate :active_animation
@@ -73,8 +72,12 @@ class Movie < ActiveRecord::Base
     feed.entries.where('event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc).order('event_at ASC')
   end
   
+  def path
+    File.join(Rails.root, 'public/dragonfly', self.read_attribute(:path))
+  end
+  
   def create_movie
-    self.path = File.join(Rails.public_path, '/uploads/movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
+    self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
     
     self.save!
     
@@ -83,10 +86,7 @@ class Movie < ActiveRecord::Base
     #mencoder_opts = '-ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-mf fps=8 -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -of lavf -ovc lavc'
     
-    puts "Starting"
-    
     frame_files = entries.collect { |e| e.image.path }
-    puts frame_files.inspect
 
     frames = Tempfile.new('frames')
     frames << frame_files.join("\n")

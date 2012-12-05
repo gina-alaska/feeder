@@ -1,0 +1,24 @@
+- entry = feed.current_entries.first
+- txt = "-draw 'text 0 0 \"The #{feed.title}\nis offline\"'"
+- if entry.nil?
+  - txtimg = Dragonfly[:images].generate(:plain, 400, 400, '#FFF').process(:convert, "-gravity center -fill white -stroke black -strokewidth 10 -pointsize 20 #{txt} -stroke none #{txt}").thumb('250x250#')
+- else
+  - txtimg = entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").thumb('250x250#')
+  
+.entry
+  .title.clearfix
+    = link_to slug_path(feed) do
+      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
+      = "(JD#{entry.event_at.yday})"
+  .contents
+    = link_to slug_path(feed), class: 'clearfix' do
+      = image_tag txtimg.url
+  .ago
+    Processed
+    %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+    /= time_ago_in_words(entry.event_at) unless entry.nil?
+    /ago
+  .sizes.btn-group
+    = link_to 'All', slug_path(feed), class: 'btn'
+    = link_to 'Current', slug_entry_path(feed, 'current'), class: 'btn'
+    = link_to 'Movies', slug_movies_path(feed), class: 'btn' if feed.animate

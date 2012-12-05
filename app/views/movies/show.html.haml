@@ -1,6 +1,6 @@
 .row-fluid
   #sidebar.span3
-    = render 'feeds/sidebar'
+    = render 'entries/sidebar'
   #feed.span9{style:"text-align:center;"}
     - if @movie.available? && @movie.valid?
       .entry
@@ -9,10 +9,12 @@
           = render 'picker', date: @movie.event_at, duration: @movie.duration
         = render @movie
     - else
-      .entry
+      .entry.generating
         = render 'generating', movie: @movie
       :javascript
-        setTimeout(function(callback){
-          $.pjax({ url: '#{feed_movie_url(@feed, @movie)}', container: '#content' });
+        setTimeout(function(){
+          if($('.entry.generating').size() > 0) {
+            $.pjax({ url: '#{feed_movie_url(@feed, @movie)}', container: '#content' });
+          }
         }, 3000)
         

@@ -9,11 +9,13 @@ class Feed < ActiveRecord::Base
 
   has_many :movies
 
-  has_many :entries do
+  has_many :entries, order: 'event_at DESC' do
     def current
       order('event_at DESC').limit(1)
     end
   end
+  
+  has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
   
   serialize :active_animations
   

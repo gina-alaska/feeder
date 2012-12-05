@@ -1,38 +1,14 @@
-- current = current_page?(slug_entry_path(feed, entry)) || current_page?(slug_entry_path(feed, 'current'))
-- if current
-  - link = nil
-- elsif current_page?(root_path)
-  - link = slug_path(feed)
-- else
-  - link = slug_entry_path(feed, entry)
-.entry
-  - if @prev_entry or @next_entry
-    .pull-left.prev
-      - @prev_page = @prev_entry ? slug_entry_path(feed, @prev_entry) : '#'
-      = link_to @prev_page, class: 'btn btn-large' + (@prev_entry ? '' : ' disabled') do
-        %i.icon-arrow-left
-        Prev
-    .pull-right.next
-      - next_page = @next_entry ? slug_entry_path(feed, @next_entry) : '#'
-      = link_to next_page, class: 'btn btn-large' + (@next_entry ? '' : ' disabled') do
-        Next
-        %i.icon-arrow-right
-  .title
-    = link_to link do
-      = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-      = "(JD#{entry.event_at.yday})"    
-  .contents
-    - if current_page?(slug_entry_path(feed, entry))
-      = render entry.category, :feed => feed, :entry => entry
-    - else
-      = link_to link do
-        = render :partial => entry.category, :locals => { :feed => feed, :entry => entry }
-  .ago
-    Processed
-    = time_ago_in_words(entry.event_at)
-    ago
-  .sizes.btn-group
-    = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true      
+- size ||= 'small'
+- cache [size, entry] do 
+  .entry
+    = render size, :feed => feed, :entry => entry
+    .ago
+      Processed
+      %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+      /= time_ago_in_words(entry.event_at)
+      /ago
+    .sizes.btn-group
+      = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
+      = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
+      = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true      
 
