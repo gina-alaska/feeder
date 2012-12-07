@@ -5,3 +5,4 @@
 # Disallow: /
 User-Agent: *
 Disallow: /media/
+Disallow: /uploads/
