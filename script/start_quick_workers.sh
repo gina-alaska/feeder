@@ -1,1 +1,0 @@
-bundle exec sidekiq -q quick -e production -c 10

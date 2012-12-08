@@ -1,1 +1,0 @@
-bundle exec sidekiq -q slow -q default -e production -c 1
