@@ -2,6 +2,6 @@ watch '/mnt/incoming/barrow_webcam' do
   match extension jpg do
     slug = 'webcam-uaf-barrow-seaice-images'
     run "script/quick_import.sh \"#{slug}\" \"#{filename}\""
-    move filename, '/mnt/done/barrow_webcam' if status.success?
+    #move filename, '/mnt/done/barrow_webcam' if status.success?
   end
 end
