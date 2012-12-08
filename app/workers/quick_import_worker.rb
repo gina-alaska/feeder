@@ -1,6 +1,6 @@
 class QuickImportWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :quick_imports
+  sidekiq_options :queue => 'high'
   
   def perform(slug, file)
     Feed.import(slug, file)

@@ -1,6 +1,6 @@
 class SlowImportWorker
   include Sidekiq::Worker
-  sidekiq_options :queue => :slow_imports
+  sidekiq_options :queue => 'low'
   
   def perform(slug, file)
     Feed.import(slug, file)
