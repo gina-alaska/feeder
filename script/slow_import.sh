@@ -1,5 +1,5 @@
 if [ -z "$1" ]; then
-  echo "NPP slug required"
+  echo "Feed slug required"
   exit 1
 fi
 if [ -z "$2" ]; then

@@ -23,6 +23,10 @@ class Feed < ActiveRecord::Base
     self.slug
   end
   
+  def self.async_import(slug, file)
+    Resque.enqueue(ImportWorker, slug, file)
+  end
+  
   def self.generate_animations
     Feed.where(:animate => true).all.each do |f|
       f.active_animations.each do |duration|

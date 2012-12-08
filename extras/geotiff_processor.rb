@@ -14,7 +14,7 @@ module Dragonfly
   module ImageMagick
     class Processor
       def convert(temp_object, args='', format=nil)
-	args << ' -limit area 512mb'
+	      args << ' -limit area 512mb'
         format ? [super,{:format => format.to_sym}] : super
       end
     end

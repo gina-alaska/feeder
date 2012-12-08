@@ -14,7 +14,7 @@ watch "/mnt/modis/images", :force_polling => true, :latency => 10 do
       }
       
       files.each do |slug,file|
-        run "script/import_modis.sh #{slug} \"#{file}\"" if File.exists? file
+        run "script/slow_import.sh #{slug} \"#{file}\"" if File.exists? file
       end
     end
   end

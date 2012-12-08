@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -16,7 +16,7 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'resque'
+gem 'sidekiq'
 gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-openid'
