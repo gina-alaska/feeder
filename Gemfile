@@ -16,7 +16,7 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'sidekiq'
+gem 'sidekiq', :git => 'git://github.com/mperham/sidekiq.git'
 gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-openid'

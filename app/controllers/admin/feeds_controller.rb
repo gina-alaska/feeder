@@ -1,5 +1,4 @@
 class Admin::FeedsController < AdminController
-  before_filter :require_admin_auth
   before_filter :fetch_feed, :only => [:edit, :update, :destroy]
   
   respond_to :html
