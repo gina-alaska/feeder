@@ -4,8 +4,7 @@ class Admin::FeedsController < AdminController
   respond_to :html
   
   def index
-    @feeds = Feed.includes(:entries).all
-    
+    @feeds = Feed
     respond_with @feeds
   end
   
