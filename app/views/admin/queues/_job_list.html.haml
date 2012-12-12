@@ -13,6 +13,6 @@
         %tr
           %td= job.queue
           %td= job.klass
-          %td= job.args.join(', ')
+          %td= job.args
           %td= job['retry'] ? 'Yes' : 'No'
       
