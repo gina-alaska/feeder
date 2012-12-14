@@ -20,7 +20,7 @@ gem 'sidekiq', :git => 'git://github.com/mperham/sidekiq.git'
 gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-openid'
-
+gem 'dalli'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'
 

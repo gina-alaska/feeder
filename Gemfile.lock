@@ -69,6 +69,7 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     connection_pool (0.9.2)
+    dalli (2.5.0)
     dragonfly (0.9.12)
       rack
     erubis (2.7.0)
@@ -188,6 +189,7 @@ DEPENDENCIES
   carrierwave-processing
   coffee-rails (~> 3.2.1)
   compass-rails
+  dalli
   dragonfly (~> 0.9.12)
   haml-rails
   jquery-rails
