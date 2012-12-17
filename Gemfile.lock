@@ -96,6 +96,10 @@ GEM
       activesupport (>= 3.0.0)
     kgio (2.7.4)
     libv8 (3.3.10.4)
+    lograge (0.1.2)
+      actionpack
+      activesupport
+    logstash-event (1.1.5)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
@@ -194,6 +198,8 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  lograge
+  logstash-event
   nofxx-georuby
   omniauth
   omniauth-openid
