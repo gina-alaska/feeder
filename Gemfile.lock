@@ -91,6 +91,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.7.4)
+    libv8 (3.11.8.4)
     lograge (0.1.2)
       actionpack
       activesupport
@@ -192,6 +193,7 @@ DEPENDENCIES
   haml-rails
   jquery-rails
   kaminari
+  libv8
   lograge
   logstash-event
   nofxx-georuby
