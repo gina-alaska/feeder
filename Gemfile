@@ -10,10 +10,10 @@ gem 'haml-rails'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'
-gem 'carrierwave'
-gem 'carrierwave-processing'
+#gem 'carrierwave'
+#gem 'carrierwave-processing'
 gem 'rmagick'
-gem 'bootstrap-sass', '~> 2.1.0.0'
+gem 'bootstrap-sass', '~> 2.2.1.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
 gem 'sidekiq', :git => 'git://github.com/mperham/sidekiq.git'
@@ -33,6 +33,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'libv8'
   gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'

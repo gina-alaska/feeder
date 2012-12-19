@@ -5,8 +5,6 @@ class Entry < ActiveRecord::Base
 
   belongs_to :feed, touch: true
 
-  mount_uploader :file, EntryFileUploader
-  
   image_accessor :image do |a|
     copy_to(:preview) do |a|
       if a.format == :tif
