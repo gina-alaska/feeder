@@ -1,18 +1,18 @@
 GIT
   remote: git://github.com/mperham/sidekiq.git
-  revision: 6c80866174bc66504ead216bce7e7d1867d4a338
+  revision: 67699419c22109d09496fb5a4f2edbd7997ea392
   specs:
-    sidekiq (2.5.4)
+    sidekiq (2.6.0)
       celluloid (~> 0.12.0)
-      connection_pool (~> 0.9.2)
-      multi_json (>= 1.3.0)
+      connection_pool (~> 1.0)
+      multi_json (~> 1)
       redis (~> 3)
       redis-namespace
 
 GEM
   remote: https://rubygems.org/
   specs:
-    aasm (3.0.8)
+    aasm (3.0.14)
     actionmailer (3.2.9)
       actionpack (= 3.2.9)
       mail (~> 2.4.4)
@@ -41,19 +41,15 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     arel (3.0.2)
-    bootstrap-datepicker-rails (0.6.17)
+    bootstrap-datepicker-rails (0.6.32)
       railties (>= 3.0)
-    bootstrap-sass (2.1.0.1)
+    bootstrap-sass (2.2.1.1)
+      sass (~> 3.2)
     builder (3.0.4)
-    carrierwave (0.6.2)
-      activemodel (>= 3.2.0)
-      activesupport (>= 3.2.0)
-    carrierwave-processing (0.0.1)
-      carrierwave
-    celluloid (0.12.3)
+    celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
-    chronic (0.6.7)
+    chronic (0.8.0)
     chunky_png (1.2.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -61,15 +57,15 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.3.3)
+    coffee-script-source (1.4.0)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    connection_pool (0.9.2)
-    dalli (2.5.0)
+    connection_pool (1.0.0)
+    dalli (2.6.0)
     dragonfly (0.9.12)
       rack
     erubis (2.7.0)
@@ -78,24 +74,23 @@ GEM
     facter (1.6.16)
     fssm (0.2.9)
     haml (3.1.7)
-    haml-rails (0.3.4)
-      actionpack (~> 3.0)
-      activesupport (~> 3.0)
-      haml (~> 3.0)
-      railties (~> 3.0)
+    haml-rails (0.3.5)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (~> 3.1)
+      railties (>= 3.1, < 4.1)
     hashie (1.2.0)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
-    jquery-rails (2.1.1)
-      railties (>= 3.1.0, < 5.0)
-      thor (~> 0.14)
+    jquery-rails (2.1.4)
+      railties (>= 3.0, < 5.0)
+      thor (>= 0.14, < 2.0)
     json (1.7.5)
-    kaminari (0.14.0)
+    kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.7.4)
-    libv8 (3.3.10.4)
     lograge (0.1.2)
       actionpack
       activesupport
@@ -107,7 +102,7 @@ GEM
     mime-types (1.19)
     multi_json (1.5.0)
     nofxx-georuby (1.9.2)
-    omniauth (1.1.0)
+    omniauth (1.1.1)
       hashie (~> 1.2)
       rack
     omniauth-openid (1.0.1)
@@ -143,15 +138,16 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
-    rake (10.0.2)
+    rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
     redis (3.0.2)
     redis-namespace (1.2.1)
       redis (~> 3.0.0)
+    ref (1.0.2)
     rmagick (2.13.1)
-    ruby-openid (2.2.0)
-    sass (3.2.1)
+    ruby-openid (2.2.2)
+    sass (3.2.3)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
@@ -162,11 +158,11 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.6)
-    therubyracer (0.10.2)
-      libv8 (~> 3.3.10)
+    therubyracer (0.11.0)
+      ref
     thor (0.16.0)
     tilt (1.3.3)
-    timers (1.0.1)
+    timers (1.0.2)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -174,13 +170,13 @@ GEM
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    unicorn (4.4.0)
+    unicorn (4.5.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
-    whenever (0.7.3)
+    whenever (0.8.0)
       activesupport (>= 2.3.4)
-      chronic (~> 0.6.3)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -188,9 +184,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   bootstrap-datepicker-rails
-  bootstrap-sass (~> 2.1.0.0)
-  carrierwave
-  carrierwave-processing
+  bootstrap-sass (~> 2.2.1.0)
   coffee-rails (~> 3.2.1)
   compass-rails
   dalli
