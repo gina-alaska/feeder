@@ -1,8 +1,7 @@
 watch '/mnt/incoming/barrow_webcam' do
   match extension jpg do
-    Dir.chdir '/home/webdev/gits/feeder' do
-      run "script/import_barrow_webcams.sh \"#{filename}\""
-      move filename, '/mnt/done/barrow_webcam' if status.success?
-    end
+    slug = 'webcam-uaf-barrow-seaice-images'
+    run "script/quick_import.sh \"#{slug}\" \"#{filename}\""
+    #move filename, '/mnt/done/barrow_webcam' if status.success?
   end
 end

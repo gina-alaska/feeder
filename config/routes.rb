@@ -9,6 +9,10 @@ Feeder::Application.routes.draw do
   
   namespace :admin do
     resources :feeds
+    resources :queues, :only => [:index, :show]
+    resources :jobs, :only => [:index, :show, :destroy], :constraints => { :id => /[^\/]+/ } do
+      post :retry, :on => :member
+    end
   end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }

@@ -11,10 +11,7 @@ $navbarInverseLinkColorHover: #AAA;
 @import 'entries';
 @import 'feeds';
 
-$header_height: 45px;
-
 #header {
-  height: $header_height;
   a { text-decoration: none; }
   a.brand {
   }
@@ -55,12 +52,9 @@ $header_height: 45px;
     cursor: pointer;
   }
 }
-#header-spacer {
-  height: $header-height;
-}
 
 #content {
-  padding: 0 20px;
+  padding: 5px 10px 0 10px;
 }
 
 .carousel {

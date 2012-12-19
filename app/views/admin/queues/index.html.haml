@@ -1,0 +1,10 @@
+.row-fluid
+  .span2
+    = render 'stats'
+  .span10
+    %h4 Active Workers
+    = render 'worker_list', workers: @workers, name: 'active'
+    
+    %h4 Retry Jobs
+    = render 'retry_list', jobs: @retry, name: 'retry'
+    

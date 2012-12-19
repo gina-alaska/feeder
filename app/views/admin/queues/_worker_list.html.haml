@@ -1,0 +1,19 @@
+- if workers.size == 0
+  %p.lead= "No #{name} workers found"
+- else
+  %table.table.table-stripped
+    %thead
+      %tr
+        %th Worker
+        %th Queue
+        %th Class
+        %th Arguments
+        %th Started
+    %body
+      - workers.each do |worker, msg|
+        %tr
+          %td= worker
+          %td= msg['queue']
+          %td= msg['payload']['class']
+          %td= msg['payload']['args']
+          %td= msg['run_at'].is_a?(Numeric) ? Time.at(msg['run_at']) : Time.parse(msg['run_at'])      

@@ -1,0 +1,24 @@
+- if jobs.size == 0
+  %p.lead= "No #{name} jobs found"
+- else
+  %table.table.table-condensed
+    %thead
+      %tr
+        %th Next Retry
+        %th Retries
+        %th Worker
+        %th Args
+        %th Actions
+    %tbody
+      - jobs.each do |msg|
+        %tr
+          %td= msg.score.nil? ? '' : Time.at(msg.score)
+          %td= msg['retry_count']
+          %td
+            %abbr{title:"Error: #{msg['error_message']}"}
+              = msg['class']
+          %td= msg['args']
+          %td
+            = link_to retry_admin_job_path(job_id('retry', msg)), method: 'POST', class: 'btn btn-block' do
+              %nobr Retry now 
+            = link_to 'Delete', admin_job_path(job_id('retry', msg)), method: 'DELETE', class: 'btn btn-block btn-danger', data: { confirm: 'Are you sure?' }

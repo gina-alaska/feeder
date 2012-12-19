@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -16,13 +16,15 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.1.0.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'resque'
+gem 'sidekiq', :git => 'git://github.com/mperham/sidekiq.git'
 gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-openid'
-
+gem 'dalli'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.12'
+gem 'lograge'
+gem 'logstash-event'
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -1,7 +1,7 @@
 class MovieRequest
-  @queue = :movies
+  include Sidekiq::Worker
   
-  def self.perform(id)
+  def perform(id)
     movie = Movie.find(id)
     movie.generate
   end

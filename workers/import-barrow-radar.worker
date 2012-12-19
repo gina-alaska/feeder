@@ -1,8 +1,7 @@
 watch '/mnt/incoming/barrow_radar' do
   match extension png do
-    Dir.chdir '/home/webdev/gits/feeder' do
-      run "script/import_barrow_radar.sh \"#{filename}\""
-      move filename, '/mnt/done/barrow_radar' if status.success?
-    end
+    slug = 'radar-uaf-barrow-seaice-images'
+    run "script/quick_import.sh \"#{slug}\" \"#{filename}\""
+    #move filename, '/mnt/done/barrow_radar' if status.success?
   end
 end

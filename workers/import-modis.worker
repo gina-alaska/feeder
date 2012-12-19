@@ -1,21 +1,19 @@
 watch "/mnt/modis/images", :force_polling => true, :latency => 10 do
   match extension finished do
-    Dir.chdir '/home/webdev/gits/feeder' do
-      path = File.dirname(filename)
-      scene_id = File.basename(filename, '.finished')
+    path = File.dirname(filename)
+    scene_id = File.basename(filename, '.finished')
       
-      fragment = "#{path}/#{scene_id}"
-      files = {
-        'modis-gina-alaska-naturalcolor-images' => "#{fragment}_ATM1_500_ATM4_ATM3_ATM1.alaska_albers.tif",
-        'modis-gina-alaska-721_landcover-images' => "#{fragment}_7_2_1_500m_1.alaska_albers.tif",
-        'modis-gina-alaska-261_landcover-images' => "#{fragment}_2_6_1_500m_1.alaska_albers.tif",
-        'modis-gina-alaska-367_snowcover-images' => "#{fragment}_3_6_7.alaska_albers.tif",
-        'modis-gina-alaska-thermal-images' => "#{fragment}_23.alaska_albers.tif"
-      }
+    fragment = "#{path}/#{scene_id}"
+    files = {
+      'modis-gina-alaska-naturalcolor-images' => "#{fragment}_ATM1_500_ATM4_ATM3_ATM1.alaska_albers.tif",
+      'modis-gina-alaska-721_landcover-images' => "#{fragment}_7_2_1_500m_1.alaska_albers.tif",
+      'modis-gina-alaska-261_landcover-images' => "#{fragment}_2_6_1_500m_1.alaska_albers.tif",
+      'modis-gina-alaska-367_snowcover-images' => "#{fragment}_3_6_7.alaska_albers.tif",
+      'modis-gina-alaska-thermal-images' => "#{fragment}_23.alaska_albers.tif"
+    }
       
-      files.each do |slug,file|
-        run "script/import_modis.sh #{slug} \"#{file}\"" if File.exists? file
-      end
+    files.each do |slug,file|
+      run "script/slow_import.sh #{slug} \"#{file}\"" if File.exists? file
     end
   end
 end

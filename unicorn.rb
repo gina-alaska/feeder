@@ -80,4 +80,9 @@ after_fork do |server, worker|
   # and Redis.  TokyoCabinet file handles are safe to reuse
   # between any number of forked children (assuming your kernel
   # correctly implements pread()/pwrite() system calls)
+  
+  # When in Unicorn, this block needs to go in unicorn's `after_fork` callback:
+  Sidekiq.configure_client do |config|
+    config.redis = { :url => 'redis://feeder-vm.gina.alaska.edu:6379/12', :namespace => "feeder_#{Rails.env}" }
+  end  
 end
