@@ -10,8 +10,6 @@ gem 'haml-rails'
 gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'
-#gem 'carrierwave'
-#gem 'carrierwave-processing'
 gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.2.1.0'
 gem 'quiet_assets', :group => :development
