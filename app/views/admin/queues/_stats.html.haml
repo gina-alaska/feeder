@@ -1,0 +1,30 @@
+%h4 Summary
+%ul.unstyled.summary.well.well-small
+  %li
+    Processed
+    .pull-right= @processed_count
+  %li
+    Failed
+    .pull-right= @failed_count
+
+%h4 Jobs
+%ul.unstyled.summary.well.well-small
+  %li
+    Running
+    .pull-right= @busy_count
+  %li
+    Scheduled
+    .pull-right= @scheduled_count
+  %li
+    Retries
+    .pull-right= @retry_count
+  %li
+    Enqueued
+    .pull-right= @enqueued_count
+        
+%h4 Queues
+%ul.unstyled.summary.well.well-small
+  - @queues.each do |q|
+    %li
+      = link_to q[0].humanize, admin_queue_path(q[0])
+      .pull-right= q[1]

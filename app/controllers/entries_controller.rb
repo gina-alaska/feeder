@@ -10,7 +10,11 @@ class EntriesController < ApplicationController
       @entry = @feed.entries.where(slug: params[:id]).first    
     end
     
-    respond_with @entry
+    if @entry.nil?
+      render 'public/404', :status => :not_found
+    else
+      respond_with @entry
+    end
   end
   
   def image

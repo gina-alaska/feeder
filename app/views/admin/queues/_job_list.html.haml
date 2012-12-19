@@ -1,0 +1,18 @@
+- if jobs.size == 0
+  %p.lead= "No #{name} jobs found"
+- else
+  %table.table.table-stripped
+    %thead
+      %tr
+        %th Queue
+        %th Class
+        %th Args
+        %th Retry
+    %body
+      - jobs.each do |job|
+        %tr
+          %td= job.queue
+          %td= job.klass
+          %td= job.args
+          %td= job['retry'] ? 'Yes' : 'No'
+      

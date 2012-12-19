@@ -1,7 +1,6 @@
 !!!5
 %html
   %head
-    %meta{:name=>"viewport", :content=>"width=device-width, initial-scale=1.0"}
     %title GINA Puffin Feeder
     = favicon_link_tag 'puffin.png'
     = stylesheet_link_tag "application", :media => "all"
@@ -20,22 +19,22 @@
   %body
     #header
       = render 'layouts/header'
-    .container
-      .row
-        .span2
-          %ul.nav.feed-picker
-            %li
-              = link_to admin_feeds_path do
-                Feeds
-                %i.icon-chevron-right.pull-right
-            %li
-              = link_to '#' do
-                Users
-                %i.icon-chevron-right.pull-right                
-        .span10
-          #content
-            = flash_messages
-            = yield
+    .navbar.navbar-static-top
+      .navbar-inner
+        %ul.nav
+          %li
+            = link_to admin_feeds_path do
+              Feeds
+          %li
+            = link_to '#' do
+              Users
+          %li
+            = link_to admin_queues_path do
+              Queues
+    #content
+      .row-fluid
+        .span12
+          = flash_messages
+          = yield
     #footer.row
-      #uaf_logo= link_to image_tag('uaf_logo.png'), 'http://seaice.alaska.edu/gi', :target => :_blank
-      #gina_logo= link_to image_tag('gina_powered.png'), 'http://www.gina.alaska.edu', :target => :_blank
+      = render 'layouts/footer'

@@ -57,7 +57,7 @@ class Movie < ActiveRecord::Base
   end
   
   def async_generate
-    Resque.enqueue(MovieRequest, self.id)
+    MovieRequest.perform_async(self.id)
   end
   
   def starts_at
