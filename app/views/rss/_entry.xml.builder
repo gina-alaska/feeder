@@ -7,7 +7,7 @@ entry_xml.item {
   entry_xml.event entry.event_at.rfc822
   entry_xml << entry.georss_location    
   
-  entry_xml.image cw_image_url(entry.file.thumb)
+  entry_xml.image File.join(root_url, entry.preview.try(:thumb).try(:url))
   entry_xml.description {
     if params[:rss]
       render :partial => 'iframe', :locals => { :content_xml => entry_xml, :entry => entry }
