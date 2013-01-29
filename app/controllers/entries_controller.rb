@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
   respond_to :html, :georss, :xml
   
-  before_filter :fetch_feed, :only => [:index, :show, :image]
+  before_filter :fetch_feed, :only => [:index, :show, :image, :preview]
   
   def show
     if params[:id] == 'current'
@@ -29,6 +29,23 @@ class EntriesController < ApplicationController
       send_data(@entry.preview.process(:convert, "-gravity center -fill white -stroke black -strokewidth 30 -pointsize 90 #{txt} -stroke none #{txt}").data, :type => @entry.preview.format, :disposition => 'inline')
     else
       send_file(@entry.image.path, :disposition => 'inline')
+    end
+  end
+  
+  def preview
+    if params[:id] == 'current'
+      @entry = @feed.entries.current.first
+    else
+      @entry = @feed.entries.where(slug: params[:id]).first    
+    end
+    
+    respond_to do |format|
+      format.jpg {
+        redirect_to @entry.preview.jpg.url
+      }
+      format.png {
+        redirect_to @entry.preview.png.url
+      }
     end
   end
   

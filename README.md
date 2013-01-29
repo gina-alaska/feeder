@@ -1,5 +1,7 @@
 # GINA Feeder
 
+[![Dependency Status](https://gemnasium.com/gina-alaska/feeder.png)](https://gemnasium.com/gina-alaska/feeder)
+
 A GeoRSS generator and data browser.
 
 ## Installation
