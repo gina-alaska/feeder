@@ -39,6 +39,7 @@ Feeder::Application.routes.draw do
   match ':slug/carousel' => 'feeds#carousel'
   match ':slug/:id' => 'entries#show', :as => :slug_entry
   match ':slug/:id/image' => 'entries#image', :as => :current_image
+  match ':slug/:id/preview' => 'entries#preview', :as => :current_preview
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
