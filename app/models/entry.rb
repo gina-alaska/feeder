@@ -26,6 +26,34 @@ class Entry < ActiveRecord::Base
     self.slug
   end
   
+  def to_s
+    "#{event_at.strftime('%Y-%m-%d %H:%M %Z')} (JD#{event_at.yday})"
+  end
+  
+  def event_at
+    self.read_attribute(:event_at).in_time_zone(self.zone)
+  end
+  
+  def zone
+    case entry_type?
+    when :barrow_radar_image
+      'Alaska'
+    when :barrow_webcam
+      'Alaska'
+    else
+      'UTC'
+    end
+  end
+  
+  def entry_type?
+    if @entry_type.nil?
+      self.class.regexps.each do |k,v|
+        @entry_type = k if self.image.name.to_s =~ Regexp.new(v)
+      end
+    end
+    @entry_type
+  end
+  
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
   end

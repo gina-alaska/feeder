@@ -1,7 +1,5 @@
 .title.clearfix
-  = link_to slug_entry_path(feed, entry) do
-    = entry.event_at.strftime('%Y-%m-%d %H:%M %Z')
-    = "(JD#{entry.event_at.yday})"  
+  = link_to entry, slug_entry_path(feed, entry)
 .contents
   = link_to slug_entry_path(feed, entry) do
     .image= image_tag(cw_image_url(entry.preview.try(:thumb, '250x250#')), alt: entry.title)
