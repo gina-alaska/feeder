@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
   end
   
   def new
-    redirect_to('/auth/gina')
+    redirect_to('/auth/google')
   end
   
   def failure
