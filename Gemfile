@@ -20,7 +20,7 @@ gem 'omniauth'
 gem 'omniauth-openid'
 gem 'dalli'
 gem 'rack-cache', :require => 'rack/cache'
-gem 'dragonfly', '~>0.9.12'
+gem 'dragonfly', '~>0.9.14'
 gem 'lograge'
 gem 'logstash-event'
 
