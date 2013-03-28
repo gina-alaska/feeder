@@ -21,6 +21,7 @@ class Movie < ActiveRecord::Base
   
   # attr_accessible :title, :body
   belongs_to :feed, touch: true
+  has_many :entries, :through => :feed, :conditions => proc { ['event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc] }, order: 'entries.event_at ASC'
 
   validates_presence_of :title, :event_at, :duration
   validate :valid_dates
@@ -68,10 +69,6 @@ class Movie < ActiveRecord::Base
     (self.event_at+(self.duration.to_i-1).days).end_of_day
   end
   
-  def entries
-    feed.entries.where('event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc).order('event_at ASC')
-  end
-  
   def path
     File.join(Rails.root, 'public/dragonfly', self.read_attribute(:path))
   end
@@ -86,7 +83,7 @@ class Movie < ActiveRecord::Base
     #mencoder_opts = '-ovc x264 -x264encopts crf=18:nofast_pskip:nodct_decimate:nocabac:global_header:threads=4 -of lavf -lavfopts format=mp4'
     #mencoder_opts = '-mf fps=8 -lavcopts vcodec=flv:vbitrate=500:mbd=2:mv0:trell:v4mv:cbp:last_pred=3 -of lavf -ovc lavc'
     
-    frame_files = entries.collect { |e| e.image.path }
+    frame_files = self.entries.collect { |e| e.image.path }
 
     frames = Tempfile.new('frames')
     frames << frame_files.join("\n")
