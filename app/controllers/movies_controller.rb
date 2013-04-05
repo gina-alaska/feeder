@@ -24,7 +24,7 @@ class MoviesController < ApplicationController
     
     if @movie.nil?
       #generate the movie
-      @movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
+      @movie = @feed.movies.build(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
       @movie.feed = @feed
       
       if @movie.entries.count > 0 && @movie.valid?

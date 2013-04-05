@@ -7,7 +7,7 @@ class EntriesController < ApplicationController
     if params[:id] == 'current'
       @entry = @feed.current_entries.first
     else
-      @entry = @feed.entries.where(slug: params[:id]).first    
+      @entry = @feed.entries.latest.where(slug: params[:id]).first    
     end
     
     if @entry.nil?
@@ -21,7 +21,7 @@ class EntriesController < ApplicationController
     if params[:id] == 'current'
       @entry = @feed.current_entries.first
     else
-      @entry = @feed.entries.where(slug: params[:id]).first    
+      @entry = @feed.entries.latest.where(slug: params[:id]).first    
     end
     
     if @feed.status.to_sym == :offline && params[:id] == 'current'
@@ -36,7 +36,7 @@ class EntriesController < ApplicationController
     if params[:id] == 'current'
       @entry = @feed.entries.current.first
     else
-      @entry = @feed.entries.where(slug: params[:id]).first    
+      @entry = @feed.entries.latest.where(slug: params[:id]).first    
     end
     
     respond_to do |format|
@@ -53,9 +53,9 @@ class EntriesController < ApplicationController
     if params[:date]
       year, month = params[:date].split('-')
       date = DateTime.civil(year.to_i, month.to_i)
-      @entries = @feed.entries.where('event_at between ? and ?', date, date.end_of_month)
+      @entries = @feed.entries.latest.where('event_at between ? and ?', date, date.end_of_month)
     else
-      @entries = @feed.entries
+      @entries = @feed.entries.latest
     end
     @entries = @entries.page(params[:page]).per(12)
   end

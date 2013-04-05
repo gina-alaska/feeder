@@ -49,7 +49,6 @@ ActiveRecord::Schema.define(:version => 20121204213322) do
     t.string   "where"
     t.datetime "created_at",                              :null => false
     t.datetime "updated_at",                              :null => false
-    t.string   "valid_animations"
     t.boolean  "animate"
     t.string   "active_animations"
     t.string   "status",            :default => "online"

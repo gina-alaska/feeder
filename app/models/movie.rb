@@ -21,7 +21,7 @@ class Movie < ActiveRecord::Base
   
   # attr_accessible :title, :body
   belongs_to :feed, touch: true
-  has_many :entries, :through => :feed, :conditions => proc { ['event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc] }, order: 'entries.event_at ASC'
+  #has_many :entries, :through => :feed, :conditions => proc { ['event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc] }, order: 'entries.event_at ASC'
 
   validates_presence_of :title, :event_at, :duration
   validate :valid_dates
@@ -39,6 +39,10 @@ class Movie < ActiveRecord::Base
 
   def to_param
     "#{self.id}_#{self.feed.slug}_#{self.year}-#{self.month}-#{self.day}_#{self.duration}-day-animation"
+  end
+  
+  def entries
+    self.feed.entries.where('event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc).order('entries.event_at ASC')
   end
   
   def slug

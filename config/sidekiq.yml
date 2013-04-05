@@ -4,7 +4,6 @@
 ---
 :verbose: false
 :pidfile: ./tmp/pids/sidekiq.pid
-:namespace: feeder
 :concurrency:  1
 :queues:
   - [high, 10]

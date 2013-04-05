@@ -21,7 +21,7 @@ class FeedsController < ApplicationController
   
   def carousel
     @feed = Feed.where(:slug => params[:slug]).order('slug ASC').first
-    @entries = @feed.entries.includes(:feed)
+    @entries = @feed.entries.latest.includes(:feed)
     @entries = @entries.order('event_at ASC').page(params[:page]).per(12)
     
     respond_with @feed, @entries
