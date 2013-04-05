@@ -29,21 +29,28 @@ class Feed < ActiveRecord::Base
   def self.async_import(slug, file)
     Resque.enqueue(ImportWorker, slug, file)
   end
-  
+    
   def self.generate_animations
     Feed.where(:animate => true).all.each do |f|
-      f.active_animations.each do |duration|
-        date = (Time.now.beginning_of_day - duration.days).to_date
-        
-        movie = f.movies.where(:event_at => date, :duration => duration.to_i).first
-        if movie.nil?
-          movie = Movie.new(:event_at => date, :duration => duration.to_i, :title => "#{duration} day animation")
-          movie.feed = f
-        
-          if movie.entries.count > 0 && movie.save
-            movie.async_generate        
-          end
+      f.queue_animation_ending(Time.now)
+    end
+  end
+  
+  def queue_animation_ending(date, force = false)
+    self.active_animations.each do |duration|
+      start = (date.beginning_of_day - duration.days).to_date
+    
+      movie = self.movies.where(event_at: start, duration: duration.to_i).first
+      if movie.nil?
+        movie = self.movies.build(:event_at => start, :duration => duration.to_i, :title => "#{duration} day animation")
+      
+        if movie.entries.count > 0 && movie.save
+          movie.async_generate        
         end
+      elsif force
+        movie.reset
+        movie.save
+        movie.async_generate
       end
     end
   end
