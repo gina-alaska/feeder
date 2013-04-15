@@ -59,11 +59,11 @@ class Entry < ActiveRecord::Base
   end
   
   def next
-    self.feed.entries.where('event_at > ?', self.event_at).last      
+    self.feed.entries.latest.where('event_at > ?', self.event_at).last      
   end
   
   def prev
-    self.feed.entries.where('event_at < ?', self.event_at).first      
+    self.feed.entries.latest.where('event_at < ?', self.event_at).first      
   end
 
   class << self
