@@ -14,6 +14,7 @@
 # Ignore all logfiles and tempfiles.
 /workers/*.log
 /log/*.log
+/log/*.lck
 /tmp
 /import
 
@@ -21,3 +22,5 @@
 /public/feeds
 /public/uploads
 /public/dragonfly
+
+/solr

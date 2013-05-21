@@ -61,32 +61,68 @@ class EntriesController < ApplicationController
   end
   
   def search
-    @search = params[:search] || {}
+    feed_ids = pull_ids(search_params, :feeds) || []
+    sensor_ids = pull_ids(search_params, :sensors)
+    unless sensor_ids
+      sensor_ids = Sensor.where(selected_by_default: true).pluck(:id)
+    end
+    page = params[:page] || 1
+    @search = search_params
     
-    if feed_ids = pull_feed_ids
-      @entries = Entry.where(:feed_id => feed_ids).order('event_at DESC')
-      @entries = @entries.page(params[:page]).per(12)
+    @entries = Entry.search do
+      with(:feed_id, feed_ids) unless feed_ids.empty?
+      with(:sensor_id, sensor_ids) unless sensor_ids.empty?
+      with(:event_at).greater_than(Time.zone.parse(search_params[:start]).beginning_of_day) unless search_params[:start].blank?
+      with(:event_at).less_than(Time.zone.parse(search_params[:end]).end_of_day) unless search_params[:end].blank?
+      
+      facet :sensor_id 
+      facet :feed_id
+      
+      order_by(:event_at, :desc)
+      paginate :page => page, :per_page => 15
     end
     
-    unless @search[:start].blank?
-      @entries = @entries.where('event_at >= ?', Time.zone.parse(@search[:start]).beginning_of_day)
-    end
-    unless @search[:end].blank?
-      @entries = @entries.where('event_at <= ?', Time.zone.parse(@search[:end]).end_of_day)
+    @facets = {}
+    %w{ feed_id sensor_id }.each do |name|
+      @entries.facet(name.to_sym).rows.each do |f|
+        @facets[name.to_sym] ||= {}
+        @facets[name.to_sym][f.value] = f.count      
+      end
     end
     
-    if @entries.nil? or @entries.count == 0
-      render 'shared/no_results'
-    end
+    # unless feed_ids.empty?
+    #   unless sensor_ids.empty?
+    #     feed_ids = Feed.where(id: feed_ids, sensor_id: sensor_ids).pluck(:id)
+    #   end
+    #   @entries = Entry.where(:feed_id => feed_ids).order('event_at DESC')
+    # end
+    # 
+    # unless @search[:start].blank?
+    #   @entries = @entries.where('event_at >= ?', Time.zone.parse(@search[:start]).beginning_of_day)
+    # end
+    # unless @search[:end].blank?
+    #   @entries = @entries.where('event_at <= ?', Time.zone.parse(@search[:end]).end_of_day)
+    # end
+    
+    # if @entries.nil? or @entries.count == 0
+    #   @entries = Entry.order('event_at DESC')
+    # end
+    
+    # @entries = @entries.page(params[:page]).per(12)
   end
   
   protected
   
-  def pull_feed_ids
-    return false unless params.include?(:search) and params[:search].include?(:feeds)
+  def search_params
+    @search_params ||= params[:search] || {}
+  end
+  helper_method :search_params
+  
+  def pull_ids(search, field)
+    return false unless search.include?(field)
     
-    feeds = params[:search][:feeds]
-    feeds.inject([]) { |c,i| c << i[0].to_i if i[1].to_i == 1 }
+    items = search[field]
+    items.inject([]) { |c,i| c << i[0].to_i if i[1].to_i == 1 }
   end
   
   def fetch_feed

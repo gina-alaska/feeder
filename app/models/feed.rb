@@ -1,4 +1,7 @@
 class Feed < ActiveRecord::Base
+  attr_accessible :slug, :title, :description, :author, :where, :animate, 
+                  :active_animations, :status, :sensor_id, :sensor
+  
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
@@ -8,6 +11,8 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :title
 
   has_many :movies
+  
+  belongs_to :sensor
 
   has_many :entries do
     def current
@@ -24,6 +29,10 @@ class Feed < ActiveRecord::Base
   
   def to_param
     self.slug
+  end
+  
+  def to_s
+    self.title
   end
   
   def self.async_import(slug, file)
