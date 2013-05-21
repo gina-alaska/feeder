@@ -20,6 +20,8 @@ Feeder::Application.routes.draw do
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
   
+  match '/search' => 'entries#search'
+  
   match '/auth/:provider/callback', :to => 'sessions#create'  
   match '/auth/fail', :to => 'sessions#failure'
   

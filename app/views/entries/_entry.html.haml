@@ -1,7 +1,7 @@
 - size ||= 'small'
 - cache [size, entry] do 
   .entry
-    = render size, :feed => feed, :entry => entry
+    = render size, :entry => entry
     .ago
       Processed
       %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')

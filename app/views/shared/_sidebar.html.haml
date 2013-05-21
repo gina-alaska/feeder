@@ -1,0 +1,55 @@
+= form_tag '/search' do
+  #sidebar
+    %ul.nav.nav-list
+      - unless @entries.nil?
+        %li.nav-header
+          Search results
+        %li
+          Total:
+          = @entries.count
+      
+      %li.nav-header
+        / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
+        / %i.icon-chevron-down
+        Feeds
+      %ul#feed_list.nav.nav-list
+        Select: 
+        = link_to 'All', '#', data: { action: 'select-all-feeds' }
+        \/
+        = link_to 'None', '#', data: { action: 'unselect-all-feeds' }
+        - Feed.all.each do |feed|
+          - next unless feed.entries.count > 0
+          %label.checkbox
+            = check_box_tag "search[feeds][#{feed.id}]", 1, search_checked?(:feeds, feed, feed.show_by_default), class: 'feed'
+            = feed.title
+            - unless @entries.nil?
+              .badge.pull-right 
+                = @entries.where(feed_id: feed.id).count
+      %li.nav-header
+        / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
+        / %i.icon-chevron-down
+        Date Selection
+      %ul#date_selection.nav.nav-list
+        %li
+          .input-daterange.rangepicker
+            = text_field_tag "search[start]", params[:search].try { |s| s[:start] unless s.nil? }, placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
+            %span.add-on to
+            = text_field_tag "search[end]", params[:search].try { |s| s[:end] unless s.nil? }, placeholder: 'YYYY/MM/DD', class: 'span5 datepicker', data: { "date-format" => "yyyy/mm/dd"}
+          .help-block
+            Enter a date range to filter selection, if left blank the date range will be open ended
+  .row-fluid
+    .span4
+    .span4
+      = link_to 'Reset', root_url, class: 'btn btn-block'
+    .span4
+      = submit_tag 'Search', class: 'btn btn-primary btn-block'
+  :javascript
+    $(".rangepicker").datepicker({ autoclose: true, format: 'yyyy/mm/dd' });
+    $('[data-action="select-all-feeds"]').on('click', function(evt) {
+      evt.preventDefault();
+      $('#feed_list :checkbox').prop('checked', true);
+    });
+    $('[data-action="unselect-all-feeds"]').on('click', function(evt) {
+      evt.preventDefault();
+      $('#feed_list :checkbox').removeAttr('checked');
+    });

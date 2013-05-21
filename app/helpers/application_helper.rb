@@ -9,6 +9,14 @@ module ApplicationHelper
     output.html_safe
   end
   
+  def search_checked?(key, item, default = false)
+    if params.include?(:search) and params[:search].include?(key.to_sym)
+      params[:search][key.to_sym][item.id.to_s].to_i == 1
+    else
+      default
+    end
+  end
+  
   def feed_cdn_url(path= nil)
     if Feeder::Application.config.feed_cdn_urls.nil?
       url = root_url

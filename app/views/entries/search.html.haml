@@ -1,0 +1,7 @@
+.row-fluid
+  #sidebar.span3
+    = render 'shared/sidebar'
+  .span9
+    .entries.clearfix
+      = render @entries
+      = paginate @entries, :params => { :search => params[:search] }

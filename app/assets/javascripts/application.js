@@ -17,6 +17,13 @@
 //= require_tree .
 //= require_self
 
+$.fn.checkAll = function()  {
+  return this.filter(":radio, :checkbox").attr("checked", true);
+};
+$.fn.uncheckAll = function()  {
+  return this.filter(":radio, :checkbox").removeAttr("checked");
+}
+
 $.extend({
   getUrlVars: function(){
     var vars = [], hash;
