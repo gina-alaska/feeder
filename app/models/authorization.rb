@@ -9,7 +9,7 @@ class Authorization < ActiveRecord::Base
   def self.find_from_hash(hash)
     auth = where(provider: hash['provider'], uid: hash['uid']).first
     if auth.try(:user).nil?
-      auth.destroy
+      auth.try(:destroy)
       return nil
     end
     
