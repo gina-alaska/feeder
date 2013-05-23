@@ -9,12 +9,8 @@ module ApplicationHelper
     output.html_safe
   end
   
-  def search_checked?(key, item, default = false)
-    if params.include?(:search) and params[:search].include?(key.to_sym)
-      params[:search][key.to_sym][item.id.to_s].to_i == 1
-    else
-      default
-    end
+  def search_checked?(item, selected = [])
+    selected.include?(item.id)
   end
   
   def feed_cdn_url(path= nil)

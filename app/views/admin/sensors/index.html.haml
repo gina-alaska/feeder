@@ -1,19 +1,25 @@
-.navbar
-  .navbar-inner
-    .brand Sensors
-    .pull-right
-      = link_to new_admin_sensor_path, class: 'btn btn-success' do
-        %i.icon-plus.icon-white
-        New Sensor
-%table.table.table-bordered.table-striped.table-condensed
-  %thead
-    %tr
-      %th Name
-      %th Actions
-  %tbody
-    - @sensors.each do |sensor|
-      %tr
-        %td= sensor.name
-        %td
-          = link_to edit_admin_sensor_path(sensor), class: 'btn' do
-            %i.icon-edit
+.row-fluid
+  .span8.offset2
+    .navbar
+      .navbar-inner
+        .brand Sensors
+        .pull-right
+          = link_to new_admin_sensor_path, class: 'btn btn-success' do
+            %i.icon-plus.icon-white
+            New Sensor
+    %table.table.table-bordered.table-striped.table-condensed
+      %thead
+        %tr
+          %th Name
+          %th Feeds
+          %th Selected by default?
+          %th Actions
+      %tbody
+        - @sensors.each do |sensor|
+          %tr
+            %td= sensor.name
+            %td= sensor.feeds.count
+            %td= sensor.selected_by_default
+            %td
+              = link_to edit_admin_sensor_path(sensor), class: 'btn' do
+                %i.icon-edit

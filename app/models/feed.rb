@@ -27,6 +27,9 @@ class Feed < ActiveRecord::Base
   
   serialize :active_animations
   
+  scope :active, -> { where(status: 'online') }
+  scope :animated, -> { where(animate: true) }
+  
   def to_param
     self.slug
   end

@@ -1,0 +1,11 @@
+Select: 
+= link_to 'All', '#', data: { action: 'select-all', target: '#feeds_list :checkbox' }
+\/
+= link_to 'None', '#', data: { action: 'unselect-all', target: '#feeds_list :checkbox' }
+- @feeds.each do |feed|
+  %label.checkbox
+    = check_box_tag "search[feeds][#{feed.id}]", 1, search_checked?(feed, selected_feed_ids), class: 'feed'
+    = feed.title
+    - unless @entries.results.empty?
+      .badge.pull-right 
+        = @facets[:feed_id][feed.id] || 0

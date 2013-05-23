@@ -1,52 +1,58 @@
-= form_tag '/search' do
+= form_tag @search_path do
   #sidebar
     %ul.nav.nav-list
       %li.nav-header
         Main Menu
-      %li
+      %li{ class: @movie_view ? '' : 'active' }
         = link_to root_url do
           %i.icon-home
-          Home
-        
-      - unless @entries.nil?
+          Imagery
+      %li{ class: @movie_view ? 'active' : '' }
+        = link_to movies_url do
+          %i.icon-film
+          Animations
+      - unless @feed.nil?
         %li.nav-header
-          Information
+          Related feeds
         %li
-          Total:
-          = @entries.total
+          /{ :class => all_images_active_class(feed.slug) }
+          = link_to slug_path(@feed) do
+            %i.icon-eye-open
+            = "#{@feed} Images"
+        - if @feed.animate
+          %li
+            = link_to feed_movies_url(@feed) do
+              %i.icon-film
+              = "#{@feed} Animations"
+        %li
+          /{ :class => current_image_active_class(feed.slug)  }
+          = link_to slug_entry_path(@feed, 'current') do
+            %i.icon-picture
+            = "Latest #{@feed} Image"
+        %li
+          = link_to slug_path(@feed, :xml), 'data-skip-pjax' => true do
+            %i.icon-rss
+            Imagery RSS
+      /   
+      / - unless @entries.nil?
+      /   %li.nav-header
+      /     Information
+      /   %li
+      /     Total:
+      /     = @entries.total
       
       %li.nav-header
         / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
         / %i.icon-chevron-down
         Feeds
       %ul#feeds_list.nav.nav-list
-        Select: 
-        = link_to 'All', '#', data: { action: 'select-all', target: '#feeds_list :checkbox' }
-        \/
-        = link_to 'None', '#', data: { action: 'unselect-all', target: '#feeds_list :checkbox' }
-        - Feed.all.each do |feed|
-          - next unless feed.entries.count > 0
-          %label.checkbox
-            = check_box_tag "search[feeds][#{feed.id}]", 1, search_checked?(:feeds, feed, feed.show_by_default), class: 'feed'
-            = feed.title
-            - unless @entries.results.empty?
-              .badge.pull-right 
-                = @facets[:feed_id][feed.id] || 0
+        = render 'shared/feed_fields'
+        
       %li.nav-header
         Sensors
       %ul#sensors_list.nav.nav-list
-        Select: 
-        = link_to 'All', '#', data: { action: 'select-all', target: '#sensors_list :checkbox' }
-        \/
-        = link_to 'None', '#', data: { action: 'unselect-all', target: '#sensors_list :checkbox' }
-        - Sensor.all.each do |sensor|
-          - next unless sensor.feeds.count > 0
-          %label.checkbox
-            = check_box_tag "search[sensors][#{sensor.id}]", 1, search_checked?(:sensors, sensor, sensor.selected_by_default), class: 'sensor'
-            = sensor
-            - unless @entries.results.empty?
-              .badge.pull-right 
-                = @facets[:sensor_id][sensor.id] || 0
+        = render 'shared/sensor_fields'
+        
       %li.nav-header
         / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
         / %i.icon-chevron-down
@@ -54,9 +60,9 @@
       %ul#date_selection.nav.nav-list
         %li
           .input-daterange.rangepicker
-            = text_field_tag "search[start]", params[:search].try { |s| s[:start] unless s.nil? }, placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
+            = text_field_tag "search[start]", search_params[:start], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
             %span.add-on to
-            = text_field_tag "search[end]", params[:search].try { |s| s[:end] unless s.nil? }, placeholder: 'YYYY/MM/DD', class: 'span5 datepicker', data: { "date-format" => "yyyy/mm/dd"}
+            = text_field_tag "search[end]", search_params[:end], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
           .help-block
             Enter a date range to filter selection, if left blank the date range will be open ended
   .row-fluid

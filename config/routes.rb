@@ -12,6 +12,10 @@ Feeder::Application.routes.draw do
     resources :movies
   end
   
+  resources :movies do
+    post 'search', on: :collection
+  end
+  
   namespace :admin do
     resources :feeds
     resources :queues, :only => [:index, :show]
