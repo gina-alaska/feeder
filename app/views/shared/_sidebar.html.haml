@@ -42,16 +42,16 @@
       /     = @entries.total
       
       %li.nav-header
+        Sensors
+      %ul#sensors_list.nav.nav-list
+        = render 'shared/sensor_fields'
+        
+      %li.nav-header
         / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
         / %i.icon-chevron-down
         Feeds
       %ul#feeds_list.nav.nav-list
         = render 'shared/feed_fields'
-        
-      %li.nav-header
-        Sensors
-      %ul#sensors_list.nav.nav-list
-        = render 'shared/sensor_fields'
         
       %li.nav-header
         / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
