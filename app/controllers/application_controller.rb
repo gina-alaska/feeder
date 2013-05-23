@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
     
     feed_ids = pull_ids(:feeds) || []
     if !selected_sensor_ids or selected_sensor_ids.empty?
-      logger.info '........'
       @selected_sensor_ids = @sensors.where(selected_by_default: true).pluck(:id)
     end
     
@@ -84,6 +83,7 @@ class ApplicationController < ActionController::Base
   end  
   
   def current_user
+    logger.info "User id: #{session[:user_id]}"
     @current_user ||= User.find_by_id(session[:user_id])
   end
 
@@ -99,11 +99,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
   end
   
-
   def redirect_back_or_default(url)
     if session[:redirect_back_location].present?
-      l = session.delete(:redirect_back_location)
-      redirect_to l
+      redirect_to session.delete(:redirect_back_location)
     else
       redirect_to url
     end
