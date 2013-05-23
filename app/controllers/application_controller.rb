@@ -99,6 +99,11 @@ class ApplicationController < ActionController::Base
     session[:user_id] = user.id
   end
   
+  def sign_in_user(user)
+    @current_user = user
+    session[:user_id] = user.id
+  end
+  
   def redirect_back_or_default(url)
     if session[:redirect_back_location].present?
       redirect_to session.delete(:redirect_back_location)
