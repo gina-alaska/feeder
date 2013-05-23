@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
       @search_params[:feeds] = {}
       @search_params[:feeds][@feed.id.to_s] = '1'
       @search_params[:sensors] = {}
-      @search_params[:sensors][@feed.sensor.id.to_s] = '1'
+      @search_params[:sensors][@feed.sensor.try(:id).try(:to_s)] = '1'
     end
     
     unless @entry.nil?
