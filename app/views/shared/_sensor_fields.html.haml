@@ -2,7 +2,7 @@ Select:
 = link_to 'All', '#', data: { action: 'select-all', target: '#sensors_list :checkbox' }
 \/
 = link_to 'None', '#', data: { action: 'unselect-all', target: '#sensors_list :checkbox' }
-- @sensors.each do |sensor|
+- @sensors.order('name ASC').each do |sensor|
   %label.checkbox
     = check_box_tag "search[sensors][#{sensor.id}]", 1, search_checked?(sensor,selected_sensor_ids), class: 'sensor'
     = sensor
