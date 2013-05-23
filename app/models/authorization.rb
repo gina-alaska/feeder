@@ -16,12 +16,8 @@ class Authorization < ActiveRecord::Base
     auth
   end
 
-  def self.create_from_hash(hash, passed_user = nil)
-    if passed_user.nil?
-      self.user = User.create_from_hash!(hash)
-    else
-      self.user = passed_user
-    end
+  def self.create_from_hash(hash, user = nil)
+    user ||= User.create_from_hash!(hash)
     Authorization.create(:user => user, :uid => hash['uid'], :provider => hash['provider'])
   end
 end
