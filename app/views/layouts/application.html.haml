@@ -27,3 +27,5 @@
       = yield
     #footer.row
       = render 'layouts/footer'
+      = session[:user_id]
+      = current_user.name if signed_in?
