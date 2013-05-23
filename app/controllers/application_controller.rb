@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   end  
   
   def current_user
-    logger.info "User id: #{session[:user_id]}"
+    logger.info "User id: #{session[:current_user_id]}"
     @_current_user ||= User.find_by_id(session[:current_user_id])
   end
 
