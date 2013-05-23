@@ -7,7 +7,13 @@ class Authorization < ActiveRecord::Base
   validates_uniqueness_of :uid, :scope => :provider
   
   def self.find_from_hash(hash)
-    find_by_provider_and_uid(hash['provider'], hash['uid'])
+    auth = where(provider: hash['provider'], uid: hash['uid']).first
+    if auth.user.nil?
+      auth.destroy
+      return nil
+    end
+    
+    auth
   end
 
   def self.create_from_hash(hash, passed_user = nil)
