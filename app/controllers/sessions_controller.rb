@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
       @auth = Authorization.create_from_hash(auth_hash, current_user)
     end
     
-    sign_in_user(@auth.user)
+    self.current_user = @auth.user
     
     flash[:success] = "Successfully logged in as #{current_user.name}"
     redirect_back_or_default(root_url)

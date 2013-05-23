@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # protect_from_forgery
   
   layout :set_layout
   
@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
   
   def current_user
     logger.info "User id: #{session[:user_id]}"
-    @current_user ||= User.find_by_id(session[:user_id])
+    @_current_user ||= User.find_by_id(session[:current_user_id])
   end
 
   def signed_in?
@@ -95,13 +95,8 @@ class ApplicationController < ActionController::Base
 
   def current_user=(user)
     logger.info "Assigning current user #{user.name}"
-    @current_user = user
-    session[:user_id] = user.id
-  end
-  
-  def sign_in_user(user)
-    @current_user = user
-    session[:user_id] = user.id
+    @_current_user = user
+    session[:current_user_id] = user.id
   end
   
   def redirect_back_or_default(url)
