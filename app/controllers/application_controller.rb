@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :signed_in?
 
   def current_user=(user)
-    logger.info "Assigning current user #{user.name}"
+    logger.info "Assigning current user #{user.id} :: #{user.name}"
     @_current_user = user
     session[:current_user_id] = user.id
   end
