@@ -95,6 +95,17 @@ $navbarInverseLinkColorHover: #AAA;
   line-height: 20px;
 }
 
+#sidebar .hand {
+  cursor: pointer;
+}
+
+#sidebar .actions {
+  padding-top: 6px;
+  padding-bottom: 10px;
+  display: table;
+  width: 100%;
+}
+
 #sidebar .nav-header {
   border-bottom: 1px solid #efefef;
   margin-bottom: 5px;
