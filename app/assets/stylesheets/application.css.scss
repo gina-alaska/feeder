@@ -72,14 +72,14 @@ $navbarInverseLinkColorHover: #AAA;
   font-size: 14px;
 }
 
-.input-prepend.input-append .add-on:first-child, .input-prepend.input-append .btn:first-child {
-  margin-right: -4px;
-}
-
-.input-prepend.input-append .add-on:last-child, .input-prepend.input-append .btn:last-child {
-  margin-left: -4px;
-}
-
+//.input-prepend.input-append .add-on:first-child, .input-prepend.input-append .btn:first-child {
+//  margin-right: -4px;
+//}
+//
+//.input-prepend.input-append .add-on:last-child, .input-prepend.input-append .btn:last-child {
+//  margin-left: -4px;
+//}
+//
 .page a {
   width: 15px; 
 }
@@ -87,4 +87,27 @@ $navbarInverseLinkColorHover: #AAA;
 .icon-rss {
   background-image: url(asset_path('feed-icon-14x14.png', image));
   background-position: 0 0;
+}
+
+.input-daterange .add-on {
+  vertical-align: top;
+  height: 20px;
+  line-height: 20px;
+}
+
+#sidebar .hand {
+  cursor: pointer;
+}
+
+#sidebar .actions {
+  padding-top: 6px;
+  padding-bottom: 10px;
+  display: table;
+  width: 100%;
+}
+
+#sidebar .nav-header {
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 5px;
+  margin-top: 10px;
 }

@@ -11,6 +11,7 @@
       %th Preview
       %th Title
       %th Slug
+      %th Sensor
       %th Entries
       %th Actions
   %body
@@ -24,6 +25,7 @@
             = image_tag feed.entries.last.preview.try(:thumb, '75x50#').url
         %td= feed.title
         %td= feed.slug
+        %td= feed.sensor
         %td= feed.entries.count
         %td.actions
           %nobr

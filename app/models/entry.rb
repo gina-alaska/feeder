@@ -22,6 +22,18 @@ class Entry < ActiveRecord::Base
   validates_presence_of :title
   validates_presence_of :event_at
   
+  searchable do
+    text :title
+    text :slug
+    text :feed
+    time :event_at
+    
+    integer :feed_id
+    integer :sensor_id do
+      self.try(:feed).try(:sensor).try(:id)
+    end
+  end
+  
   def to_param
     self.slug
   end

@@ -1,0 +1,23 @@
+.row-fluid
+  #sidebar.span3
+    = render 'shared/sidebar'
+  
+  #feed.span9{style:"text-align:center;"}
+    - if @entries.total == 0
+      %h2 No movies available
+      
+    - @entries.results.each do |movie|
+      .entry
+        .title{style:"padding:3px;"}
+          %b= link_to movie.feed, feed_movies_url(movie.feed)
+          %br/
+          %b= "#{movie.duration} day animation for #{movie.event_at.strftime('%Y-%m-%d')}"
+          / = render 'picker', date: movie.try(:event_at) || (Time.now - movie.duration.days).to_date, duration: movie.duration
+        - if movie.nil?
+          = link_to '#' do
+            = image_tag 'http://placehold.it/200x200&text=Not+available'
+            No animation available
+        - else
+          = link_to feed_movie_url(movie.feed, movie) do
+            = image_tag cw_image_url(movie.entries.first.preview.try(:thumb, '200x200#'))
+            Play animation

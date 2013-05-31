@@ -1,14 +1,13 @@
 - size ||= 'small'
-- cache [size, entry] do 
-  .entry
-    = render size, :feed => feed, :entry => entry
-    .ago
-      Processed
-      %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
-      /= time_ago_in_words(entry.event_at)
-      /ago
-    .sizes.btn-group
-      = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
-      = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
-      = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true      
+.entry
+  = render size, :entry => entry
+  .ago
+    Processed
+    %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
+    /= time_ago_in_words(entry.event_at)
+    /ago
+  .sizes.btn-group
+    = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
+    = link_to 'Original', cw_image_url(entry.image), class: 'btn', 'data-skip-pjax' => true      
 

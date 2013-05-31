@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204213322) do
+ActiveRecord::Schema.define(:version => 20130521224225) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20121204213322) do
     t.boolean  "animate"
     t.string   "active_animations"
     t.string   "status",            :default => "online"
+    t.integer  "sensor_id"
   end
 
   add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
@@ -67,6 +68,13 @@ ActiveRecord::Schema.define(:version => 20121204213322) do
     t.boolean  "generated",  :default => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
+  end
+
+  create_table "sensors", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "selected_by_default", :default => true
   end
 
   create_table "users", :force => true do |t|
