@@ -22,7 +22,7 @@ $.fn.checkAll = function()  {
 };
 $.fn.uncheckAll = function()  {
   return this.filter(":radio, :checkbox").removeAttr("checked");
-}
+};
 
 $.extend({
   getUrlVars: function(){
