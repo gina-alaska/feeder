@@ -19,6 +19,15 @@ class Movie < ActiveRecord::Base
     end
   end
   
+  searchable do
+    integer :feed_id
+    integer :sensor_id do
+      self.feed.sensor.id
+    end
+    
+    time :event_at
+  end
+  
   # attr_accessible :title, :body
   belongs_to :feed, touch: true
   #has_many :entries, :through => :feed, :conditions => proc { ['event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc] }, order: 'entries.event_at ASC'

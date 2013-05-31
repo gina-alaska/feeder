@@ -1,10 +1,19 @@
 Feeder::Application.routes.draw do
+  namespace :admin do
+    resources :sensors
+  end
+
+
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
     get 'carousel', :action => :carousel
     get ':id/page/:page', :action => :show, :on => :collection
     resources :entries
     
     resources :movies
+  end
+  
+  resources :movies do
+    post 'search', on: :collection
   end
   
   namespace :admin do
@@ -19,6 +28,8 @@ Feeder::Application.routes.draw do
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
+  
+  match '/search' => 'entries#search'
   
   match '/auth/:provider/callback', :to => 'sessions#create'  
   match '/auth/fail', :to => 'sessions#failure'
@@ -92,7 +103,7 @@ Feeder::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'feeds#index'
+  root :to => 'entries#search'
 
   # See how all your routes lay out with "rake routes"
 

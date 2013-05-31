@@ -11,6 +11,10 @@
         = link_to root_url, "data-skip-pjax" => true do
           %i.icon-home.icon-white
           Home
+      %li
+        = link_to 'https://uafgina.zendesk.com/anonymous_requests/new', target: :_blank do
+          %i.icon-envelope.icon-white
+          Send Feedback
       - if current_user.nil?
         %li
           = link_to signin_path, "data-skip-pjax" => true do

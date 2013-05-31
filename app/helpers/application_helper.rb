@@ -9,6 +9,10 @@ module ApplicationHelper
     output.html_safe
   end
   
+  def search_checked?(item, selected = [])
+    selected.include?(item.id)
+  end
+  
   def feed_cdn_url(path= nil)
     if Feeder::Application.config.feed_cdn_urls.nil?
       url = root_url

@@ -6,19 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+webcam_s = Sensor.create(name: 'Webcam')
+radar_s = Sensor.create(name: 'Radar')
+viirs_s = Sensor.create(name: 'VIIRS')
+modis_s = Sensor.create(name: 'MODIS')
+
+
 radar = Feed.create({
   slug: 'radar-uaf-barrow-seaice-images',
   title: 'Barrow Radar',
   description: 'Barrow Radar data showing ice flow',
   author: 'Someone',
-  where: 'POINT(-156.673 71.328)'
-})
-
-animations = Feed.create({
-  slug: 'radar-uaf-barrow-seaice-animations',
-  title: 'Barrow Radar Animation',
-  description: 'Barrow Radar animation showing ice flow',
-  author: 'Someone',
+  sensor: radar_s,
   where: 'POINT(-156.673 71.328)'
 })
 
@@ -27,14 +26,7 @@ webcam = Feed.create({
   title: 'Barrow Webcam',
   description: 'Barrow Webcam',
   author: 'Someone',
-  where: 'POINT(-156.673 71.328)'
-})
-
-webcam = Feed.create({
-  slug: 'webcam-uaf-barrow-seaice-animations',
-  title: 'Barrow Webcam Animations',
-  description: 'Barrow Webcam',
-  author: 'Someone',
+  sensor: webcam_s,
   where: 'POINT(-156.673 71.328)'
 })
 
@@ -43,6 +35,7 @@ npp = Feed.create({
   title: 'NPP Truecolor Images',
   description: 'NPP Truecolor Images',
   author: 'GINA',
+  sensor: viirs_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -51,6 +44,7 @@ dnb = Feed.create({
   title: 'NPP DNB Images',
   description: 'NPP DNB Images',
   author: 'GINA',
+  sensor: viirs_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -59,6 +53,7 @@ Feed.create({
   title: 'MODIS Naturalcolor',
   description: 'MODIS Naturalcolor',
   author: 'GINA',
+  sensor: modis_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -67,6 +62,7 @@ Feed.create({
   title: 'MODIS 721 Landcover',
   description: 'MODIS 721 Landcover',
   author: 'GINA',
+  sensor: modis_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -75,6 +71,7 @@ Feed.create({
   title: 'MODIS 261 Landcover',
   description: 'MODIS 261 Landcover',
   author: 'GINA',
+  sensor: modis_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -83,6 +80,7 @@ Feed.create({
   title: 'MODIS 367 Snowcover',
   description: 'MODIS 367 Snowcover',
   author: 'GINA',
+  sensor: modis_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
 
@@ -91,6 +89,8 @@ Feed.create({
   title: 'MODIS Thermal',
   description: 'MODIS Thermal',
   author: 'GINA',
+  sensor: modis_s,
   where: 'POINT(-147.723056 64.843611)'  
 })
+
 

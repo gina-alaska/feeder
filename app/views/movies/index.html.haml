@@ -1,10 +1,9 @@
 .row-fluid
   #sidebar.span3
-    = render 'entries/sidebar'
+    = render 'shared/sidebar'
   
   #feed.span9{style:"text-align:center;"}
-    %h4= "Latest #{@feed.title} animations"
-    - @feed.active_animations.each do |duration|
+    - @entries.results.each do |duration|
       .entry
         .title{style:"padding:3px;"}
           %b= "#{duration} day animation for"

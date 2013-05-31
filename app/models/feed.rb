@@ -1,4 +1,7 @@
 class Feed < ActiveRecord::Base
+  attr_accessible :slug, :title, :description, :author, :where, :animate, 
+                  :active_animations, :status, :sensor_id, :sensor
+  
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
@@ -8,6 +11,8 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :title
 
   has_many :movies
+  
+  belongs_to :sensor
 
   has_many :entries do
     def current
@@ -22,8 +27,15 @@ class Feed < ActiveRecord::Base
   
   serialize :active_animations
   
+  scope :active, -> { where(status: 'online') }
+  scope :animated, -> { where(animate: true) }
+  
   def to_param
     self.slug
+  end
+  
+  def to_s
+    self.title
   end
   
   def self.async_import(slug, file)
@@ -53,6 +65,10 @@ class Feed < ActiveRecord::Base
         movie.async_generate
       end
     end
+  end
+  
+  def show_by_default
+    true
   end
   
   def georss_location

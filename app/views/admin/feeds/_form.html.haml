@@ -14,6 +14,9 @@
   = f.label :slug
   = f.text_field :slug, class: 'span12'
   
+  = f.label :sensor_id
+  = f.collection_select :sensor_id, Sensor.all, :id, :name, include_blank: true
+  
   = f.label :status
   = f.select :status, [['Online', 'online'], ['Offline', 'offline']]
       

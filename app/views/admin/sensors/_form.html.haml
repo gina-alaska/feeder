@@ -1,0 +1,19 @@
+= form_for [:admin, @sensor], html: { class: 'form-horizontal' } do |f|
+
+  .control-group
+    = f.label :name, class: 'control-label'
+    .controls
+      = f.text_field :name, class: 'span12'
+    
+  .control-group
+    .controls
+      %label
+        = f.check_box :selected_by_default
+        Selected by default
+        
+  .form-actions
+    = link_to admin_sensors_path, class: 'btn' do
+      %i.icon-arrow-left
+      Cancel
+      
+    = f.submit 'Save', class: 'btn btn-primary pull-right'
