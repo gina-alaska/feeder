@@ -14,8 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /workers/*.log
 /log/*.log
+/log/*.lck
 /tmp
 /import
+/solr
 
 # Ignore all the feed files
 /public/feeds
