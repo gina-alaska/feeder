@@ -1,6 +1,6 @@
 production:
   solr:
-    hostname: localhost
+    hostname: unicorn.x.gina.alaska.edu
     port: 8983
     log_level: WARNING
 
