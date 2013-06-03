@@ -4,8 +4,8 @@
 # resque_config = YAML.load_file(rails_root + '/config/resque.yml')
 # Resque.redis = resque_config[rails_env]
 # Resque.redis.namespace = "resque:gina_puffin_feeder"
-
 Sidekiq.configure_server do |config|
+  Rails.logger.info Rails.env
   if Rails.env == 'development'
     config.redis = { :url => 'redis://localhost:6379/12', :namespace => "feeder_development" }
   else

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -14,7 +14,7 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.2.1.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'sidekiq', :git => 'git://github.com/mperham/sidekiq.git'
+gem 'sidekiq'
 gem 'bootstrap-datepicker-rails'
 gem 'omniauth'
 gem 'omniauth-openid'
@@ -23,6 +23,8 @@ gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.14'
 gem 'lograge'
 gem 'logstash-event'
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -31,7 +33,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8'
+  gem 'libv8',  '~> 3.11.8.3'
   gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'

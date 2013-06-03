@@ -9,6 +9,7 @@ class EntriesController < ApplicationController
     else
       @entry = @feed.entries.latest.where(slug: params[:id]).first    
     end
+    search
     
     if @entry.nil?
       render 'public/404', :status => :not_found
@@ -50,14 +51,16 @@ class EntriesController < ApplicationController
   end
   
   def index
-    if params[:date]
-      year, month = params[:date].split('-')
-      date = DateTime.civil(year.to_i, month.to_i)
-      @entries = @feed.entries.latest.where('event_at between ? and ?', date, date.end_of_month)
-    else
-      @entries = @feed.entries.latest
-    end
-    @entries = @entries.page(params[:page]).per(12)
+    search
+    
+    # if params[:date]
+    #   year, month = params[:date].split('-')
+    #   date = DateTime.civil(year.to_i, month.to_i)
+    #   @entries = @feed.entries.latest.where('event_at between ? and ?', date, date.end_of_month)
+    # else
+    #   @entries = @feed.entries.latest
+    # end
+    # @entries = @entries.page(params[:page]).per(12)
   end
   
   protected
