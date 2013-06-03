@@ -2,6 +2,7 @@ class ImportWorker
   include Sidekiq::Worker
   
   def perform(slug, file)
-    Feed.import(slug, file)
+    feed = Feed.import(slug, file)
+    Sunspot.commit
   end
 end

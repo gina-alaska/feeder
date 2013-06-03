@@ -129,6 +129,8 @@ class Feed < ActiveRecord::Base
       raise "Unable to find feed for #{slug}" if feed.nil?
 
       feed.import(item)
+      
+      feed
     end
   end
 end
