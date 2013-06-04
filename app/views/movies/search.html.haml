@@ -21,3 +21,4 @@
           = link_to feed_movie_url(movie.feed, movie) do
             = image_tag cw_image_url(movie.entries.first.preview.try(:thumb, '200x200#'))
             Play animation
+    = paginate @entries.results, :params => { :search => search_params }

@@ -1,9 +1,7 @@
 Feeder::Application.routes.draw do
-  namespace :admin do
-    resources :sensors
-  end
-
-
+  match '/movies/search' => 'movies#search', as: :search_movies
+  match '/search' => 'entries#search'
+  
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
     get 'carousel', :action => :carousel
     get ':id/page/:page', :action => :show, :on => :collection
@@ -13,11 +11,12 @@ Feeder::Application.routes.draw do
   end
   
   resources :movies do
-    post 'search', on: :collection
+    # post 'search', on: :collection
   end
   
   namespace :admin do
     resources :feeds
+    resources :sensors
     resources :queues, :only => [:index, :show]
     resources :jobs, :only => [:index, :show, :destroy], :constraints => { :id => /[^\/]+/ } do
       post :retry, :on => :member
@@ -28,8 +27,6 @@ Feeder::Application.routes.draw do
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
   match '/signin' => 'sessions#new', :as => :signin
   match '/signout' => 'sessions#destroy', :as => :signout
-  
-  match '/search' => 'entries#search'
   
   match '/auth/:provider/callback', :to => 'sessions#create'  
   match '/auth/fail', :to => 'sessions#failure'
