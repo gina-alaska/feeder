@@ -8,6 +8,7 @@ app.processor.register(GeotiffProcessor)
 
 app.datastore.configure do |d|
   d.root_path = Rails.root.join('public/dragonfly').to_s
+  d.server_root = Rails.root.join('public').to_s
 end
 
 app.define_macro(ActiveRecord::Base, :image_accessor)
