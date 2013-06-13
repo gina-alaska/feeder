@@ -1,5 +1,5 @@
 class FeedsController < ApplicationController
-  respond_to :html
+  respond_to :html, :json
   
   before_filter :fetch_keywords, :only => [:index, :search]
   
@@ -9,6 +9,8 @@ class FeedsController < ApplicationController
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
     @feeds = @feeds.order('status DESC, title ASC')
+    
+    respond_with(@feeds)
   end
   
   def search
