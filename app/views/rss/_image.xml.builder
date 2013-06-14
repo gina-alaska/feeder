@@ -20,7 +20,7 @@ img {
 </style>
 <div class="feed">
   <h1>#{link_to entry.feed.title, slug_url(entry.feed)}</h1>
-  <h4>#{link_to entry.title, slug_entry_url(entry.feed, entry)}</h2>
+  <h4>#{link_to entry.title, slug_entry_url(entry.feed, entry)}</h4>
   #{image_tag(File.join(root_url, entry.preview.try(:thumb, '800x800').try(:url)), alt: entry.title)}
   <div class="feeder">
   Find more @ <a href="http://feeder.gina.alaska.edu">GINA Puffin Feeder</a>

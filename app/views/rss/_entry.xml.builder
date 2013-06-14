@@ -1,5 +1,6 @@
 entry_xml.item {
   entry_xml.title entry.title
+  entry_xml.author "Geographic Information Network of Alaska"
   
   entry_xml.id georss_entry_url(entry.feed, entry, :format => :xml)
   entry_xml.link slug_entry_url(entry.feed, entry, :format => :html)
