@@ -2,7 +2,7 @@ content_xml.cdata!(
 <<EOHTML
 <!-- Radar animation context -->
 <style>
-img { 
+.puffin-feeder img { 
   min-width: 300px; 
   min-height: 500px; 
   width: 100%;
@@ -10,15 +10,8 @@ img {
   padding: 0;
   border: none;
 }
-.feed {
-  max-width: 960px;
-  margins: 0 auto;
-}
-.logos img {
-  width: 150px;
-}
 </style>
-<div class="feed">
+<div class="puffin-feeder">
   #{image_tag(File.join(root_url, entry.preview.try(:thumb, '800x800').try(:url)), alt: entry.title)}
   <div class="feeder">
   Find more @ <a href="http://feeder.gina.alaska.edu">GINA Puffin Feeder</a>
