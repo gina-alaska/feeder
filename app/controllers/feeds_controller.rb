@@ -10,7 +10,13 @@ class FeedsController < ApplicationController
     end
     @feeds = @feeds.order('status DESC, title ASC')
     
-    respond_with(@feeds)
+    respond_to do |format|
+      format.html
+      format.json {
+        @feeds = @feeds.collect { |f| f.as_json.merge(:entries => slug_url(f, :format => :json) ) }
+        respond_with(@feeds)
+      }
+    end
   end
   
   def search
