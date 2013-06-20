@@ -54,6 +54,9 @@ var next_image = function(prev, force) {
     }
   } else {
     next = img.next('.image')
+    if (force && next.length == 0) {
+      next = $('.bgimages .image:first')
+    }
   }
   
   if (next.length > 0) {
