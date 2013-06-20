@@ -48,9 +48,10 @@
     opacity: 0;
     @include transition(opacity 1s ease-in-out);
     @include transition-delay(1s);
-    
+    z-index: 1000;
     &.active { 
       opacity: 1; 
+      z-index: 1030;
       @include transition(opacity 0.5s ease-in-out);
       @include transition-delay(0s);
     }
@@ -72,7 +73,7 @@
       right:10px;
       width:400px;
       background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #3331;
+      border: 1px solid #555;
       @include border-radius(5px);
       text-align: center;
     }
