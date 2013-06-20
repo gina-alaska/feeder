@@ -16,9 +16,9 @@ $(document).on('click', '[data-action="skip-to"]', function(evt) {
 })
 
 $('.bgimages .image').on('swipeleft', function(evt) {
-  next_image(false, false)
+  next_image(false, true)
 }).on('swiperight', function(evt) {
-  next_image(true, false)
+  next_image(true, true)
 }).on('movestart', function(evt) {
   // need this to handle swipe correctly
 }).on('move', function(e) {
