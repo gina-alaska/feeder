@@ -6,8 +6,11 @@
     = link_to '#', class: 'btn', data: { behavior: 'pause' } do
       %i.icon-pause
       Pause
-      
 .bgimages
-
+  .lead{style: "text-align: center;" }
+    %i.icon-spinner.icon-spin
+    %b Loading....
+      
+  
 :javascript
   $.ajax({ url: top.location.href, dataType: 'script', data: { width: $('html').width(), height: $("html").height() } })
