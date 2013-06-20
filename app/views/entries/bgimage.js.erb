@@ -31,7 +31,7 @@ $('.bgimages .image').on('swipeleft', function(evt) {
 		$(this).css('left', left + '%').css('right', -left + '%');
 	}
 }).on('moveend', function(e) {
-	$(this).css('left', '').css('right', '');
+	$(this).css('left', '0%').css('right', '0%');
 });
 
 $(document).keydown(function(evt) {
