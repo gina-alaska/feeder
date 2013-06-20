@@ -1,11 +1,18 @@
 .bgimages-controls
   .btn-group{ data: { toggle: 'buttons-radio' } }
+    = link_to '#', class: 'btn', data: { behavior: 'prev' } do
+      %i.icon-backward
+      Prev
     = link_to '#', class: 'btn active', data: { behavior: 'play' } do
       %i.icon-play
       Play
     = link_to '#', class: 'btn', data: { behavior: 'pause' } do
       %i.icon-pause
       Pause
+    = link_to '#', class: 'btn', data: { behavior: 'next' } do
+      %i.icon-forward
+      Next
+      
 .bgimages
   .lead{style: "text-align: center;" }
     %i.icon-spinner.icon-spin

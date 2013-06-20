@@ -5,6 +5,7 @@
     .caption
       %h4= link_to entry.feed, slug_path(entry.feed), target: :_blank
       %h5= link_to entry, slug_entry_path(entry.feed, entry), target: :_blank
+    .navigation
       %ul.image-links.nav        
         - @entries.results.count.times do |i|          
           %li            

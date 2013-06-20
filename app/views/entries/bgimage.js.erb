@@ -1,7 +1,7 @@
 var play = true,
     width = $('.bgimages').width();
 
-$('.bgimages').append('<%= escape_javascript render('bgimage_list') %>');
+$('.bgimages').html('<%= escape_javascript render('bgimage_list') %>');
 
 $(document).on('click', '[data-action="skip-to"]', function(evt) {
   evt.preventDefault();
@@ -9,30 +9,45 @@ $(document).on('click', '[data-action="skip-to"]', function(evt) {
   img.removeClass('active')
   var target = $(this).data('target');
   $($('.bgimages .image')[target]).addClass('active')
-}).on('click', '[data-behavior="play"]', function() {
-  play = true
-}).on('click', '[data-behavior="pause"]', function() {
-  play = false
 })
 
-$('.bgimages .image').on('swipeleft', function(evt) {
-  next_image(false, true)
-}).on('swiperight', function(evt) {
-  next_image(true, true)
-}).on('movestart', function(evt) {
-  // need this to handle swipe correctly
-}).on('move', function(e) {
-	var left = 100 * e.distX / width;
-	// Move slides with the finger
-	if (e.distX < 0) {
-		$(this).css('left', left + '%').css('right', -left + '%');
-	}
-	if (e.distX > 0) {
-		$(this).css('left', left + '%').css('right', -left + '%');
-	}
-}).on('moveend', function(e) {
-	$(this).css('left', '0%').css('right', '0%');
-});
+$(document).on('click', '[data-behavior]', function(evt) {
+  switch($(this).data('behavior')) {
+  case 'play':
+    play = true;
+    break;
+  case 'pause':
+    play = false;    
+    break;
+  case 'next':
+    evt.preventDefault();
+    next_image(false, false)
+    break;
+  case 'prev':
+    evt.preventDefault();
+    next_image(true, false)
+    break;
+  }
+})
+
+// $(document).on('swipeleft', '.bgimages .image', function(evt) {
+//   next_image(false, true)
+// }).on('swiperight', '.bgimages .image', function(evt) {
+//   next_image(true, true)
+// }).on('movestart', '.bgimages .image', function(evt) {
+//   // need this to handle swipe correctly
+// }).on('move', '.bgimages .image', function(e) {
+//   var left = 100 * e.distX / width;
+//   // Move slides with the finger
+//   if (e.distX < 0) {
+//     $(this).css('left', left + '%').css('right', -left + '%');
+//   }
+//   if (e.distX > 0) {
+//     $(this).css('left', left + '%').css('right', -left + '%');
+//   }
+// }).on('moveend', '.bgimages .image', function(e) {
+//   $(this).css('left', '0%').css('right', '0%');
+// });
 
 $(document).keydown(function(evt) {
   switch(evt.which) {
@@ -80,7 +95,8 @@ var next_image = function(prev, force) {
     next.addClass('active');
     if(force) { next.addClass('force'); }
   } else {
-    top.location.reload();
+    // top.location.reload();
+    $.ajax({ url: top.location.href, dataType: 'script', data: { width: $('html').width(), height: $("html").height() } })
   }
 }
 

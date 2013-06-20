@@ -68,6 +68,10 @@
       @include transition-delay(0s);      
     }
     
+    ul.nav.image-links {
+      margin: 0;
+    }
+    
     .image-links li {
       display: inline-block;
     }
@@ -81,13 +85,27 @@
       background-color: #333;
     }
     
+    .navigation {
+      z-index: 1040;
+      position: fixed;
+      bottom:10px;
+      left:50%;
+      margin-left: -300px;
+      padding: 10px;
+      width:600px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #555;
+      @include border-radius(5px);
+      text-align: center;
+    }
+    
     .caption {
       z-index: 1040;
       position: fixed;
       margin: 0;
       top:50px;
       right:10px;
-      width:400px;
+      padding: 0 10px;
       background-color: rgba(255, 255, 255, 0.9);
       border: 1px solid #555;
       @include border-radius(5px);
