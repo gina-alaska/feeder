@@ -50,6 +50,21 @@ class EntriesController < ApplicationController
     end
   end
   
+  def search
+    super
+    
+    respond_to do |format|
+      format.html {
+        if params[:output] == 'bgimage'
+          render 'bgimage'
+        end
+      }
+      format.json
+      format.xml
+      format.georss
+    end
+  end
+  
   def index
     search
     
