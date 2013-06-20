@@ -65,6 +65,10 @@
       min-width: 15px;
     }
     
+    .image-links a:hover {
+      background-color: #333;
+    }
+    
     .caption {
       z-index: 1040;
       position: fixed;
