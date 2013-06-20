@@ -11,11 +11,7 @@ class FeedsController < ApplicationController
     @feeds = @feeds.order('status DESC, title ASC')
     
     respond_to do |format|
-      format.html {
-        if params[:output].present? and params[:output] == 'bgimage'
-          render 'bgimage'
-        end
-      }
+      format.html
       format.json {
         @feeds = @feeds.collect { |f| f.as_json.merge(:entries => slug_url(f, :format => :json) ) }
         respond_with(@feeds)

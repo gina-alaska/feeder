@@ -59,18 +59,6 @@ class EntriesController < ApplicationController
           render 'bgimage'
         end
       }
-      format.json
-      format.xml
-      format.georss
-    end
-  end
-  
-  def index
-    search
-    
-    respond_to do |format|
-      format.html
-      format.georss
       format.json {
         results = @entries.results.collect do |e| 
           e.as_json(:only => [:id, :title, :slug, :updated_at]).merge({
@@ -80,7 +68,27 @@ class EntriesController < ApplicationController
         end
         respond_with(results)
       }
+      format.xml
+      format.georss
     end
+  end
+  
+  def index
+    search
+    
+    # respond_to do |format|
+    #   format.html
+    #   format.georss
+    #   format.json {
+    #     results = @entries.results.collect do |e| 
+    #       e.as_json(:only => [:id, :title, :slug, :updated_at]).merge({
+    #         :thumbnail => File.join('http://', request.host, e.preview.try(:thumb, '250x250').try(:url)),
+    #         :image => File.join('http://', request.host, e.preview.try(:url))
+    #       })
+    #     end
+    #     respond_with(results)
+    #   }
+    # end
     # if params[:date]
     #   year, month = params[:date].split('-')
     #   date = DateTime.civil(year.to_i, month.to_i)

@@ -8,7 +8,6 @@
   var next_image = function() {
     var img = $('.bgimages .image.active')
     img.removeClass('active')
-    console.log(img.next('.image').length);
     if (img.next('.image').length > 0) {
       img.next().addClass('active');
     } else {
