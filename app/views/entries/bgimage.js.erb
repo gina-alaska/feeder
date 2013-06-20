@@ -1,4 +1,5 @@
-var play = true;
+var play = true,
+    width = $('.bgimages').width();
 
 $('.bgimages').append('<%= escape_javascript render('bgimage_list') %>');
 
@@ -14,15 +15,24 @@ $(document).on('click', '[data-action="skip-to"]', function(evt) {
   play = false
 })
 
-$('.bgimages img').on('swipeleft', function(evt) {
-  // console.log('test')
-  next_image(false, true)
+$('.bgimages .image').on('swipeleft', function(evt) {
+  next_image(false, false)
 }).on('swiperight', function(evt) {
-  // console.log('test')
-  next_image(true, true)
+  next_image(true, false)
 }).on('movestart', function(evt) {
   // need this to handle swipe correctly
-})
+}).on('move', function(e) {
+	var left = 100 * e.distX / width;
+	// Move slides with the finger
+	if (e.distX < 0) {
+		$(this).css('left', left + '%').css('right', -left + '%');
+	}
+	if (e.distX > 0) {
+		$(this).css('left', left + '%').css('right', -left + '%');
+	}
+}).on('moveend', function(e) {
+	$(this).css('left', '').css('right', '');
+});
 
 $(document).keydown(function(evt) {
   switch(evt.which) {
