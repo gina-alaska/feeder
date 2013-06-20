@@ -3,8 +3,8 @@
   .image{ class: bgclass }
     %img{ src: entry.preview.thumb("#{@width}x#{@height}#").url }    
     .caption
-      %h4= entry.feed      
-      %h5= entry      
+      %h4= link_to entry.feed, slug_path(entry.feed), target: :_blank
+      %h5= link_to entry, slug_entry_path(entry.feed, entry), target: :_blank
       %ul.image-links.nav        
         - @entries.results.count.times do |i|          
           %li            
