@@ -1,0 +1,33 @@
+var play = true;
+
+$('.bgimages').append('<%= escape_javascript render('bgimage_list') %>');
+
+$(document).on('click', '[data-action="skip-to"]', function(evt) {
+  evt.preventDefault();
+  var img = $('.bgimages .image.active')
+  img.removeClass('active')
+  var target = $(this).data('target');
+  $($('.bgimages .image')[target]).addClass('active')
+})
+
+$(document).on('click', '[data-behavior="play"]', function() {
+  play = true
+})
+
+$(document).on('click', '[data-behavior="pause"]', function() {
+  play = false
+})
+
+var next_image = function() {
+  if (!play) { return false; }
+  var img = $('.bgimages .image.active')
+  img.removeClass('active')
+  if (img.next('.image').length > 0) {
+    img.next().addClass('active');
+  } else {
+    top.location.reload();
+  }
+}
+$(document).ready(function() {
+  setInterval(next_image, 10000);
+});

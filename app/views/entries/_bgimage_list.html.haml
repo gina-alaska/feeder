@@ -1,0 +1,13 @@
+- bgclass = 'active'
+- @entries.results.reverse.each_with_index do |entry, index|
+  .image{ class: bgclass }
+    %img{ src: entry.preview.thumb("#{@width}x#{@height}#").url }    
+    .caption
+      %h4= entry.feed      
+      %h5= entry      
+      %ul.image-links.nav        
+        - @entries.results.count.times do |i|          
+          %li            
+            = link_to '#', data: { action: 'skip-to', target: i }, class: index == i ? 'badge badge-info' : 'badge' do
+              = i + 1    
+          - bgclass = ''

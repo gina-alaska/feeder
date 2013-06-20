@@ -37,6 +37,13 @@
   }
 }
 
+.bgimages-controls {
+  position: fixed;
+  top: 50px;
+  left: 10px;
+  z-index: 1040;
+}
+
 .bgimages {
   position: relative;
   .image{

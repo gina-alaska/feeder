@@ -53,11 +53,19 @@ class EntriesController < ApplicationController
   def search
     super
     
+    @width = params[:width] || 1440
+    @height = params[:height] || 900
+    
     respond_to do |format|
       format.html {
         if params[:output] == 'bgimage'
-          render 'bgimage'
+          render 'detect_size'
         end
+      }
+      format.js {
+        if params[:output] == 'bgimage'
+          render 'bgimage'
+        end        
       }
       format.json {
         results = @entries.results.collect do |e| 

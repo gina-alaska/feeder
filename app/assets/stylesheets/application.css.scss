@@ -11,6 +11,10 @@ $navbarInverseLinkColorHover: #AAA;
 @import 'entries';
 @import 'feeds';
 
+html, body {
+  height: 100%;
+}
+
 #header {
   a { text-decoration: none; }
   a.brand {

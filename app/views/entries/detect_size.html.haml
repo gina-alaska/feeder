@@ -1,0 +1,13 @@
+.bgimages-controls
+  .btn-group{ data: { toggle: 'buttons-radio' } }
+    = link_to '#', class: 'btn active', data: { behavior: 'play' } do
+      %i.icon-play
+      Play
+    = link_to '#', class: 'btn', data: { behavior: 'pause' } do
+      %i.icon-pause
+      Pause
+      
+.bgimages
+
+:javascript
+  $.ajax({ url: top.location.href, dataType: 'script', data: { width: $('html').width(), height: $("html").height() } })
