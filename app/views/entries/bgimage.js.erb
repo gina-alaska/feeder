@@ -18,28 +18,45 @@ $(document).on('click', '[data-behavior="pause"]', function() {
   play = false
 })
 
-$(document).keypress(function(evt) {
-  if(evt.which == 32) {
+$(document).keydown(function(evt) {
+  switch(evt.which) {
+  case 32:
     if(play) {
-      // play = false
       $('[data-behavior="pause"]').click()
     } else {
-      // play = true
       $('[data-behavior="play"]').click()
-    }
+    }    
+    break;
+  case 37:
+    next_image(true, true);
+    break;
+  case 39:
+    next_image(false, true);
+    break;
+  default:
+    console.log(evt.which);
   }
+  console.log('test')
 })
 
-var next_image = function() {
-  if (!play) { return false; }
+var next_image = function(prev, force) {
+  if (!force && !play) { return false; }
   var img = $('.bgimages .image.active')
   img.removeClass('active')
-  if (img.next('.image').length > 0) {
-    img.next().addClass('active');
+  
+  if (prev) {
+    var next = img.prev('.image')
+  } else {
+    var next = img.next('.image')
+  }
+  
+  if (next.length > 0) {
+    next.addClass('active');
   } else {
     top.location.reload();
   }
 }
+
 $(document).ready(function() {
   setInterval(next_image, 10000);
 });
