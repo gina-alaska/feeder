@@ -11,7 +11,11 @@ class FeedsController < ApplicationController
     @feeds = @feeds.order('status DESC, title ASC')
     
     respond_to do |format|
-      format.html
+      format.html {
+        if params[:output].present? and params[:output] == 'bgimage'
+          render 'bgimage'
+        end
+      }
       format.json {
         @feeds = @feeds.collect { |f| f.as_json.merge(:entries => slug_url(f, :format => :json) ) }
         respond_with(@feeds)
@@ -24,7 +28,7 @@ class FeedsController < ApplicationController
     if params[:q]
       @feeds = @feeds.where('title like ?', "%#{params[:q]}%")
     end
-    @feeds = @feeds.order('status DESC, title ASC')    
+    @feeds = @feeds.order('status DESC, title ASC')
   end
   
   def carousel
