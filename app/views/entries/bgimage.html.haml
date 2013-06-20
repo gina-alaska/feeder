@@ -2,7 +2,7 @@
 .bgimages
   - @entries.results.reverse.each do |entry|
     .image{ class: bgclass }
-      %img{ src: entry.preview.remote_url }
+      %img{ src: entry.preview.thumb('1440x990#').url }
       - bgclass = ''
 :javascript
   var next_image = function() {
