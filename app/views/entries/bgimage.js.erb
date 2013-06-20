@@ -18,6 +18,18 @@ $(document).on('click', '[data-behavior="pause"]', function() {
   play = false
 })
 
+$(document).keypress(function(evt) {
+  if(evt.which == 32) {
+    if(play) {
+      // play = false
+      $('[data-behavior="pause"]').click()
+    } else {
+      // play = true
+      $('[data-behavior="play"]').click()
+    }
+  }
+})
+
 var next_image = function() {
   if (!play) { return false; }
   var img = $('.bgimages .image.active')
