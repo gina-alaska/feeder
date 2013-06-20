@@ -40,15 +40,25 @@ var next_image = function(prev, force) {
   if (!force && !play) { return false; }
   var img = $('.bgimages .image.active')
   img.removeClass('active')
-  
-  if (prev) {
-    var next = img.prev('.image')
+  if(force) {
+    img.addClass('force');
   } else {
-    var next = img.next('.image')
+    $('.bgimages .force').removeClass('force');
+  }
+  
+  var next = [];
+  if (prev) {
+    next = img.prev('.image')
+    if (next.length == 0) {
+      next = $('.bgimages .image:last')
+    }
+  } else {
+    next = img.next('.image')
   }
   
   if (next.length > 0) {
     next.addClass('active');
+    if(force) { next.addClass('force'); }
   } else {
     top.location.reload();
   }

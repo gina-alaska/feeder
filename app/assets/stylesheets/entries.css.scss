@@ -63,6 +63,11 @@
       @include transition-delay(0s);
     }
     
+    &.force {
+      @include transition(none);
+      @include transition-delay(0s);      
+    }
+    
     .image-links li {
       display: inline-block;
     }
