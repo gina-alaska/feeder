@@ -18,6 +18,13 @@ $(document).on('click', '[data-behavior="pause"]', function() {
   play = false
 })
 
+$(document).on('swipeleft', function(evt) {
+  next_image(false, true)
+})
+$(document).on('swiperight', function(evt) {
+  next_image(true, true)
+})
+
 $(document).keydown(function(evt) {
   switch(evt.which) {
   case 32:
@@ -41,6 +48,7 @@ var next_image = function(prev, force) {
   var img = $('.bgimages .image.active')
   img.removeClass('active')
   if(force) {
+    $('[data-behavior="pause"]').click()
     img.addClass('force');
   } else {
     $('.bgimages .force').removeClass('force');
