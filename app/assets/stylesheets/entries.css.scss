@@ -51,8 +51,30 @@
     
     &.active { 
       opacity: 1; 
-      @include transition(opacity 1s ease-in-out);
+      @include transition(opacity 0.5s ease-in-out);
       @include transition-delay(0s);
+    }
+    
+    .image-links li {
+      display: inline-block;
+    }
+    
+    .image-links a {
+      color: #fff;
+      min-width: 15px;
+    }
+    
+    .caption {
+      z-index: 1040;
+      position: fixed;
+      margin: 0;
+      top:50px;
+      right:10px;
+      width:400px;
+      background-color: rgba(255, 255, 255, 0.75);
+      border: 1px solid #efefef;
+      @include border-radius(5px);
+      text-align: center;
     }
     
     img {

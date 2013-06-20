@@ -1,10 +1,26 @@
 - bgclass = 'active'
 .bgimages
-  - @entries.results.reverse.each do |entry|
+  - @entries.results.reverse.each_with_index do |entry, index|
     .image{ class: bgclass }
       %img{ src: entry.preview.thumb('1440x990#').url }
+      .caption 
+        %h4= entry.feed
+        %h5= entry
+        %ul.image-links.nav
+          - @entries.results.count.times do |i|
+            %li
+              = link_to '#', data: { action: 'skip-to', target: i }, class: index == i ? 'badge badge-info' : 'badge' do
+                = i + 1
       - bgclass = ''
 :javascript
+  $(document).on('click', '[data-action="skip-to"]', function(evt) {
+    evt.preventDefault();
+    var img = $('.bgimages .image.active')
+    img.removeClass('active')
+    var target = $(this).data('target');
+    $($('.bgimages .image')[target]).addClass('active')
+  })
+  
   var next_image = function() {
     var img = $('.bgimages .image.active')
     img.removeClass('active')
@@ -15,5 +31,5 @@
     }
   }
   $(document).ready(function() {
-    setInterval(next_image, 3000);
+    setInterval(next_image, 10000);
   })
