@@ -8,21 +8,20 @@ $(document).on('click', '[data-action="skip-to"]', function(evt) {
   img.removeClass('active')
   var target = $(this).data('target');
   $($('.bgimages .image')[target]).addClass('active')
-})
-
-$(document).on('click', '[data-behavior="play"]', function() {
+}).on('click', '[data-behavior="play"]', function() {
   play = true
-})
-
-$(document).on('click', '[data-behavior="pause"]', function() {
+}).on('click', '[data-behavior="pause"]', function() {
   play = false
 })
 
-$(document).on('swipeleft', function(evt) {
+$('.bgimages img').on('swipeleft', function(evt) {
+  // console.log('test')
   next_image(false, true)
-})
-$(document).on('swiperight', function(evt) {
+}).on('swiperight', function(evt) {
+  // console.log('test')
   next_image(true, true)
+}).on('movestart', function(evt) {
+  // need this to handle swipe correctly
 })
 
 $(document).keydown(function(evt) {
