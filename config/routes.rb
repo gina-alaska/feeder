@@ -29,7 +29,7 @@ Feeder::Application.routes.draw do
   match '/signout' => 'sessions#destroy', :as => :signout
   
   match '/auth/:provider/callback', :to => 'sessions#create'  
-  match '/auth/fail', :to => 'sessions#failure'
+  match '/auth/failure', :to => 'sessions#failure'
   
   match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
   match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
