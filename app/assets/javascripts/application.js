@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.move
+//= require jquery.swipe
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .
