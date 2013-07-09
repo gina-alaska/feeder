@@ -11,6 +11,10 @@ $navbarInverseLinkColorHover: #AAA;
 @import 'entries';
 @import 'feeds';
 
+html, body {
+  height: 100%;
+}
+
 #header {
   a { text-decoration: none; }
   a.brand {
@@ -39,7 +43,7 @@ $navbarInverseLinkColorHover: #AAA;
 #footer {
   margin-top: 5px;
   text-align: center;
-  #gina_logo, #uaf_logo {
+  #gina_logo, #uaf_logo, #copyright {
     display: inline;
     padding: 0px 10px;
     img { height: 30px; }
