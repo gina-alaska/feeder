@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/kendagriff/ruby-openid.git
+  revision: 79beaa419d4754e787757f2545331509419e222e
+  ref: 79beaa419d4754e787757f2545331509419e222e
+  specs:
+    ruby-openid (2.2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -141,7 +148,6 @@ GEM
     rmagick (2.13.2)
     rsolr (1.0.9)
       builder (>= 2.1.2)
-    ruby-openid (2.2.3)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -212,6 +218,7 @@ DEPENDENCIES
   rack-cache
   rails (= 3.2.13)
   rmagick
+  ruby-openid!
   sass-rails (~> 3.2.3)
   sidekiq
   sqlite3
