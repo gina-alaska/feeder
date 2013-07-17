@@ -7,4 +7,8 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
-bundle exec rails runner "QuickImportWorker.perform_async('$1', '$2')" -e production
+if [ -z $RAILS_ENV ]; then
+  RAILS_ENV=production
+fi
+
+bundle exec rails runner "QuickImportWorker.perform_async('$1', '$2')" -e $RAILS_ENV
