@@ -1,7 +1,0 @@
-watch '/mnt/incoming/barrow_radar' do
-  match extension tif do
-    slug = 'radar-uaf-barrow-seaice-geotif'
-    run "script/quick_import.sh \"#{slug}\" \"#{filename}\""
-    #move filename, '/mnt/done/barrow_radar' if status.success?
-  end
-end

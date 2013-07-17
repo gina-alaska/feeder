@@ -1,5 +1,5 @@
 watch '/mnt/incoming/barrow_radar' do
-  match extension png do
+  match extension any do
     slug = 'radar-uaf-barrow-seaice-images'
     run "script/quick_import.sh \"#{slug}\" \"#{filename}\""
     #move filename, '/mnt/done/barrow_radar' if status.success?
