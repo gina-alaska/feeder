@@ -13,7 +13,6 @@ class MoviesController < ApplicationController
     @movie_view = true
     
     feed_ids = pull_ids(:feeds) || @feeds.pluck(:id)
-    logger.info selected_sensor_ids
     
     if !selected_sensor_ids or selected_sensor_ids.empty?
       @selected_sensor_ids = @sensors.pluck(:id)
