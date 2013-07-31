@@ -69,7 +69,7 @@ class EntriesController < ApplicationController
       }
       format.json {
         results = @entries.results.collect do |e| 
-          e.as_json(:only => [:id, :title, :slug, :updated_at]).merge({
+          e.as_json(:only => [:id, :title, :slug, :event_at, :created_at, :updated_at]).merge({
             previews: {
               small: File.join('http://', request.host, e.preview.try(:thumb, '500x500').try(:url)),
               medium: File.join('http://', request.host, e.preview.try(:thumb, '1000x1000').try(:url)),
