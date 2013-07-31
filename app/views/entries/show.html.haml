@@ -1,7 +1,2 @@
-.row-fluid
-  #sidebar.span3
-    = render 'shared/sidebar'
-  .span9
-    %h2= @feed.title
-    .entries.clearfix
-      = render @entry, feed: @feed, size: 'large'
+= render 'shared/sidebar'
+= render 'preview', entry: @entry

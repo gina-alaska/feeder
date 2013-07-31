@@ -46,6 +46,10 @@ class Entry < ActiveRecord::Base
     self.read_attribute(:event_at).in_time_zone(self.zone)
   end
   
+  def same_day
+    Entry.where('event_at >= ? and event_at <= ?', self.event_at.beginning_of_day, self.event_at.end_of_day).order('event_at DESC')
+  end
+  
   def zone
     case entry_type?
     when :barrow_radar_image

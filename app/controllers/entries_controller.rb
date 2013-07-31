@@ -1,9 +1,14 @@
 class EntriesController < ApplicationController
-  respond_to :html, :georss, :xml, :json
+  respond_to :html, :georss, :xml, :json, :js
   
-  before_filter :fetch_feed, :only => [:index, :show, :image, :preview]
+  before_filter :fetch_feed, :only => [:index, :show, :image, :preview, :chooser]
   
   def show
+    if params[:size] 
+      cookies[:preview_size] = params[:size]
+    end
+    cookies[:preview_size] ||= 'desktop'
+    
     if params[:id] == 'current'
       @entry = @feed.current_entries.first
     else
@@ -110,6 +115,16 @@ class EntriesController < ApplicationController
     #   @entries = @feed.entries.latest
     # end
     # @entries = @entries.page(params[:page]).per(12)
+  end
+  
+  def chooser
+    if params[:id] == 'current'
+      @entry = @feed.current_entries.first
+    else
+      @entry = @feed.entries.latest.where(slug: params[:id]).first    
+    end
+    
+    respond_with @entry 
   end
   
   protected

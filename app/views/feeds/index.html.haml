@@ -1,8 +1,4 @@
-.row-fluid
-  .span3
-    / = render 'keywords'
-    = render 'shared/sidebar'
-  .span9
-    .entries
-      = render 'list', feeds: @feeds
+= render 'shared/sidebar'
+.entries
+  = render 'list', feeds: @feeds
         

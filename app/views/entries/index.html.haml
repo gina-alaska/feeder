@@ -1,9 +1,4 @@
-.row-fluid
-  #sidebar.span3
-    = render 'shared/sidebar'
-  .span9
-    %h5{style:'text-align:center;'}
-      = "Curent view dates: #{current_date_range(@entries.results)}" if @entries.total > 1
-    .entries.clearfix
-      = render @entries.results, :feed => @feed
-      = paginate @entries.results, :params => { :search => search_params }
+= render 'shared/sidebar'  
+= render 'preview', entry: @entries.results.first
+/ = render @entries.results, :feed => @feed
+/ = paginate @entries.results, :params => { :search => search_params }

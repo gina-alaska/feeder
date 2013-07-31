@@ -1,18 +1,15 @@
-.row-fluid
-  #sidebar.span3
-    = render 'shared/sidebar'
-  
-  #feed.span9{style:"text-align:center;"}
-    - @entries.results.each do |duration|
-      .entry
-        .title{style:"padding:3px;"}
-          %b= "#{duration} day animation for"
-          = render 'picker', date: @movies[duration].try(:event_at) || (Time.now - duration.days).to_date, duration: duration
-        - if @movies[duration].nil?
-          = link_to '#' do
-            = image_tag 'http://placehold.it/200x200&text=Not+available'
-            No animation available
-        - else
-          = link_to feed_movie_url(@feed, @movies[duration]) do
-            = image_tag cw_image_url(@movies[duration].entries.first.preview.try(:thumb, '200x200#'))
-            Play animation
+= render 'shared/sidebar'
+#feed{style:"text-align:center;"}
+  - @entries.results.each do |duration|
+    .entry
+      .title{style:"padding:3px;"}
+        %b= "#{duration} day animation for"
+        = render 'picker', date: @movies[duration].try(:event_at) || (Time.now - duration.days).to_date, duration: duration
+      - if @movies[duration].nil?
+        = link_to '#' do
+          = image_tag 'http://placehold.it/200x200&text=Not+available'
+          No animation available
+      - else
+        = link_to feed_movie_url(@feed, @movies[duration]) do
+          = image_tag cw_image_url(@movies[duration].entries.first.preview.try(:thumb, '200x200#'))
+          Play animation

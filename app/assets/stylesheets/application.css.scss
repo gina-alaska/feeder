@@ -6,8 +6,9 @@ $navbarInverseLinkColor: #FFF;
 $navbarInverseLinkColorHover: #AAA;
 
 @import 'bootstrap';
-/*@import "bootstrap-responsive";*/
+@import "bootstrap-responsive";
 @import "bootstrap-datepicker";
+@import "font-awesome";
 @import 'entries';
 @import 'feeds';
 
@@ -41,7 +42,7 @@ html, body {
 }
   
 #footer {
-  margin-top: 5px;
+  margin-top: 20px;
   text-align: center;
   #gina_logo, #uaf_logo, #copyright {
     display: inline;
@@ -51,6 +52,7 @@ html, body {
 }
 
 #sidebar {
+  max-width: 400px;
   .by_month {
     color: $linkColor;
     cursor: pointer;
@@ -86,11 +88,6 @@ html, body {
 //
 .page a {
   width: 15px; 
-}
-
-.icon-rss {
-  background-image: url(asset_path('feed-icon-14x14.png', image));
-  background-position: 0 0;
 }
 
 .input-daterange .add-on {

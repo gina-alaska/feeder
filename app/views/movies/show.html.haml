@@ -1,20 +1,18 @@
-.row-fluid
-  #sidebar.span3
-    = render 'shared/sidebar'
-  #feed.span9{style:"text-align:center;"}
-    - if @movie.available? && @movie.valid?
-      .entry
-        .title{style:"padding:3px;"}
-          %b= "#{@movie.title} for"
-          = render 'picker', date: @movie.event_at, duration: @movie.duration
-        = render @movie
-    - else
-      .entry.generating
-        = render 'generating', movie: @movie
-      :javascript
-        setTimeout(function(){
-          if($('.entry.generating').size() > 0) {
-            $.pjax({ url: '#{feed_movie_url(@feed, @movie)}', container: '#content' });
-          }
-        }, 3000)
-        
+= render 'shared/sidebar'
+#feed{style:"text-align:center;"}
+  - if @movie.available? && @movie.valid?
+    .entry
+      .title{style:"padding:3px;"}
+        %b= "#{@movie.title} for"
+        = render 'picker', date: @movie.event_at, duration: @movie.duration
+      = render @movie
+  - else
+    .entry.generating
+      = render 'generating', movie: @movie
+    :javascript
+      setTimeout(function(){
+        if($('.entry.generating').size() > 0) {
+          $.pjax({ url: '#{feed_movie_url(@feed, @movie)}', container: '#content' });
+        }
+      }, 3000)
+      

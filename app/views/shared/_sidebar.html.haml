@@ -1,108 +1,109 @@
-= form_tag @search_path, method: :get do
-  #sidebar
-    %ul.nav.nav-list.accordion-group
-      %li.nav-header
-        Main Menu
-      %li{ class: @movie_view ? '' : 'active' }
-        = link_to root_url do
-          %i.icon-home
-          Imagery
-      %li{ class: @movie_view ? 'active' : '' }
-        = link_to movies_url do
-          %i.icon-film
-          Animations
-      - unless @feed.nil?
+- content_for :sidebar do
+  = form_tag @search_path, method: :get do
+    #sidebar
+      %ul.nav.nav-list.accordion-group
         %li.nav-header
-          Related feeds
-        %li
-          /{ :class => all_images_active_class(feed.slug) }
-          = link_to slug_path(@feed) do
-            %i.icon-eye-open
-            = "#{@feed} Images"
-        - if @feed.animate
+          Main Menu
+        %li{ class: @movie_view ? '' : 'active' }
+          = link_to root_url do
+            %i.icon-home
+            Imagery
+        %li{ class: @movie_view ? 'active' : '' }
+          = link_to movies_url do
+            %i.icon-film
+            Animations
+        - unless @feed.nil?
+          %li.nav-header
+            Related feeds
           %li
-            = link_to feed_movies_url(@feed) do
-              %i.icon-film
-              = "#{@feed} Animations"
-        %li
-          /{ :class => current_image_active_class(feed.slug)  }
-          = link_to slug_entry_path(@feed, 'current') do
-            %i.icon-picture
-            = "Latest #{@feed} Image"
-        %li
-          = link_to slug_path(@feed, :xml), 'data-skip-pjax' => true do
-            %i.icon-rss
-            Imagery RSS
-      /   
-      / - unless @entries.nil?
-      /   %li.nav-header
-      /     Information
-      /   %li
-      /     Total:
-      /     = @entries.total
+            /{ :class => all_images_active_class(feed.slug) }
+            = link_to slug_path(@feed) do
+              %i.icon-eye-open
+              = "#{@feed} Images"
+          - if @feed.animate
+            %li
+              = link_to feed_movies_url(@feed) do
+                %i.icon-film
+                = "#{@feed} Animations"
+          %li
+            /{ :class => current_image_active_class(feed.slug)  }
+            = link_to slug_entry_path(@feed, 'current') do
+              %i.icon-picture
+              = "Latest #{@feed} Image"
+          %li
+            = link_to slug_path(@feed, :xml), 'data-skip-pjax' => true do
+              %i.icon-rss
+              Imagery RSS
+        /   
+        / - unless @entries.nil?
+        /   %li.nav-header
+        /     Information
+        /   %li
+        /     Total:
+        /     = @entries.total
       
-      %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#sensors_list' } }
-        %i.icon-chevron-down
-        Sensors
-      %ul#sensors_list.nav.nav-list.collapse.in
-        = render 'shared/sensor_fields'
+        %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#sensors_list' } }
+          %i.icon-chevron-down
+          Sensors
+        %ul#sensors_list.nav.nav-list.collapse.in
+          = render 'shared/sensor_fields'
         
-      %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#feeds_list' } }
-        / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
-        / %i.icon-chevron-down
-        %i.icon-chevron-right
-        Feeds
-      %ul#feeds_list.nav.nav-list.collapse
-        = render 'shared/feed_fields'
+        %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#feeds_list' } }
+          / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
+          / %i.icon-chevron-down
+          %i.icon-chevron-right
+          Feeds
+        %ul#feeds_list.nav.nav-list.collapse
+          = render 'shared/feed_fields'
         
-      %li.nav-header{ data: { toggle: 'collapse', parent: '#sidebar', target: '#date_selection' } }
-        / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
-        / %i.icon-chevron-down
-        %i.icon-chevron-right
-        Date Selection
-      %ul#date_selection.nav.nav-list.collapse
-        %li
-          .input-daterange.rangepicker
-            = text_field_tag "search[start]", search_params[:start], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
-            %span.add-on to
-            = text_field_tag "search[end]", search_params[:end], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
-          .help-block
-            Enter a date range to filter selection, if left blank the date range will be open ended
-      %li.actions
-        .row-fluid
-          .span6
-            = link_to 'Reset', root_url, class: 'btn btn-block'
-          .span6
-            = submit_tag 'Search', class: 'btn btn-primary btn-block'
+        %li.nav-header{ data: { toggle: 'collapse', parent: '#sidebar', target: '#date_selection' } }
+          / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
+          / %i.icon-chevron-down
+          %i.icon-chevron-right
+          Date Selection
+        %ul#date_selection.nav.nav-list.collapse
+          %li
+            .input-daterange.rangepicker
+              = text_field_tag "search[start]", search_params[:start], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
+              %span.add-on to
+              = text_field_tag "search[end]", search_params[:end], placeholder: 'YYYY/MM/DD', class: 'span5 datepicker'
+            .help-block
+              Enter a date range to filter selection, if left blank the date range will be open ended
+        %li.actions
+          .row-fluid
+            .span6
+              = link_to 'Reset', root_url, class: 'btn btn-block'
+            .span6
+              = submit_tag 'Search', class: 'btn btn-primary btn-block'
         
-:javascript
-  $(".datepicker").datepicker({ autoclose: true, format: 'yyyy/mm/dd' }).on('changeDate', function(e) {
-    var picker;
-    if($(this).attr('id') == 'search_start') {
-      picker = $('#search_end').data('datepicker')
-      if (picker.date && picker.date < e.date) {
-        picker.setUTCDate(e.date);
+  :javascript
+    $(".datepicker").datepicker({ autoclose: true, format: 'yyyy/mm/dd' }).on('changeDate', function(e) {
+      var picker;
+      if($(this).attr('id') == 'search_start') {
+        picker = $('#search_end').data('datepicker')
+        if (picker.date && picker.date < e.date) {
+          picker.setUTCDate(e.date);
+        }
+      } else {
+        picker = $('#search_start').data('datepicker')
+        if (picker.date && picker.date > e.date) {
+          picker.setUTCDate(e.date);
+        }
       }
-    } else {
-      picker = $('#search_start').data('datepicker')
-      if (picker.date && picker.date > e.date) {
-        picker.setUTCDate(e.date);
-      }
-    }
-  });
-  $('.collapse').on('hide', function(evt) {
-    var p = $(this).prev().find('i')
-    p.removeClass('icon-chevron-down').addClass('icon-chevron-right');
-  });
-  $('.collapse').on('show', function(evt) {
-    var p = $(this).prev().find('i')
-    p.removeClass('icon-chevron-right').addClass('icon-chevron-down');
-  });
-  $('[data-action="select-all"]').on('click', function(evt) {
-    evt.preventDefault();
-    $($(this).data('target')).prop('checked', true);
-  });
-  $('[data-action="unselect-all"]').on('click', function(evt) {
-    evt.preventDefault();
-    $($(this).data('target')).removeAttr('checked');
-  });
+    });
+    $('.collapse').on('hide', function(evt) {
+      var p = $(this).prev().find('i')
+      p.removeClass('icon-chevron-down').addClass('icon-chevron-right');
+    });
+    $('.collapse').on('show', function(evt) {
+      var p = $(this).prev().find('i')
+      p.removeClass('icon-chevron-right').addClass('icon-chevron-down');
+    });
+    $('[data-action="select-all"]').on('click', function(evt) {
+      evt.preventDefault();
+      $($(this).data('target')).prop('checked', true);
+    });
+    $('[data-action="unselect-all"]').on('click', function(evt) {
+      evt.preventDefault();
+      $($(this).data('target')).removeAttr('checked');
+    });

@@ -1,13 +1,27 @@
-- size ||= 'small'
-.entry
-  = render size, :entry => entry
-  .ago
-    Processed
-    %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')
-    /= time_ago_in_words(entry.event_at)
-    /ago
-  .sizes.btn-group
-    = link_to 'Medium', cw_image_url(entry.preview.try(:thumb, '1600x>')), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Large', cw_image_url(entry.preview), class: 'btn', 'data-skip-pjax' => true
-    = link_to 'Original', entry.image.remote_url, class: 'btn', 'data-skip-pjax' => true      
-
+%table.table.table-condensed{ id: dom_id(entry, :preview) }
+  %tr
+    %td
+      - if entry.next
+        = link_to slug_entry_path(entry.feed, entry.next), data: { action: 'switch-image', highlight: dom_id(entry.next, '#chooser') } do
+          %i.icon-chevron-left
+      - else
+        = link_to '#', class: 'disabled', data: { action: 'switch-image' } do
+          %i.icon-chevron-left
+    %td
+      .image
+        - cache([entry, cookies[:preview_size], 'preview', 'v2']) do
+          = preview_image_tag(entry)
+          .caption
+            = entry.feed.title 
+            \- 
+            = entry.title
+            = surround '(', ')' do
+              %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')          
+    %td
+      - if entry.prev
+        = link_to slug_entry_path(entry.feed, entry.prev), data: { action: 'switch-image', highlight: dom_id(entry.prev, '#chooser') } do
+          %i.icon-chevron-right
+      - else
+        = link_to '#', class: 'disabled', data: { action: 'switch-image' } do
+          %i.icon-chevron-right
+      

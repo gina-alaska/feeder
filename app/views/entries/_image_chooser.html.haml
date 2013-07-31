@@ -1,0 +1,8 @@
+%ul.entries-chooser
+  %li.header
+    %h5= day = entry.event_at.strftime('%F')
+  - entry.same_day.each do |same_day_entry|
+    - cache([same_day_entry, :image_chooser, :v2]) do
+      %li.entry-preview{ id: dom_id(same_day_entry, 'chooser') }
+        = link_to slug_entry_url(same_day_entry.feed, same_day_entry), data: { action: 'load-image' } do
+          = image_tag same_day_entry.preview.try(:thumb, '100x100#').url, class: 'thumbnail'

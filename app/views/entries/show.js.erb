@@ -1,0 +1,17 @@
+try {
+  $('#image-toolbar').html('<%= escape_javascript(render 'toolbar', entry: @entry) %>');
+  var currentEntry = $('#image-viewer > table');
+  var newEntry = $('<%= escape_javascript(render @entry) %>');
+
+  // Detect when the image has been loaded by the browser and then replace the content
+  $('<img/>').load(function() {
+    $(newEntry).appendTo('#image-viewer');
+    $(currentEntry).remove();       
+    $('#image-viewer').spin(false);
+  }).error(function() {
+    $(newEntry).appendTo('#image-viewer');
+    $('#image-viewer').spin(false);
+  }).attr('src', $(newEntry).find('img').attr('src'));  
+} catch (exception) {
+  console.log(exception)
+}

@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       facet :feed_id
       
       order_by(:event_at, :desc)
-      paginate :page => page, :per_page => 15
+      paginate :page => page, :per_page => 30
     end
     
     @facets = {}

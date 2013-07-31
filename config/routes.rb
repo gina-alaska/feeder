@@ -5,7 +5,9 @@ Feeder::Application.routes.draw do
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
     get 'carousel', :action => :carousel
     get ':id/page/:page', :action => :show, :on => :collection
-    resources :entries
+    resources :entries do
+      get 'chooser', on: :member, as: :chooser
+    end
     
     resources :movies
   end
@@ -50,6 +52,7 @@ Feeder::Application.routes.draw do
   match ':slug/:id' => 'entries#show', :as => :slug_entry
   match ':slug/:id/image' => 'entries#image', :as => :current_image
   match ':slug/:id/preview' => 'entries#preview', :as => :current_preview
+  match ':slug/:id/chooser' => 'entries#chooser', :as => :entry_chooser
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

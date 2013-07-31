@@ -15,7 +15,7 @@
 //= require jquery.move
 //= require jquery.swipe
 //= require bootstrap
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require_tree .
 //= require_self
 
@@ -71,6 +71,4 @@ var timeago_init = function() {
 };
 
 $(document).ready(timeago_init);
-$(document).on('pjax:end', timeago_init);
-
 

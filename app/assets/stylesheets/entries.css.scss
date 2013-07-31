@@ -1,6 +1,94 @@
 // Place all the styles related to the entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+$max-viewer-width: 660px;
+
+#image-chooser { 
+  position: relative;
+}
+
+ul.entries-chooser {
+  width: 100%;
+  margin: 0; padding: 0;
+  overflow: auto;
+  height: 300px;
+  list-style: none;
+  text-align: left;
+  li { 
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0; 
+    padding: 0;
+    &.header {
+      display: block;
+      clear: both;
+      float: none;
+    }
+    &.more {
+      display: block;
+      clear: both;
+      float: none;
+      a { width: 50%; }
+      padding-top: 15px;
+      text-align: center;
+    }
+  }
+  .thumbnail {
+    margin: 1px;
+    padding: 8px; 
+  }
+  .thumbnail:hover {
+    background-color: #aaa;
+    border: 1px solid #555;    
+  }
+  .active .thumbnail { 
+    background-color: #08f;
+    border: 1px solid darken(#08f, 10%);
+  }
+}
+
+
+#image-viewer {
+  position: relative;
+  table {
+    width: auto;
+    font-size: 100%;
+    margin: 0 auto;    
+  }
+  td { text-align: center; position: relative; vertical-align: middle; }
+  a {
+    margin: 0;
+    padding: 30px 10px;
+    text-align: center;
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 100px;
+    color: #333;
+    @include border-radius(5px);
+  }
+  a:hover {
+    color: #000;
+    background-color: #efefef;
+    text-decoration: none;
+  }
+  a.disabled { color: #888; background-color: #fff; cursor: default;}
+  .image {
+    position: relative;
+    .caption {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 5px;
+      background-color: rgba(0,0,0, 0.9);
+      color: #fff;
+    }
+  }
+}
+
 .entries { 
   text-align: center;
 }
