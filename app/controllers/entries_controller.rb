@@ -75,6 +75,7 @@ class EntriesController < ApplicationController
               medium: File.join('http://', request.host, e.preview.try(:thumb, '1000x1000').try(:url)),
               large: File.join('http://', request.host, e.preview.try(:thumb, '2000x2000').try(:url))              
             },
+            moreinfo: '',
             thumbnail: File.join('http://', request.host, e.preview.try(:thumb, '250x250').try(:url)),
             image: File.join('http://', request.host, e.preview.try(:url))
           })
