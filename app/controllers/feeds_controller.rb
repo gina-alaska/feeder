@@ -13,7 +13,7 @@ class FeedsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @feeds = @feeds.collect { |f| f.as_json.merge(:entries => slug_url(f, :format => :json), :moreinfo => '' ) }
+        @feeds = @feeds.collect { |f| f.as_json.merge(:entries => slug_url(f, :format => :json), :moreinfo => slug_url(f) ) }
         respond_with(@feeds)
       }
     end
