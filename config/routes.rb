@@ -15,6 +15,7 @@ Feeder::Application.routes.draw do
   end
   
   namespace :admin do
+    resources :members
     resources :feeds
     resources :sensors
     resources :queues, :only => [:index, :show]

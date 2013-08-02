@@ -1,0 +1,26 @@
+= form_for [:admin, @member] do |f|
+  - unless @member.errors.empty?
+    .alert.alert-error
+      %h5 An error was encountered while trying to save member
+      %ul
+        - @member.errors.full_messages.each do |msg|
+          %li= msg
+          
+  .control-group
+    = f.label :name, class: 'control-label'
+    .controls
+      = f.text_field :name, class: 'span12'
+  .control-group
+    = f.label :email, class: 'control-label'
+    .controls
+      = f.text_field :email, class: 'span12'
+  .control-group
+    = f.label :admin, class: 'control-label'
+    .controls
+      = f.select :admin, [['Yes', true], ['No', false]], include_blank: true
+
+  .form-actions
+    = link_to admin_members_path, class: 'btn' do
+      %i.icon-arrow-left
+      Back
+    = f.submit 'Save', class: 'btn btn-primary pull-right'
