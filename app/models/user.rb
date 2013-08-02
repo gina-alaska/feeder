@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
     if self.member.nil?
       membership = Member.where(email: self.email).first
       if membership.nil?
-        self.member.create(name: self.name, email: self.email)
+        self.create_member(name: self.name, email: self.email)
       else
         self.member = membership
       end
