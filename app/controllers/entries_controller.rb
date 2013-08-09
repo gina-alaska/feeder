@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
   respond_to :html, :georss, :xml, :json, :js
   
-  before_filter :fetch_feed, :only => [:index, :show, :image, :preview, :chooser]
+  before_filter :fetch_feed, :only => [:index, :show, :image, :preview, :chooser, :search]
   
   def show
     if params[:size] 
@@ -65,6 +65,8 @@ class EntriesController < ApplicationController
       format.html {
         if params[:output] == 'bgimage'
           render 'detect_size'
+        else
+          render 'search'
         end
       }
       format.js {
@@ -131,6 +133,6 @@ class EntriesController < ApplicationController
   protected
   
   def fetch_feed
-    @feed = Feed.where(slug: params[:slug]).first
+    @feed = Feed.where(slug: params[:slug]).first if params[:slug]
   end
 end

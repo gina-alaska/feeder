@@ -1,11 +1,11 @@
-Select: 
-= link_to 'All', '#', data: { action: 'select-all', target: '#feeds_list :checkbox' }
-\/
-= link_to 'None', '#', data: { action: 'unselect-all', target: '#feeds_list :checkbox' }
+/ Select: 
+/ = link_to 'All', '#', data: { action: 'select-all', target: '#feeds_list :checkbox' }
+/ \/
+/ = link_to 'None', '#', data: { action: 'unselect-all', target: '#feeds_list :checkbox' }
 - @feeds.order('title ASC').each do |feed|
-  %label.checkbox
-    = check_box_tag "search[feeds][#{feed.id}]", 1, search_checked?(feed, selected_feed_ids), class: 'feed'
-    = feed.title
-    - unless @entries.results.empty?
-      .badge.pull-right 
-        = @facets[:feed_id][feed.id] || 0
+  / %label.checkbox
+  /   = check_box_tag "search[feeds][#{feed.id}]", 1, search_checked?(feed, selected_feed_ids), class: 'feed'
+  %li= link_to feed.title, slug_path(feed)
+  / - unless @entries.results.empty?
+  /   .badge.pull-right 
+  /     = @facets[:feed_id][feed.id] || 0

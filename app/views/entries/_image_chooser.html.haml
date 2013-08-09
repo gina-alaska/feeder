@@ -1,8 +1,26 @@
+- day = nil
 %ul.entries-chooser
   %li.header
-    %h5= day = entry.event_at.strftime('%F')
-  - entry.same_day.each do |same_day_entry|
-    - cache([same_day_entry, :image_chooser, :v2]) do
-      %li.entry-preview{ id: dom_id(same_day_entry, 'chooser') }
-        = link_to slug_entry_url(same_day_entry.feed, same_day_entry), data: { action: 'load-image' } do
-          = image_tag same_day_entry.preview.try(:thumb, '100x100#').url, class: 'thumbnail'
+    %h5= day = entries.first.event_at.strftime('%F')
+  - unless params[:page].nil? or params[:page].to_i == 1
+    %li.entry-page
+      = link_to_prev_page entries, params: { search: params[:search], select: 'last' }, data: { action: 'load-image' }, class: 'thumbnail'  do
+        %i.icon-arrow-left
+        Newer
+        %br/
+        Images
+  - entries.each do |entry|
+    - if day != entry.event_at.strftime('%F')
+      %li.header
+        %h5= day = entry.event_at.strftime('%F')
+    - cache([entry, :image_chooser, :v2]) do
+      %li.entry-preview{ id: dom_id(entry, 'chooser') }
+        = link_to slug_entry_url(entry.feed, entry), data: { action: 'load-image' } do
+          = image_tag entry.preview.try(:thumb, '100x100#').url, class: 'thumbnail'
+  - unless (params[:page].nil? and entries.num_pages == 1) or params[:page] == entries.num_pages
+    %li.entry-page
+      = link_to_next_page entries, params: { search: params[:search], select: 'first' }, data: { action: 'load-image' }, class: 'thumbnail' do
+        Older
+        %br/
+        Images
+        %i.icon-arrow-right

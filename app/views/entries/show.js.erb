@@ -1,6 +1,6 @@
 try {
   $('#image-toolbar').html('<%= escape_javascript(render 'toolbar', entry: @entry) %>');
-  var currentEntry = $('#image-viewer > table');
+  var currentEntry = $('#image-viewer .image');
   var newEntry = $('<%= escape_javascript(render @entry) %>');
 
   // Detect when the image has been loaded by the browser and then replace the content

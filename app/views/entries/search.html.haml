@@ -1,4 +1,1 @@
-= render 'shared/sidebar'
-.entries.clearfix
-  = render partial: 'stuff', collection: @entries.results
-  = paginate @entries.results, :params => { :search => search_params }
+= render 'results', entries: @entries.results

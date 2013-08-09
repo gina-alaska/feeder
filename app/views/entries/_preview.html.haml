@@ -1,10 +1,3 @@
 / - cache [:preview, :v1, entry] do 
-#image-toolbar
-  = render 'toolbar', entry: entry
 #image-viewer
   = render entry
-#image-chooser
-  = render 'image_chooser', entry: entry
-:javascript
-  $(document).ready(ImageChooser.init)
-  ImageChooser.highlight('#{dom_id(entry, '#chooser')}')

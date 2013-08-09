@@ -1,2 +1,7 @@
 = render 'shared/sidebar'
 = render 'preview', entry: @entry
+#image-chooser
+  = render 'image_chooser', entries: @entry.same_day
+:javascript
+  $(document).ready(ImageChooser.init)
+  ImageChooser.highlight('#{dom_id(@entry, '#chooser')}')

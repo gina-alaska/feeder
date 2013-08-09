@@ -1,27 +1,9 @@
-%table.table.table-condensed{ id: dom_id(entry, :preview) }
-  %tr
-    %td
-      - if entry.next
-        = link_to slug_entry_path(entry.feed, entry.next), data: { action: 'switch-image', highlight: dom_id(entry.next, '#chooser') } do
-          %i.icon-chevron-left
-      - else
-        = link_to '#', class: 'disabled', data: { action: 'switch-image' } do
-          %i.icon-chevron-left
-    %td
-      .image
-        - cache([entry, cookies[:preview_size], 'preview', 'v2']) do
-          = preview_image_tag(entry)
-          .caption
-            = entry.feed.title 
-            \- 
-            = entry.title
-            = surround '(', ')' do
-              %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')          
-    %td
-      - if entry.prev
-        = link_to slug_entry_path(entry.feed, entry.prev), data: { action: 'switch-image', highlight: dom_id(entry.prev, '#chooser') } do
-          %i.icon-chevron-right
-      - else
-        = link_to '#', class: 'disabled', data: { action: 'switch-image' } do
-          %i.icon-chevron-right
-      
+- cache([entry, cookies[:preview_size], 'preview', 'v3']) do
+  .image{ id: dom_id(entry, :preview) }
+    = preview_image_tag(entry)
+    .caption
+      = entry.feed.title 
+      \- 
+      = entry.title
+      = surround '(', ')' do
+        %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')      

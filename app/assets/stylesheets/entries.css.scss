@@ -12,19 +12,39 @@ $max-viewer-width: 660px;
 ul.entries-chooser {
   width: 100%;
   margin: 0; padding: 0;
+  margin-top: 5px;
+  border-top: 1px solid #cfcfcf;
   overflow: auto;
   height: 300px;
   list-style: none;
   text-align: left;
-  li { 
+  li {
     box-sizing: border-box;
     display: inline-block;
-    margin: 0; 
+    margin: 1px 4px;
     padding: 0;
+    vertical-align: middle;
+    text-align: center;
+    
+    a { display: block; }
+    
+    &.entry-page {
+      text-align: center;
+      width: 100px;
+    }
+    
+    &.entry-preview {
+      width: 100px;
+      box-sizing: border-box;
+    }
+        
     &.header {
       display: block;
       clear: both;
       float: none;
+      width: auto;
+      height: auto;
+      text-align: left;
     }
     &.more {
       display: block;
@@ -36,28 +56,32 @@ ul.entries-chooser {
     }
   }
   .thumbnail {
-    margin: 1px;
-    padding: 8px; 
+//    margin: 1px;
+//    padding: 8px; 
   }
   .thumbnail:hover {
     background-color: #aaa;
-    border: 1px solid #555;    
+//    border: 1px solid #555;    
   }
   .active .thumbnail { 
     background-color: #08f;
-    border: 1px solid darken(#08f, 10%);
+    color: #fff;
+//    border: 1px solid darken(#08f, 10%);
   }
 }
 
 
 #image-viewer {
   position: relative;
-  table {
-    width: auto;
+  text-align: center;
+  .image {
+    display: inline-block;
     font-size: 100%;
     margin: 0 auto;    
+    text-align: center; 
+    position: relative; 
+    vertical-align: middle; 
   }
-  td { text-align: center; position: relative; vertical-align: middle; }
   a {
     margin: 0;
     padding: 30px 10px;
@@ -75,17 +99,14 @@ ul.entries-chooser {
     text-decoration: none;
   }
   a.disabled { color: #888; background-color: #fff; cursor: default;}
-  .image {
-    position: relative;
-    .caption {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      padding: 5px;
-      background-color: rgba(0,0,0, 0.9);
-      color: #fff;
-    }
+  .caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 5px;
+    background-color: rgba(0,0,0, 0.9);
+    color: #fff;
   }
 }
 

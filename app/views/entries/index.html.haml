@@ -1,4 +1,1 @@
-= render 'shared/sidebar'  
-= render 'preview', entry: @entries.results.first
-/ = render @entries.results, :feed => @feed
-/ = paginate @entries.results, :params => { :search => search_params }
+= render 'results', entries: @entries.results

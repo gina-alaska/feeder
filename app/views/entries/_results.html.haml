@@ -1,0 +1,9 @@
+= render 'shared/sidebar'  
+#image-toolbar
+  = render 'toolbar', entry: entries.first
+= render 'preview', entry: entries.first
+#image-chooser
+  = render 'image_chooser', entries: entries
+:javascript
+  $(document).ready(ImageChooser.init)
+  ImageChooser.highlight('#{dom_id(entries.first, '#chooser')}')

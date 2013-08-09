@@ -47,7 +47,7 @@ Feeder::Application.routes.draw do
   
   # match 'search/:q' => 'feeds#search', :as => :search
   
-  match ':slug' => 'entries#index', :as => :slug
+  match ':slug' => 'entries#search', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
   match ':slug/:id' => 'entries#show', :as => :slug_entry
   match ':slug/:id/image' => 'entries#image', :as => :current_image
