@@ -15,12 +15,11 @@ class EntriesController < ApplicationController
       @entry = @feed.entries.latest.where(slug: params[:id]).first    
     end
     search
-    
-    if @entry.nil?
-      render 'public/404', :status => :not_found
-    else
-      respond_with @entry
-    end
+    # if @entry.nil?
+    #   render 'public/404', :status => :not_found
+    # else
+    #   respond_with @entry
+    # end
   end
   
   def image
@@ -65,8 +64,6 @@ class EntriesController < ApplicationController
       format.html {
         if params[:output] == 'bgimage'
           render 'detect_size'
-        else
-          render 'search'
         end
       }
       format.js {

@@ -82,23 +82,6 @@ ul.entries-chooser {
     position: relative; 
     vertical-align: middle; 
   }
-  a {
-    margin: 0;
-    padding: 30px 10px;
-    text-align: center;
-    display: block;
-    font-size: 30px;
-    font-weight: bold;
-    line-height: 100px;
-    color: #333;
-    @include border-radius(5px);
-  }
-  a:hover {
-    color: #000;
-    background-color: #efefef;
-    text-decoration: none;
-  }
-  a.disabled { color: #888; background-color: #fff; cursor: default;}
   .caption {
     position: absolute;
     top: 0;

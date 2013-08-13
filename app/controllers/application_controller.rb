@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     # fetch feeds if it hasn't been done yet
     @feeds ||= Feed.active
     @sensors ||= Sensor.where(id: @feeds.pluck(:sensor_id))
-    @search_path ||= '/search'
+    @search_path ||= ''
     
     feed_ids = pull_ids(:feeds) || []
     if !selected_sensor_ids or selected_sensor_ids.empty?

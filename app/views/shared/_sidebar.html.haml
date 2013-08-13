@@ -22,7 +22,7 @@
               = "#{@feed} Images"
           - if @feed.animate
             %li
-              = link_to feed_movies_url(@feed) do
+              = link_to slug_movies_path(@feed) do
                 %i.icon-film
                 = "#{@feed} Animations"
           %li

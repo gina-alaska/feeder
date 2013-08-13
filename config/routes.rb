@@ -43,12 +43,15 @@ Feeder::Application.routes.draw do
   
   # match ':slug/:date' => 'feeds#show', :as => :slug_entries_by_date, :constraints => { :date => /\d+\/\d+/ } 
   match ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ } 
-  match ':slug/movies' => 'movies#index', :as => :slug_movies
+  match ':slug/movies' => 'movies#search', :as => :slug_movies
   
   # match 'search/:q' => 'feeds#search', :as => :search
   
   match ':slug' => 'entries#search', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
+  
+  # show preview of current image if asking for png or jpg
+  match ':slug/:id.:format' => 'entries#preview', :id => 'current', :format => /jpg|png/
   match ':slug/:id' => 'entries#show', :as => :slug_entry
   match ':slug/:id/image' => 'entries#image', :as => :current_image
   match ':slug/:id/preview' => 'entries#preview', :as => :current_preview

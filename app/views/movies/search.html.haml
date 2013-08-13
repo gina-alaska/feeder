@@ -7,7 +7,7 @@
   - @entries.results.each do |movie|
     .entry
       .title{style:"padding:3px;"}
-        %b= link_to movie.feed, feed_movies_url(movie.feed)
+        %b= link_to movie.feed, slug_movies_path(movie.feed)
         %br/
         %b= "#{movie.duration} day animation for #{movie.event_at.strftime('%Y-%m-%d')}"
         / = render 'picker', date: movie.try(:event_at) || (Time.now - movie.duration.days).to_date, duration: movie.duration

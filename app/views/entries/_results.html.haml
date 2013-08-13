@@ -1,9 +1,11 @@
-= render 'shared/sidebar'  
-#image-toolbar
-  = render 'toolbar', entry: entries.first
-= render 'preview', entry: entries.first
-#image-chooser
-  = render 'image_chooser', entries: entries
-:javascript
-  $(document).ready(ImageChooser.init)
-  ImageChooser.highlight('#{dom_id(entries.first, '#chooser')}')
+= render 'shared/sidebar' 
+
+- if entries.empty?
+  %h2 No entries found
+- else
+  #image-toolbar= render 'toolbar', entry: entries.first
+  = render 'preview', entry: entries.first
+  #image-chooser= render 'image_chooser', entries: entries
+  :javascript
+    $(document).ready(ImageChooser.init)
+    ImageChooser.highlight('#{dom_id(entries.first, '#chooser')}')

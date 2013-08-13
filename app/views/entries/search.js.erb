@@ -1,6 +1,1 @@
-$('#image-chooser').html('<%= escape_javascript(render 'image_chooser', entries: @entries.results) %>');
-<% if params[:select] == 'first' %>
-  $('#image-chooser .entry-preview:first a').click()  
-<% else %>
-  $('#image-chooser .entry-preview:last a').click()    
-<% end %>
+<%= render 'image_chooser', entries: @entries.results %>

@@ -1,4 +1,4 @@
-try {
+<% if params[:page].nil? %>
   $('#image-toolbar').html('<%= escape_javascript(render 'toolbar', entry: @entry) %>');
   var currentEntry = $('#image-viewer .image');
   var newEntry = $('<%= escape_javascript(render @entry) %>');
@@ -12,6 +12,6 @@ try {
     $(newEntry).appendTo('#image-viewer');
     $('#image-viewer').spin(false);
   }).attr('src', $(newEntry).find('img').attr('src'));  
-} catch (exception) {
-  console.log(exception)
-}
+<% else %>
+  <%= render 'image_chooser', entries: @entry.same_day(params[:page]).results %>
+<% end %>

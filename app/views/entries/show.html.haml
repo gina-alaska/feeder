@@ -1,7 +1,9 @@
 = render 'shared/sidebar'
+- entries = @entry.same_day(params[:page]).results
+#image-toolbar= render 'toolbar', entry: entries.first
 = render 'preview', entry: @entry
 #image-chooser
-  = render 'image_chooser', entries: @entry.same_day
+  = render 'image_chooser', entries: entries
 :javascript
   $(document).ready(ImageChooser.init)
   ImageChooser.highlight('#{dom_id(@entry, '#chooser')}')

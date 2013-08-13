@@ -1,9 +1,7 @@
-- cache([entry, cookies[:preview_size], 'preview', 'v3']) do
+- cache([entry, cookies[:preview_size], 'preview', 'v6']) do
   .image{ id: dom_id(entry, :preview) }
     = preview_image_tag(entry)
     .caption
-      = entry.feed.title 
-      \- 
-      = entry.title
+      = link_to "#{entry.feed.title} - #{entry.title}", slug_entry_path(entry.feed, entry)
       = surround '(', ')' do
         %abbr.timeago{title:entry.event_at.iso8601}= entry.event_at.strftime('%F')      

@@ -46,8 +46,34 @@ class Entry < ActiveRecord::Base
     self.read_attribute(:event_at).in_time_zone(self.zone)
   end
   
-  def same_day
-    Entry.where('event_at >= ? and event_at <= ?', self.event_at.beginning_of_day, self.event_at.end_of_day).order('event_at DESC')
+  def same_day(page = nil)
+    current = self.event_at
+    beginning = self.event_at.beginning_of_day
+    ending = self.event_at.end_of_day
+    search = nil
+    
+    if page == nil
+      tmp_page = 0
+      while search.nil? or !search.results.include?(self) do
+        tmp_page += 1
+        search = Entry.search do
+          with(:event_at).greater_than_or_equal_to(beginning)
+          with(:event_at).less_than_or_equal_to(ending)
+          paginate :page => tmp_page, :per_page => 30
+          order_by(:event_at, :desc)
+        end
+      end
+    else
+      search = Entry.search do
+        with(:event_at).greater_than_or_equal_to(beginning)
+        with(:event_at).less_than_or_equal_to(ending)
+        paginate :page => page, :per_page => 30
+        order_by(:event_at, :desc)
+      end    
+    end
+    
+
+    search
   end
   
   def zone
