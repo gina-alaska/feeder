@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130521224225) do
+ActiveRecord::Schema.define(:version => 20130827185312) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(:version => 20130521224225) do
   create_table "feeds", :force => true do |t|
     t.string   "slug"
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.string   "author"
     t.string   "where"
     t.datetime "created_at",                              :null => false
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(:version => 20130521224225) do
 
   add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
   add_index "feeds", ["updated_at"], :name => "index_feeds_on_updated_at"
+
+  create_table "members", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.boolean  "admin"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "movies", :force => true do |t|
     t.string   "title"
@@ -83,6 +91,7 @@ ActiveRecord::Schema.define(:version => 20130521224225) do
     t.boolean  "admin"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.integer  "member_id"
   end
 
 end

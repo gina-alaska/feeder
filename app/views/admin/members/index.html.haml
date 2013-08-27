@@ -1,0 +1,29 @@
+.row-fluid
+  .span9
+    %h4 Users
+    %table.table.table-bordered.table-condensed
+      %thead
+        %tr
+          %th Name
+          %th Email
+          %th.span2 Admin?
+          %th.span2
+            .pull-right
+              Actions
+      %tbody
+        - @members.each do |member|
+          %tr
+            %td= member.name
+            %td= member.email
+            %td= member.admin? ? 'Yes' : 'No'
+            %td
+              .pull-right
+                = link_to edit_admin_member_path(member), class: 'btn' do
+                  %i.icon-edit
+                  Edit
+  .span3
+    %h4 Menu
+    = link_to new_admin_member_path, class: 'btn btn-success btn-block' do
+      %i.icon-plus.icon-white
+      New User
+  
