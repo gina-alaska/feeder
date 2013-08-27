@@ -11,7 +11,7 @@ gem 'nofxx-georuby', :require => 'geo_ruby'
 gem 'kaminari'
 gem 'whenever'
 gem 'rmagick'
-gem 'bootstrap-sass', '~> 2.2.1.0'
+gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
 gem 'sidekiq'
