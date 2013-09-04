@@ -22,6 +22,21 @@ class EntriesController < ApplicationController
     # end
   end
   
+  def like
+    @entry = Entry.where(slug: params[:id]).first 
+    @like = @entry.likes.where(user_id: current_user).first
+    
+    if @like.nil?
+      @entry.likes.create(user: current_user)
+    else
+      @like.destroy
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def image
     if params[:id] == 'current'
       @entry = @feed.current_entries.first

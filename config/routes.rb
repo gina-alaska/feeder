@@ -1,4 +1,7 @@
 Feeder::Application.routes.draw do
+  resources :likes
+
+
   match '/movies/search' => 'movies#search', as: :search_movies
   match '/search' => 'entries#search'
   
@@ -7,6 +10,7 @@ Feeder::Application.routes.draw do
     get ':id/page/:page', :action => :show, :on => :collection
     resources :entries do
       get 'chooser', on: :member, as: :chooser
+      put 'like', on: :member, as: :like
     end
     
     resources :movies

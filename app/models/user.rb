@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_many :authorizations
   belongs_to :member
+  has_many :likes
   
   attr_accessible :name, :email
   

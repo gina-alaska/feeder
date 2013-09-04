@@ -1,7 +1,7 @@
 %li= link_to 'All', '/'
 - @feeds.order('title ASC').each do |feed|
-  - if controller_name == 'EntriesController'
-    %li= link_to feed.title, slug_path(feed)
-  - else
+  - if controller_name == 'movies'
     %li= link_to feed.title, slug_movies_path(feed)
+  - else
+    %li= link_to feed.title, slug_path(feed)
   

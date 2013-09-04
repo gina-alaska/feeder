@@ -14,7 +14,15 @@
           %i.icon-laptop
         %button.btn{ data: { action: 'resize', url: slug_entry_path(entry.feed, entry, size: 'desktop') }, class: (cookies[:preview_size] == 'desktop' ? 'active' : '') }
           %i.icon-desktop
+      - if logged_in?
+        .btn-group
+          = link_to like_feed_entry_path(entry.feed, entry), method: 'PUT', class: 'btn', style: 'color: #ffb700', remote: true do
+            - if entry.liked_users.include?(current_user)
+              %i.icon-thumbs-up
+            - else
+              %i.icon-thumbs-up-alt
       .btn-group.pull-right
         = link_to entry.image.remote_url, class: 'btn' do
           %i.icon-download
           Download
+      

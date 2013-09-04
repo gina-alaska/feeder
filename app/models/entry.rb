@@ -4,6 +4,8 @@ class Entry < ActiveRecord::Base
   # paginates_per 16
 
   belongs_to :feed, touch: true
+  has_many :likes, as: :likeable
+  has_many :liked_users, class_name: 'User', through: :likes, source: :user
 
   image_accessor :image do |a|
     copy_to(:preview) do |a|
@@ -27,7 +29,9 @@ class Entry < ActiveRecord::Base
     text :slug
     text :feed
     time :event_at
-    
+    integer :liked_users, multiple: true do
+      self.liked_users.pluck(:id)
+    end
     integer :feed_id
     integer :sensor_id do
       self.try(:feed).try(:sensor).try(:id)

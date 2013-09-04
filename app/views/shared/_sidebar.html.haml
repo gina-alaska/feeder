@@ -1,17 +1,23 @@
 - content_for :sidebar do
   = form_tag @search_path, method: :get do
+    = hidden_field 'search', 'liked', value: search_params[:liked], id: 'search_liked'
     #sidebar
       %ul.nav.nav-list.accordion-group
         %li.nav-header
           Main Menu
-        %li{ class: @movie_view ? '' : 'active' }
+        %li{ class: controller_name == 'entries' ? 'active' : '' }
           = link_to root_url do
             %i.icon-home
             Imagery
-        %li{ class: @movie_view ? 'active' : '' }
+        %li{ class: controller_name == 'movies' ? 'active' : '' }
           = link_to movies_url do
             %i.icon-film
             Animations
+        - if controller_name == 'entries' and logged_in?
+          %li{ class: search_params[:liked] ? 'active' : '' }
+            = link_to root_url('search[liked]' => !search_params[:liked] ), data: { action: 'stash', target: '#search_liked', value: !search_params[:liked] } do
+              %i.icon-thumbs-up
+              Liked
         - unless @feed.nil?
           %li.nav-header
             Related feeds

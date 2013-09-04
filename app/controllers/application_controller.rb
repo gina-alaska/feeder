@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       with(:sensor_id, selected_sensor_ids) unless selected_sensor_ids.empty?
       with(:event_at).greater_than(Time.zone.parse(search_params[:start]).beginning_of_day) unless search_params[:start].blank?
       with(:event_at).less_than(Time.zone.parse(search_params[:end]).end_of_day) unless search_params[:end].blank?
-      
+      with(:liked_users, current_user.id) if search_params[:liked] and logged_in?
       facet :sensor_id 
       facet :feed_id
       
@@ -45,6 +45,11 @@ class ApplicationController < ActionController::Base
   
   protected
   
+  def logged_in?
+    !current_user.nil?
+  end
+  helper_method :logged_in?
+  
   def selected_sensor_ids
     @selected_sensor_ids ||= pull_ids(:sensors)
   end
@@ -59,7 +64,7 @@ class ApplicationController < ActionController::Base
     return @search_params unless @search_params.nil?
     
     @search_params ||= params[:search] || {}
-    
+    @search_params[:liked] = @search_params[:liked] == 'true'
     unless @feed.nil?
       @search_params[:feeds] = {}
       @search_params[:feeds][@feed.id.to_s] = '1'
