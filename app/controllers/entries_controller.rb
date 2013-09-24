@@ -1,7 +1,7 @@
 class EntriesController < ApplicationController
   respond_to :html, :georss, :xml, :json
   
-  before_filter :fetch_feed, :only => [:index, :show, :image, :preview]
+  before_filter :fetch_feed, :only => [:index, :show, :image, :preview, :embed]
   
   def show
     if params[:id] == 'current'
@@ -31,6 +31,18 @@ class EntriesController < ApplicationController
     else
       send_file(@entry.image.path, :disposition => 'inline')
     end
+  end
+  
+  def embed
+    if params[:id] == 'current'
+      @entry = @feed.entries.current.first
+      @url = current_image_path(@feed, 'current', format: :png)
+    else
+      @entry = @feed.entries.latest.where(slug: params[:id]).first    
+      @url = current_image_path(@feed, @entry, format: :png)
+    end
+    
+    respond_to :html, :js
   end
   
   def preview

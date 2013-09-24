@@ -49,6 +49,7 @@ Feeder::Application.routes.draw do
   match ':slug' => 'entries#index', :as => :slug
   match ':slug/carousel' => 'feeds#carousel'
   match ':slug/:id' => 'entries#show', :as => :slug_entry
+  match ':slug/:id/embed' => 'entries#embed', :as => :embed_slug_entry
   match ':slug/:id/image' => 'entries#image', :as => :current_image
   match ':slug/:id/preview' => 'entries#preview', :as => :current_preview
   

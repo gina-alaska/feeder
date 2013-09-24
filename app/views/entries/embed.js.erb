@@ -1,0 +1,4 @@
+$('body').append('<%= escape_javascript(render('embed_image', url: @url)) %>')
+$('#embed_image_modal').modal().on('hidden', function() {
+  $(this).remove();
+})

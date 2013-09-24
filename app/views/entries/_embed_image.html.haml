@@ -1,0 +1,16 @@
+#embed_image_modal.modal.hide.fade
+  .modal-header
+    %button.close{ data: { dismiss: 'modal' } }
+      &times;
+    %h3 Embed an image
+  .modal-body
+    .row-fluid
+      .span12
+        %p Add this image to your website by copying the code below
+        %textarea.span12
+          = image_tag url, alt: params[:id] == 'current' ? "Latest #{@feed} Image" : @entry
+        
+        %h5 Preview
+        = image_tag url, alt: params[:id] == 'current' ? "Latest #{@feed} Image" : @entry
+  .modal-footer
+    %a.btn{ href: '#' } Close
