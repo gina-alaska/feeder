@@ -33,6 +33,17 @@
           = link_to slug_path(@feed, :xml), 'data-skip-pjax' => true do
             %i.icon-rss
             Imagery RSS
+            
+        %li
+          = link_to embed_slug_entry_path(@feed, 'current'), remote: true do
+            %i.icon-leaf
+            = "Embed Latest #{@feed} Image"
+        
+        - if @entry
+          %li
+            = link_to embed_slug_entry_path(@feed, @entry), remote: true do
+              %i.icon-leaf
+              = "Embed #{@entry}"
       /   
       / - unless @entries.nil?
       /   %li.nav-header
