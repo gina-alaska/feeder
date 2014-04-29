@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429190429) do
+ActiveRecord::Schema.define(:version => 20140429204512) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(:version => 20140429190429) do
 
   add_index "entries", ["slug"], :name => "index_entries_on_slug"
   add_index "entries", ["updated_at"], :name => "index_entries_on_updated_at"
+
+  create_table "events", :force => true do |t|
+    t.integer  "web_hook_id"
+    t.integer  "entry_id"
+    t.string   "response"
+    t.string   "type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "feeds", :force => true do |t|
     t.string   "slug"

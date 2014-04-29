@@ -3,4 +3,12 @@ class Event < ActiveRecord::Base
 
   belongs_to :web_hook
   belongs_to :entry
+
+  def payload
+    {}
+  end
+
+  def async_generate_create_event
+    CreateEntryEventWorker.perform(self.id)
+  end
 end
