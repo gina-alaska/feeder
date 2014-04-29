@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  web_hook_id: 1
+  entry_id: 1
+  response: MyString
+  type: 
+
+two:
+  web_hook_id: 1
+  entry_id: 1
+  response: MyString
+  type: 
