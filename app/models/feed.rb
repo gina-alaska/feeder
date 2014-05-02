@@ -11,6 +11,7 @@ class Feed < ActiveRecord::Base
   validates_uniqueness_of :title
 
   has_many :movies
+  has_many :web_hooks
 
   belongs_to :sensor
 
@@ -24,6 +25,8 @@ class Feed < ActiveRecord::Base
   end
 
   has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
+
+  accepts_nested_attributes_for :web_hooks
 
   serialize :active_animations
 
@@ -112,7 +115,7 @@ class Feed < ActiveRecord::Base
       # end
 
       if entry.update_attributes(attributes)
-        entry.async_generate_create_events
+        entry.async_generate_create_event
         puts "Import complete"
       else
         puts "Import failed"
