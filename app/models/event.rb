@@ -8,7 +8,8 @@ class Event < ActiveRecord::Base
     {}
   end
 
-  def async_generate_create_event
-    CreateEntryEventWorker.perform(self.id)
+  def notify
+    HTTParty.post(self.web_hook.url,
+      {query: {payload: self.payload.to_json}})
   end
 end
