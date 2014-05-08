@@ -4,8 +4,9 @@ class WebHookNotifyWorker
   def perform event_id
     event = Event.find(event_id)
 
-    response = event.send_payload
+    response = event.notify
 
-    event.update_attribute(:response, response)
+    status = response.response.kind_of?(Net::HTTPSuccess) ? "success" : "failure"
+    event.update_attribute(:response, "success")
   end
 end
