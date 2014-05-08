@@ -5,10 +5,10 @@ class CreateEvent < Event
 
   def payload
     {
-      data_url: self.entry.image.url(host: Rails.application.routes.default_url_options[:host]),
+      data_url: self.entry.image.url(host: self.helpers.root_url),
       event_date: self.entry.event_at.iso8601,
-      event_url: self.helpers.feed_entry_url(self.entry.feed, self.entry),
-      feed_url: self.helpers.feed_url(self.entry.feed)
+      event_url: self.helpers.slug_entry_url(self.entry.feed, self.entry),
+      feed_url: self.helpers.slug_url(self.entry.feed)
     }
   end
 end
