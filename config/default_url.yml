@@ -1,0 +1,4 @@
+---
+  production: feeder.gina.alaska.edu
+  development: localhost
+  test: localhost
