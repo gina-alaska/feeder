@@ -14,7 +14,7 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'sidekiq'
+gem 'sidekiq', '~> 2.0'
 gem 'bootstrap-datepicker-rails'
 gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
 gem 'omniauth'
