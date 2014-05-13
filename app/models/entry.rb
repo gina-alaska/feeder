@@ -1,6 +1,6 @@
 class Entry < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
-  
+
   # paginates_per 16
 
   belongs_to :feed, touch: true
@@ -21,31 +21,31 @@ class Entry < ActiveRecord::Base
   validates_presence_of :slug
   validates_presence_of :title
   validates_presence_of :event_at
-  
+
   searchable do
     text :title
     text :slug
     text :feed
     time :event_at
-    
+
     integer :feed_id
     integer :sensor_id do
       self.try(:feed).try(:sensor).try(:id)
     end
   end
-  
+
   def to_param
     self.slug
   end
-  
+
   def to_s
     "#{event_at.strftime('%Y-%m-%d %H:%M %Z')} (JD#{event_at.yday})"
   end
-  
+
   def event_at
     self.read_attribute(:event_at).in_time_zone(self.zone)
   end
-  
+
   def zone
     case entry_type?
     when :barrow_radar_image
@@ -56,7 +56,7 @@ class Entry < ActiveRecord::Base
       'UTC'
     end
   end
-  
+
   def entry_type?
     if @entry_type.nil?
       self.class.regexps.each do |k,v|
@@ -65,24 +65,28 @@ class Entry < ActiveRecord::Base
     end
     @entry_type
   end
-  
+
   def georss_location
     Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
   end
-  
+
   def next
-    self.feed.entries.latest.where('event_at > ?', self.event_at).last      
+    self.feed.entries.latest.where('event_at > ?', self.event_at).last
   end
-  
+
   def prev
-    self.feed.entries.latest.where('event_at < ?', self.event_at).first      
+    self.feed.entries.latest.where('event_at < ?', self.event_at).first
+  end
+
+  def generate_async_create_event
+    CreateEventWorker.perform_async(self.id)
   end
 
   class << self
     def build_slug(text)
       text.downcase.gsub(/[\-\.:\s]/,'_').gsub(/[\(\)]/, '')
     end
-    
+
     def regexps
       {
         :modis              => '^[at]1\.(\d{4})(\d{2})(\d{2})\.(\d{2})(\d{2})([_\d\w]+)\.alaska_albers\.tif$',
@@ -91,7 +95,7 @@ class Entry < ActiveRecord::Base
         :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
       }
     end
-    
+
     def fix_time_tz(time, zone)
       DateTime.parse(time.strftime("%Y/%m/%d %H:%M:%S #{zone}"))
     end
@@ -99,11 +103,11 @@ class Entry < ActiveRecord::Base
     def npp_regexp
       Regexp.new(regexps[:npp])
     end
-    
+
     def modis_regexp
       Regexp.new(regexps[:modis])
     end
-    
+
     def npp_landcover_regexp
       Regexp.new(regexps[:npp_landcover])
     end
@@ -115,15 +119,15 @@ class Entry < ActiveRecord::Base
     def barrow_webcam_regexp
       Regexp.new(regexps[:barrow_webcam])
     end
-    
+
     def barrow_animation_regexp
       Regexp.new(regexps[:barrow_radar_anim])
     end
-    
+
     def modis_info(filename)
       dummy, year, month, day, hour, minute = filename.match(modis_regexp).to_a
       date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
-      
+
       {
         year: date.year,
         month: date.month,
@@ -133,29 +137,29 @@ class Entry < ActiveRecord::Base
         date: date,
         title: sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", date.year, date.month, date.day, date.hour, date.minute, date.yday),
         category: 'npp',
-        where: "POINT(-147.723056 64.843611)"  
-      }
-    end
-    
-    def npp_info(filename)
-      dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
-      date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute} UTC", "%y-%j %H:%M %Z")
-      
-      
-      {
-        year: date.year,
-        month: date.month,
-        day: date.day,
-        hour: date.hour,
-        minute: date.minute,
-        date: date,
-        title: sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", date.year, date.month, date.day, date.hour, date.minute, date.yday),
-        category: 'npp',
-        where: "POINT(-147.723056 64.843611)"  
+        where: "POINT(-147.723056 64.843611)"
       }
     end
 
-    def metainfo(filename)      
+    def npp_info(filename)
+      dummy, year, yday, hour, minute = filename.match(npp_regexp).to_a
+      date = DateTime.strptime("#{year}-#{yday} #{hour}:#{minute} UTC", "%y-%j %H:%M %Z")
+
+
+      {
+        year: date.year,
+        month: date.month,
+        day: date.day,
+        hour: date.hour,
+        minute: date.minute,
+        date: date,
+        title: sprintf("%4d-%02d-%02d %02d:%02d (JD%3d)", date.year, date.month, date.day, date.hour, date.minute, date.yday),
+        category: 'npp',
+        where: "POINT(-147.723056 64.843611)"
+      }
+    end
+
+    def metainfo(filename)
       case filename
       when modis_regexp
         info = modis_info(filename)
@@ -183,7 +187,7 @@ class Entry < ActiveRecord::Base
         #fix date to be local
         date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
         date = fix_time_tz(date, date.to_time.localtime.zone)
-        
+
         info = {
           year: date.year,
           month: date.month,
