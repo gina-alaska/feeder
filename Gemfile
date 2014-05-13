@@ -24,8 +24,8 @@ gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.14'
 gem 'lograge'
 gem 'logstash-event'
-gem 'sunspot_rails'
-gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
+gem 'sunspot_rails', '~> 2.0.0'
+gem 'sunspot_solr', '~> 2.0.0' # optional pre-packaged Solr distribution for use in development
 gem 'httparty'
 # Gems used only for assets and not required
 # in production environments by default.
@@ -42,6 +42,12 @@ end
 
 group :development do
   gem 'sqlite3'
+  gem 'capistrano'
+  gem 'capistrano-chruby', github: "capistrano/chruby"
+  gem 'capistrano-bundler'
+  gem 'capistrano-rails'
+  gem 'capistrano-bower'
+  gem 'capistrano-chef'
 end
 
 gem 'jquery-rails'
@@ -56,7 +62,6 @@ gem 'jquery-rails'
 gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
