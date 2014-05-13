@@ -47,7 +47,7 @@ GRAPH
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
     openssl (>= 0.0.0)
-  puffin (0.1.0)
+  puffin (0.1.2)
     build-essential (>= 0.0.0)
     chruby (>= 0.0.0)
     database (>= 0.0.0)
