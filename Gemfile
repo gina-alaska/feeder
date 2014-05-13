@@ -14,7 +14,7 @@ gem 'rmagick'
 gem 'bootstrap-sass', '~> 2.3.2.0'
 gem 'quiet_assets', :group => :development
 gem 'aasm'
-gem 'sidekiq'
+gem 'sidekiq', '~> 2.0'
 gem 'bootstrap-datepicker-rails'
 gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
 gem 'omniauth'
@@ -26,7 +26,7 @@ gem 'lograge'
 gem 'logstash-event'
 gem 'sunspot_rails'
 gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development
-
+gem 'httparty'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -34,7 +34,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8',  '~> 3.11.8.3'
+  gem 'libv8',  '~> 3.16.14.3'
   gem 'therubyracer'
 
   gem 'uglifier', '>= 1.0.3'
