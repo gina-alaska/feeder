@@ -19,7 +19,7 @@ template "/etc/init.d/unicorn_#{app_name}" do
   mode 00755
   variables({
     install_path: node[app_name]['deploy_path'],
-    unicorn_config_file: "#{node['watch']['unicorn_config_path']}/#{app_name}.rb",
+    unicorn_config_file: "#{node['unicorn_config_path']}/#{app_name}.rb",
     user: node[app_name]['account'],
     environment: node[app_name]['environment']
   })
