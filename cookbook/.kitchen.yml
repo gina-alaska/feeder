@@ -1,0 +1,24 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+  attributes:
+    puffin:
+      account: vagrant
+    chruby:
+      default: embedded
+      auto_switch: false
+
+platforms:
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list:
+      - recipe[puffin::default]
+    attributes:
+  - name: sidekiq
+    run_list:
+      - recipe[puffin::default]
