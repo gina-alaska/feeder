@@ -7,9 +7,14 @@ provisioner:
   attributes:
     puffin:
       account: vagrant
+      database:
+        password: 'puffinpostgres'
     chruby:
       default: embedded
       auto_switch: false
+    postgresql:
+      password:
+        postgres: 'postgresuserpassword'
 
 platforms:
   - name: centos-6.5
@@ -19,6 +24,3 @@ suites:
     run_list:
       - recipe[puffin::default]
     attributes:
-  - name: sidekiq
-    run_list:
-      - recipe[puffin::default]
