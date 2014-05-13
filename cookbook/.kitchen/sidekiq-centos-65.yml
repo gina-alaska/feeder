@@ -1,6 +1,0 @@
----
-hostname: 127.0.0.1
-username: vagrant
-ssh_key: /home/smacfarl/.vagrant.d/insecure_private_key
-port: '2202'
-last_action: converge

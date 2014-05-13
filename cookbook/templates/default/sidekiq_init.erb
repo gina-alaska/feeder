@@ -30,7 +30,7 @@ ENV=production
 start() {
     echo -n $"Starting $prog: "
     cd $RAILS_ROOT
-    su - <%= @user %> -c "cd $RAILS_ROOT && bundle exec sidekiq -d -e $ENV -l $logfile -P $pidfile"
+    su - <%= @user %> -c "cd $RAILS_ROOT && bundle exec sidekiq -d -C config/sidekiq.yml -e $ENV -l $logfile -P $pidfile"
     RETVAL=$?
     echo
     [ $RETVAL = 0 ] && touch ${lockfile}
