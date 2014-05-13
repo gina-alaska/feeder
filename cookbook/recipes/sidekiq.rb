@@ -4,6 +4,9 @@ account = node['puffin']['account']
 
 include_recipe 'puffin::application'
 
+package 'ffmpeg'
+
+
 template "#{node['puffin']['shared_path']}/config/initializers/sidekiq.rb" do
 	owner account
 	group account
@@ -29,7 +32,7 @@ template "/etc/init.d/sidekiq_feeder" do
   action :create
   mode 00755
   variables({
-    user: node['puffin']['account'],
+    user: node['puffin']['account'], 
     install_path: node['puffin']['deploy_path']
   })
 end
