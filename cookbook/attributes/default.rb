@@ -25,6 +25,26 @@ default['puffin']['sunspot']['port'] = "8983"
 default['puffin']['redis']['url'] = 'redis://localhost:6379/12'
 default['puffin']['redis']['namespace'] = 'feeder_development'
 
+default['puffin']['data'] = {
+  npp: {
+    host: 'nppdown.x.gina.alaska.edu:/mnt/raid/processing',
+    mount: '/mnt/npp'
+  },
+  modis: {
+    host: 'no.gina.alaska.edu:/exports/modis',
+    mount: '/mnt/modis'
+  },
+  feeder_data: {
+    host: 'feeder-vm.gina.alaska.edu:/san/feeder_data',
+    mount: '/san/feeder_data'
+  },
+  feeder_cache: {
+    host: 'feeder-vm.gina.alaska.edu:/san/feeder_cache',
+    mount: '/san/feeder_cache'
+  }
+
+}
+
 default['puffin']['sidekiq']['config'] = {
   verbose: false,
   logfile: './log/sidekiq.log',

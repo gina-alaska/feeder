@@ -37,6 +37,19 @@ template "/etc/init.d/sidekiq_feeder" do
   })
 end
 
+node['puffin']['data'].each do |name, opts|
+  directory opts['mount'] do
+    action :create
+  end
+
+  mount opts['mount'] do
+    device opts['host']
+    fstype 'nfs'
+    options 'rw'
+    action [:mount, :enable]
+  end
+end
+
 service "sidekiq_feeder" do 
   action :enable
 end
