@@ -78,7 +78,7 @@ class Entry < ActiveRecord::Base
     self.feed.entries.latest.where('event_at < ?', self.event_at).first
   end
 
-  def generate_async_create_event
+  def async_generate_create_event
     CreateEventWorker.perform_async(self.id)
   end
 
