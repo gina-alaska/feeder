@@ -3,8 +3,11 @@ Chef::Resource::Template.send(:include, Puffin::Sidekiq)
 account = node['puffin']['account']
 
 include_recipe 'puffin::application'
+include_recipe 'yum-repoforge'
 
-package 'ffmpeg'
+%w{ffmpeg mencoder}.each do |pkg|
+  package pkg
+end
 
 
 template "#{node['puffin']['shared_path']}/config/initializers/sidekiq.rb" do
