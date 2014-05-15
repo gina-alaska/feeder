@@ -4,7 +4,7 @@ account = node['puffin']['account']
 
 include_recipe 'puffin::application'
 
-package 'ffmpeg'
+package 'gina-ffmpeg'
 
 
 template "#{node['puffin']['shared_path']}/config/initializers/sidekiq.rb" do
