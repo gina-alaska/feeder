@@ -5,7 +5,7 @@ account = node['puffin']['account']
 include_recipe 'puffin::application'
 include_recipe 'yum-repoforge'
 
-%w{ffmpeg mencoder}.each do |pkg|
+%w{gina-ffmpeg mencoder}.each do |pkg|
   package pkg
 end
 
