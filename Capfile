@@ -17,14 +17,13 @@ require 'capistrano/deploy'
 #
 # require 'capistrano/rvm'
 # require 'capistrano/rbenv'
-# require 'capistrano/chruby'
-# require 'capistrano/bundler'
-# require 'capistrano/rails/assets'
-# require 'capistrano/rails/migrations'
+#require 'capistrano/chruby'
+#set :chruby_ruby, '1.9.3p448'
 
 require 'capistrano/bundler'
 require 'capistrano/rails/assets'
 require 'capistrano/rails/migrations'
+require 'capistrano/chef'
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.cap').each { |r| import r }

@@ -10,15 +10,15 @@ set :format, :pretty
 set :log_level, :debug
 # set :pty, true
 
-set :linked_files, %w{config/database.yml config/sunspot.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{config/database.yml config/sunspot.yml config/sidekiq.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/dragonfly }
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :keep_releases, 5
 
 set :rails_env, :production
 # set :unicorn_binary, "/usr/bin/unicorn"
-set :unicorn_config, "/etc/unicorn/glynx.rb"
+set :unicorn_config, "/etc/unicorn/puffin.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
  
 namespace :deploy do
@@ -28,7 +28,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      execute :kill, '-USR2', "`cat #{release_path.join('tmp/pids/unicorn.pid')}`"
+      # execute :kill, '-USR2', "`cat #{release_path.join('tmp/pids/unicorn.pid')}`"
     end
   end
 

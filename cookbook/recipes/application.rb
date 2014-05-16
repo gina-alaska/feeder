@@ -20,10 +20,10 @@ account = node[app_name]['account']
   end
 end
 
-
-directory node[app_name]['puffin_silo_path'] do
-  action :create
-  recursive true
+link "#{node[app_name]['shared_path']}/public/dragonfly" do
+  to node[app_name]['data']['feeder_cache']['mount']
+  owner node[app_name]['account']
+  group node[app_name]['account']
 end
 
 service 'rpcbind' do
@@ -72,8 +72,6 @@ end
     mode 0755
   end
 end
-
-
 
 link "/home/#{account}/#{app_name}" do
   to node[app_name]['deploy_path']
