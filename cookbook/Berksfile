@@ -2,6 +2,7 @@ source "https://api.berkshelf.com"
 
 cookbook 'yum-gina', git: 'git@github.com:gina-alaska/yum-gina-cookbook'
 cookbook 'yum-epel'
+cookbook 'yum-repoforge'
 cookbook 'redisio'
 cookbook 'nginx'
 cookbook 'chruby'

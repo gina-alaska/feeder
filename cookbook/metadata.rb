@@ -10,6 +10,7 @@ supports "centos", ">= 6.0"
 
 depends 'yum-gina'
 depends 'yum-epel'
+depends 'yum-repoforge'
 depends 'nginx'
 depends 'redisio'
 depends 'chruby'

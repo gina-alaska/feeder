@@ -13,6 +13,7 @@ DEPENDENCIES
   yum-gina
     git: git@github.com:gina-alaska/yum-gina-cookbook
     revision: 0b944c07c4416c0be5e60c2afbe384f34ee48e2e
+  yum-repoforge
 
 GRAPH
   apt (2.3.10)
@@ -47,7 +48,7 @@ GRAPH
     apt (>= 0.0.0)
     build-essential (>= 0.0.0)
     openssl (>= 0.0.0)
-  puffin (0.1.2)
+  puffin (0.1.3)
     build-essential (>= 0.0.0)
     chruby (>= 0.0.0)
     database (>= 0.0.0)
@@ -57,6 +58,7 @@ GRAPH
     unicorn (>= 0.0.0)
     yum-epel (>= 0.0.0)
     yum-gina (>= 0.0.0)
+    yum-repoforge (>= 0.0.0)
   redisio (1.7.1)
     ulimit (>= 0.1.2)
   rsyslog (1.12.2)
@@ -73,3 +75,6 @@ GRAPH
     yum (~> 3.0)
   yum-gina (0.1.0)
     yum (~> 3.0)
+  yum-repoforge (0.2.0)
+    yum (~> 3.0)
+    yum-epel (>= 0.0.0)
