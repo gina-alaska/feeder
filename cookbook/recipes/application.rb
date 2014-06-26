@@ -1,6 +1,5 @@
 include_recipe 'puffin::packages'
 include_recipe 'puffin::ruby'
-include_recipe 'puffin::_database_common'
 include_recipe 'postgresql::client'
 include_recipe 'build-essential'
 
@@ -44,7 +43,7 @@ node[app_name]['links'].each do |name, lnk|
   end
 end
 
-template "#{node[app_name]['shared_path']}/config/sunspot.yml" do
+template "#{node[app_name]['paths']['shared']}/config/sunspot.yml" do
   owner account
   group account
   mode 00644
@@ -54,20 +53,19 @@ template "#{node[app_name]['shared_path']}/config/sunspot.yml" do
   )
 end
 
-template "#{node[app_name]['shared_path']}/config/database.yml" do
+template "#{node[app_name]['paths']['shared']}/config/database.yml" do
   owner account
   group account
   mode 00644
   variables({
-    environment: node[app_name]['environment'],
-    database: node[app_name]["database"]
+    databases: node[app_name]['databases']
   })
 end
 
 include_recipe "puffin::_bundler"
 
 %w{log tmp public system tmp/pids tmp/sockets}.each do |dir|
-  directory "#{node[app_name]['shared_path']}/#{dir}" do
+  directory "#{node[app_name]['paths']['shared']}/#{dir}" do
     owner node[app_name]['account']
     group node[app_name]['account']
     mode 0755
@@ -75,7 +73,7 @@ include_recipe "puffin::_bundler"
 end
 
 link "/home/#{account}/#{app_name}" do
-  to node[app_name]['deploy_path']
+  to node[app_name]['paths']['deploy']
   owner node[app_name]['account']
   group node[app_name]['account']
 end

@@ -14,31 +14,29 @@
 # Default-Stop: 0 1 2 4 5 6
 # Short-Description: start and stop unicorn
 ### END INIT INFO
- 
+
 # Source function library.
 . /etc/rc.d/init.d/functions
- 
+
 prog=unicorn
-#ruby_home=/opt/ruby-enterprise-1.8.7-2012.02
 RAILS_ROOT="<%= @install_path %>"
 UNICORN_CONF="<%= @unicorn_config_file %>"
+
 lockfile=${LOCKFILE-/var/lock/subsys/unicorn}
 pidfile=$RAILS_ROOT/tmp/pids/unicorn.pid
 SLEEPMSEC=100000
 RETVAL=0
-ENV=production
- 
+ENV=<%=@environment%>
+
 start() {
     echo -n $"Starting $prog: "
-    cd $RAILS_ROOT
-#    $ruby_home/bin/unicorn_rails -c $UNICORN_CONF -E production -D --path /redmine
-    su - webdev -c "cd $RAILS_ROOT && bundle exec unicorn_rails -c $UNICORN_CONF -E $ENV -D "
+    su - <%=@user %> -c "cd $RAILS_ROOT && chruby-exec <%=@ruby_version %> -- bundle exec unicorn_rails -c $UNICORN_CONF -E $ENV -D "
     RETVAL=$?
     echo
     [ $RETVAL = 0 ] && touch ${lockfile}
     return $RETVAL
 }
- 
+
 stop() {
     echo -n $"Stopping $prog: "
     killproc -p ${pidfile} ${prog} -QUIT
@@ -46,25 +44,25 @@ stop() {
     echo
     [ $RETVAL = 0 ] && rm -f ${lockfile} ${pidfile}
 }
- 
+
 restart() {
     echo -n $"Restarting $prog: "
     killproc -p ${pidfile} ${prog} -USR2
     RETVAL=$?
     echo
 }
- 
+
 reload() {
     echo -n $"Reloading $prog: "
     killproc -p ${pidfile} ${prog} -HUP
     RETVAL=$?
     echo
 }
- 
+
 rh_status() {
     status -p ${pidfile} ${prog}
 }
- 
+
 # See how we were called.
 case "$1" in
     start)
@@ -100,5 +98,5 @@ case "$1" in
         echo $"Usage: $prog {start|stop|restart|condrestart|try-restart|force-reload|upgrade|reload|status|help|configtest}"
         RETVAL=2
 esac
- 
+
 exit $RETVAL

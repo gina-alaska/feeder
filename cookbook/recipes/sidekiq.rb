@@ -1,4 +1,5 @@
 Chef::Resource::Template.send(:include, Puffin::Sidekiq)
+app_name = 'puffin'
 
 account = node['puffin']['account']
 
@@ -10,7 +11,7 @@ include_recipe 'yum-repoforge'
 end
 
 
-template "#{node['puffin']['shared_path']}/config/initializers/sidekiq.rb" do
+template "#{node['puffin']['paths']['shared']}/config/initializers/sidekiq.rb" do
 	owner account
 	group account
 	mode 00644
@@ -20,7 +21,7 @@ template "#{node['puffin']['shared_path']}/config/initializers/sidekiq.rb" do
 	})
 end
 
-template "#{node['puffin']['shared_path']}/config/sidekiq.yml" do
+template "#{node['puffin']['paths']['shared']}/config/sidekiq.yml" do
   owner account
   group account
   mode 00644
@@ -28,31 +29,30 @@ template "#{node['puffin']['shared_path']}/config/sidekiq.yml" do
   	queues: node_sidekiq_queues,
   	config: node['puffin']['sidekiq']['config']
   })
-end  
+end
 
 template "/etc/init.d/sidekiq_feeder" do
   source "sidekiq_init.erb"
   action :create
   mode 00755
   variables({
-    user: node['puffin']['account'], 
-    install_path: node['puffin']['deploy_path']
+    user: node['puffin']['account'],
+    install_path: node['puffin']['paths']['deploy']
   })
 end
 
-node['puffin']['data'].each do |name, opts|
-  directory opts['mount'] do
-    action :create
+node[app_name]['sidekiq']['mounts'].each do |name, mnt|
+  directory mnt['mount_point'] do
+    recursive true
   end
-
-  mount opts['mount'] do
-    device opts['host']
-    fstype 'nfs'
-    options 'rw'
-    action [:mount, :enable]
+  mount mnt['mount_point'] do
+    device mnt['device']
+    fstype mnt['fstype'] if mnt['fstype']
+    options mnt['options'] if mnt['options']
+    action mnt['action']
   end
 end
 
-service "sidekiq_feeder" do 
+service "sidekiq_feeder" do
   action :enable
 end

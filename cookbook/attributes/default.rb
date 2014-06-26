@@ -2,6 +2,7 @@
 default['unicorn_config_path'] = '/etc/unicorn'
 default['puffin']['environment'] = 'production'
 default['puffin']['account'] = "webdev"
+default['puffin']['ruby-version'] = "1.9.3"
 
 default['puffin']['paths'] = {
   'application'  => '/www/puffin',
@@ -58,4 +59,4 @@ override['chruby']['rubies'] = {
   '1.9.3-p392' => false,
   '1.9.3-p484' => true
 }
-override['chruby']['default'] = 'ruby-1.9.3-p484'
+default['chruby']['default'] = 'ruby-1.9.3-p484'

@@ -1,9 +1,11 @@
-default['puffin']['database']['adapter']  = "postgresql"
-default['puffin']['database']['hostname'] = "localhost"
-default['puffin']['database']['database'] = "feeder_prod"
-default['puffin']['database']['username'] = "feeder"
-default['puffin']['database']['password'] = ""
-default['puffin']['database']['search_path'] = "feeder_prod,public"
+default['puffin']['databases']['development'] = {
+  'adapter' =>  'postgresql',
+  'hostname' =>  'localhost',
+  'database' =>  'feeder_dev',
+  'username' =>  'feeder',
+  'password' =>  '',
+  'search_path' =>  'feeder_dev,public',
+}
 
 
 #Postgresql configuration
