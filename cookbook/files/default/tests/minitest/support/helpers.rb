@@ -3,15 +3,15 @@ module Helpers
     include MiniTest::Chef::Assertions
     include MiniTest::Chef::Context
     include MiniTest::Chef::Resources
-    
+
     def sunspot_config_file
-      File.join(node['puffin']['shared_path'], 'config/sunspot.yml')
+      File.join(node['puffin']['paths']['shared'], 'config/sunspot.yml')
     end
-    
+
     def database_config_file
-      File.join(node['puffin']['shared_path'], 'config/database.yml')
+      File.join(node['puffin']['paths']['shared'], 'config/database.yml')
     end
-    
+
     def bundle_config_file
       "/home/#{node['puffin']['account']}/.bundle/config"
     end
