@@ -27,3 +27,5 @@
 /solr
 
 /cookbook/.kitchen/
+
+/cookbook/.vagrant/
