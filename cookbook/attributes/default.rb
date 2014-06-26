@@ -10,7 +10,7 @@ default['puffin']['paths'] = {
   'config'       => '/www/puffin/shared/config',
   'initializers' => '/www/puffin/shared/config/initializers',
   'deploy'       => '/www/puffin/current',
-  'dragonfly'    => '/www/puffin/shared/uploads'
+  'dragonfly'    => '/www/puffin/shared/public'
 }
 
 default['puffin']['mounts'] = {
