@@ -10,5 +10,6 @@ cookbook 'unicorn'
 cookbook 'postgresql'
 cookbook 'database'
 cookbook 'build-essential'
+cookbook 'minitest-handler'
 
 metadata
