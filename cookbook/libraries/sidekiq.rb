@@ -7,12 +7,12 @@ module Puffin
 			tags.collect{|t| t.split("-")[1..2]}
 		end
 
-		#TODO:  This should search for the redis server unless were in chef solo
+		#TODO:  This should search for the redis server unless in chef solo
 		def redis_url
 			node['puffin']['redis']['url']
 		end
 
-		#TODO:  This should search for the redis server unless were in chef solo
+		#TODO:  This should search for the redis server unless in chef solo
 		def redis_namespace
 			node['puffin']['redis']['namespace']
 		end
