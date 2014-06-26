@@ -12,13 +12,6 @@ default['puffin']['sidekiq']['mounts'] = {
     'mount_point' =>  '/mnt/modis',
     'options'     =>  'ro',
     'action'      =>  [:mount, :enable]
-  },
-  'feeder_data' => {
-    'device'      =>  'feeder-vm.gina.alaska.edu:/san/feeder_data',
-    'fstype'      =>  'nfs',
-    'mount_point' =>  '/san/feeder_data',
-    'options'     =>  'rw',
-    'action'      =>  [:mount, :enable]
   }
 }
 

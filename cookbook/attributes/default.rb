@@ -20,6 +20,13 @@ default['puffin']['mounts'] = {
     'mount_point' =>  '/san/feeder_cache',
     'options'     =>  'rw',
     'action'      =>  [:mount, :enable]
+  },
+  'feeder_data' => {
+    'device'      =>  'feeder-vm.gina.alaska.edu:/san/feeder_data',
+    'fstype'      =>  'nfs',
+    'mount_point' =>  '/san/feeder_data',
+    'options'     =>  'rw',
+    'action'      =>  [:mount, :enable]
   }
 }
 
