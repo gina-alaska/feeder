@@ -1,15 +1,7 @@
 app_name = "puffin"
-node.default!['nginx']['default_site_enabled'] = false
-
+node.override['nginx']['default_site_enabled'] = false
+node.override['nginx']['repo_source'] = 'nginx'
 include_recipe 'nginx'
-
-ruby_block 'move_nginx_confs' do
-  block do
-    if File.exists? '/etc/nginx/conf.d'
-      FileUtils::rm_rf '/etc/nginx/conf.d'
-    end
-  end
-end
 
 proxies = if Chef::Config[:solo]
   []
@@ -20,8 +12,8 @@ end
 template "/etc/nginx/sites-available/#{app_name}_site" do
   source 'nginx_site.erb'
   variables({
-    install_path: node[app_name]['deploy_path'],
-    shared_path: node[app_name]['shared_path'],
+    install_path: node[app_name]['paths']['deploy'],
+    shared_path: node[app_name]['paths']['shared'],
     name: app_name,
     user: node[app_name]['account'],
     proxies: proxies

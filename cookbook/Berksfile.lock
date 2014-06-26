@@ -2,6 +2,7 @@ DEPENDENCIES
   build-essential
   chruby
   database
+  minitest-handler
   nginx
   postgresql
   puffin
@@ -22,6 +23,7 @@ GRAPH
   bluepill (2.3.1)
     rsyslog (>= 0.0.0)
   build-essential (2.0.2)
+  chef_handler (1.1.6)
   chruby (0.2.2)
     ark (>= 0.0.0)
     ruby_build (>= 0.0.0)
@@ -31,6 +33,8 @@ GRAPH
     mysql-chef_gem (>= 0.0.0)
     postgresql (>= 1.0.0)
     xfs (>= 0.0.0)
+  minitest-handler (1.2.0)
+    chef_handler (>= 0.0.0)
   mysql (5.2.6)
   mysql-chef_gem (0.0.2)
     build-essential (>= 0.0.0)

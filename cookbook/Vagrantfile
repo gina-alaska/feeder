@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
   config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
-  
+
   # Assign this VM to a host-only network IP, allowing you to access it
   # via the IP. Host-only networks can talk to the host machine as well as
   # any other machines on the same network, but cannot be accessed (through this
@@ -68,18 +68,50 @@ Vagrant.configure("2") do |config|
   # An array of symbols representing groups of cookbook described in the Vagrantfile
   # to skip installing and copying to Vagrant's shelf.
   # config.berkshelf.except = []
-  config.omnibus.chef_version = :latest  
+  config.omnibus.chef_version = :latest
 
   config.vm.provision :chef_solo do |chef|
-    chef.data_bags_path = 'data_bags'
-    
     chef.json = {
+      'chruby' => {
+        'default' => 'embedded'
+      },
+      'postgresql' => {
+        'password' => {
+          'postgres' => 'reallylongvagrantpassword'
+        }
+      },
+      "puffin" => {
+        "account" => "vagrant",
+        'environment' => 'development',
+        'paths' => {
+          'shared'       => '/www/puffin/current',
+          'config'       => '/www/puffin/current/config',
+          'initializers' => '/www/puffin/current/config/initializers',
+          'dragonfly'    => '/www/puffin/current/uploads'
+        },
+        'mounts' => {
+          'feeder_cache' => {'action' => :nothing}
+        },
+        'links' => {
+          'dragonfly' => {'action' => :nothing}
+        },
+        'database' => {
+          'development' => {
+            'password' => 'feeder_dev_vagrant'
+          }
+        },
+        'sidekiq' => {
+          'mounts' => {
+            'feeder_data' => {'action' => :nothing},
+            'npp'         => {'action' => :nothing},
+            'modis'       => {'action' => :nothing}
+          }
+        }
+      }
     }
 
     chef.run_list = [
-        "recipe[minitest-handler::default]",
-        "recipe[puffin::application]",
-        "recipe[gina-postgresql::client]"
+      "recipe[puffin::default]"
     ]
   end
 end
