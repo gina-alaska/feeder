@@ -1,0 +1,5 @@
+watch "/mnt/incoming/images", :force_polling => true, :latency => 10 do
+  match extension any do
+    run "script/ingest.sh \"#{filename}\""    
+  end
+end

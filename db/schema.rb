@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429204512) do
+ActiveRecord::Schema.define(:version => 20140715223556) do
 
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
@@ -62,10 +62,19 @@ ActiveRecord::Schema.define(:version => 20140429204512) do
     t.string   "active_animations"
     t.string   "status",            :default => "online"
     t.integer  "sensor_id"
+    t.string   "ingest_slug"
   end
 
   add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
   add_index "feeds", ["updated_at"], :name => "index_feeds_on_updated_at"
+
+  create_table "likes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "likeable_id"
+    t.string   "likeable_type"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "members", :force => true do |t|
     t.string   "name"

@@ -92,7 +92,8 @@ class Entry < ActiveRecord::Base
         :modis              => '^[at]1\.(\d{4})(\d{2})(\d{2})\.(\d{2})(\d{2})([_\d\w]+)\.alaska_albers\.tif$',
         :npp                => '^npp\.(\d{2})(\d{3})\.(\d{2})(\d{2})([_\d\w]+)\.tif$',
         :barrow_radar_image => '^SIR_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})_(\w+)\.(\w+)$',
-        :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$'
+        :barrow_webcam      => '^ABCam_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.jpg$',
+        :generic            => '^(\w+)_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})\.(\w+)$'
       }
     end
 
@@ -122,6 +123,28 @@ class Entry < ActiveRecord::Base
 
     def barrow_animation_regexp
       Regexp.new(regexps[:barrow_radar_anim])
+    end
+    
+    def generic_regexp
+      Regexp.new(regexps[:generic])
+    end
+    
+    def generic_info(filename)
+      import_slug, year, month, day, hour, minute, format = filename.match(generic_regexp)
+      date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
+      
+      {
+        import_slug: import_slug,
+        year: date.year,
+        month: date.month,
+        day: date.day,
+        hour: date.hour,
+        minute: date.minute,
+        date: date,
+        title: date.to_s,
+        category: category,
+        where: ""
+      }
     end
 
     def modis_info(filename)
@@ -199,6 +222,8 @@ class Entry < ActiveRecord::Base
           category: 'image',
           where: "POINT(-156.788333 71.2925)"
         }
+      when generic_regexp
+        info = generic_info(filename)
       else
         raise "Unable to breakdown filename, #{filename}"
         return nil

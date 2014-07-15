@@ -1,11 +1,13 @@
 class Feed < ActiveRecord::Base
   attr_accessible :slug, :title, :description, :author, :where, :animate,
-                  :active_animations, :status, :sensor_id, :sensor
+                  :active_animations, :status, :sensor_id, :sensor, :ingest_slug
 
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
   validates_uniqueness_of :slug
+  
+  validates_uniqueness_of :ingest_slug
 
   validates_presence_of :title
   validates_uniqueness_of :title
@@ -126,10 +128,69 @@ class Feed < ActiveRecord::Base
     end
   end
 
+  def accepts_file?(filename)
+    info = Feed.ingest_file_info(filename)
+    return false if info.nil?
+    
+    if info[:ingest_slug].present?
+      self.ingest_slug == info[:ingest_slug]
+    else
+      false
+    end
+  end
+  
+  def ingest(metadata)
+    if metadata[:filename].present? and accepts_file?(metadata[:filename])
+      entry = self.entries.where(slug: metadata[:slug]).first
+      entry ||= self.entries.build
+      
+      metadata.delete(:ingest_slug)
+      filename = metadata.delete(:filename)
+      metadata[:image] = File.open(filename)
+      
+      if entry.update_attributes(metadata)
+        entry.async_generate_create_event
+        puts "Import complete"
+      else
+        puts "Import failed"
+        puts entry.errors.full_messages
+      end
+      
+      self.touch
+    end
+  end
 
   class << self
+    def ingest_file_info(filename)
+      file_regexp = /^([A-Za-z0-9]+)_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})\.(\w+)$/
+      matched, ingest_slug, year, month, day, hour, minute, seconds, format = filename.match(file_regexp).to_a
+
+      return nil if matched.nil?
+      
+      date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, seconds.to_i, 'UTC')
+      
+      {
+        slug: Entry.build_slug(date.to_s),
+        title: date.to_s,
+        filename: filename,
+        ingest_slug: ingest_slug,
+        event_at: date
+      }
+    end
+    
+    def ingest(filename)
+      info = ingest_file_info(filename)
+      return false if info.nil?
+      
+      feed = Feed.where(ingest_slug: info[:ingest_slug]).first
+      
+      unless feed.nil?
+        feed.ingest(info)
+      end
+    end
+    
     def import(slug, item, glob = '**/*', type = 'image')
-      feed = where(:slug => slug).first
+      feed = where(slug: slug).first
       raise "Unable to find feed for #{slug}" if feed.nil?
 
       feed.import(item)
