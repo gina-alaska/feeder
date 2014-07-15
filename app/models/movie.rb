@@ -29,7 +29,7 @@ class Movie < ActiveRecord::Base
   end
 
   # attr_accessible :title, :body
-  belongs_to :feed, touch: true
+  belongs_to :feed #, touch: true
   #has_many :entries, :through => :feed, :conditions => proc { ['event_at >= ? and event_at <= ?', starts_at.utc, ends_at.utc] }, order: 'entries.event_at ASC'
 
   validates_presence_of :title, :event_at, :duration
