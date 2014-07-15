@@ -76,10 +76,10 @@ class MoviesController < ApplicationController
         render :layout => false if request.xhr?
       }
       format.mp4 {
-        send_file(@movie.as_mp4)
+        redirect_to(@movie.as_mp4)
       }
       format.webm {
-        send_file(@movie.as_webm)
+        redirect_to(@movie.as_webm)
       }
       format.jpg {
         redirect_to @movie.entries.first.preview.jpg.url
