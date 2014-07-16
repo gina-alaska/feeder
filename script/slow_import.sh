@@ -7,6 +7,8 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
-rails_env=${3:-production}
+if [ -z $RAILS_ENV ]; then
+  RAILS_ENV=production
+fi
 
-bundle exec rails runner "SlowImportWorker.perform_async('$1', '$2')" -e $rails_env
+RAILS_ENV=$RAILS_ENV spring rails runner "SlowImportWorker.perform_async('$1', '$2')" -e $RAILS_ENV
