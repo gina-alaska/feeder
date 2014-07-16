@@ -6,7 +6,7 @@ class Movie < ActiveRecord::Base
     state :generating
     state :available
 
-    event :generate, :after => :create_movie do
+    event :generate do
       transitions :to => :generating, :from => :queued
     end
 
