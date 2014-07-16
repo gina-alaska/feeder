@@ -1,7 +1,7 @@
 ---
 worker_defs: ./workers
 logfile: log/conveyor.log
-threadpool: 1
+threadpool: 5
 websocket:
   disable: false
   host: 0.0.0.0
