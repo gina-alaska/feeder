@@ -1,4 +1,4 @@
-watch '/mnt/incoming/barrow_webcam' do
+watch '/mnt/incoming/barrow_webcam', :force_polling => true, :latency => 10 do
   match extension jpg do
     slug = 'webcam-uaf-barrow-seaice-images'
     run "script/quick_import.sh \"#{slug}\" \"#{filename}\""

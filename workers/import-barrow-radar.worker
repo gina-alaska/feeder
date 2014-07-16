@@ -1,4 +1,4 @@
-watch '/mnt/incoming/barrow_radar' do
+watch '/mnt/incoming/barrow_radar', :force_polling => true, :latency => 10 do
   match extension any do
     case filename.split('.').last.to_sym
     when :tif
