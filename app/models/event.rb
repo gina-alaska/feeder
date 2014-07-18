@@ -18,10 +18,10 @@ class Event < ActiveRecord::Base
 
   def notify
     HTTParty.post(self.web_hook.url, {
-      query: {
+      body: {
         type: self.type,
         version: self.version,
-        payload: self.payload.to_json
+        payload: self.payload
       }
     })
   end
