@@ -86,7 +86,8 @@ class Feed < ActiveRecord::Base
     elsif File.exists? item
       files = [item]
     else
-      raise "Unable to find #{item}"
+      puts "Unable to find #{item}"
+      return false
     end
 
     files.each do |filename|
