@@ -163,7 +163,7 @@ class Feed < ActiveRecord::Base
   class << self
     def ingest_file_info(filename)
       file_regexp = /^([A-Za-z0-9]+)_(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})\.(\w+)$/
-      matched, ingest_slug, year, month, day, hour, minute, seconds, format = filename.match(file_regexp).to_a
+      matched, ingest_slug, year, month, day, hour, minute, seconds, format = File.basename(filename).match(file_regexp).to_a
 
       return nil if matched.nil?
       
