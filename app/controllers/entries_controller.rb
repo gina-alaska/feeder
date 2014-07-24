@@ -89,7 +89,8 @@ class EntriesController < ApplicationController
             },
             thumbnail: File.join('http://', request.host, e.preview.try(:thumb, '250x250').try(:url)),
             image: File.join('http://', request.host, e.preview.try(:url)),
-            source: File.join('http://', request.host, e.image.try(:remote_url))
+            source: File.join('http://', request.host, e.image.try(:remote_url)),
+            source_size: e.image.size
           })
         end
         respond_with(results)
