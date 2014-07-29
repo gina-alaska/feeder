@@ -160,6 +160,7 @@ GEM
     mixlib-shellout (1.4.0)
     multi_json (1.9.3)
     multi_xml (0.5.5)
+    nested_form (0.3.2)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
@@ -313,6 +314,7 @@ DEPENDENCIES
   libv8 (~> 3.16.14.3)
   lograge
   logstash-event
+  nested_form
   nofxx-georuby
   omniauth
   omniauth-openid

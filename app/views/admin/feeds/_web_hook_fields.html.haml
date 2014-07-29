@@ -1,5 +1,7 @@
-= f.label :url
-= f.text_field :url, placeholder: 'https://my.app/endpoint'
-
-= f.label :active, "Active?"
-= f.check_box :active, checked: true
+%tr.form-inline
+  %td
+    = f.text_field :url, placeholder: 'https://my.app/endpoint', class: 'span12'
+  %td
+    = f.check_box :active, checked: true
+  %td
+    = f.link_to_remove "Remove", class: 'btn btn-danger'

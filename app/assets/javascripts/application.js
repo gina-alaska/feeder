@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery.move
 //= require jquery.swipe
+//= require jquery_nested_form
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require_tree .

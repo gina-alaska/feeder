@@ -4,35 +4,51 @@
       = link_to "Feed", "#edit-feed", data: {toggle: 'tab'}
     %li
       = link_to "Web Hooks", "#edit-webhook", data: {toggle: 'tab'}
-.span9.tab-content
-  #edit-feed.tab-pane.active
-    = form_for [:admin, feed] do |f|
-      - if feed.errors.any?
-        #error_explanation.alert.alert-error
-          %h4
-            = pluralize(feed.errors.count, "error")
-            prohibited this feed from being saved:
-          %ul
-            - feed.errors.full_messages.each do |msg|
-              %li= msg
+.span9
+  = nested_form_for [:admin, feed] do |f|
+    - if feed.errors.any?
+      #error_explanation.alert.alert-error
+        %h4
+          = pluralize(feed.errors.count, "error")
+          prohibited this feed from being saved:
+        %ul
+          - feed.errors.full_messages.each do |msg|
+            %li= msg
+    .tab-content
+      #edit-feed.tab-pane.active
+        = f.label :title
+        = f.text_field :title, class: 'span12'
 
-      = f.label :title
-      = f.text_field :title, class: 'span12'
+        = f.label :slug
+        = f.text_field :slug, class: 'span12'
 
-      = f.label :slug
-      = f.text_field :slug, class: 'span12'
+        = f.label :ingest_slug
+        = f.text_field :ingest_slug, class: 'span12'      
 
-      = f.label :ingest_slug
-      = f.text_field :ingest_slug, class: 'span12'      
+        = f.label :sensor_id
+        = f.collection_select :sensor_id, Sensor.all, :id, :name, include_blank: true
 
-      = f.label :sensor_id
-      = f.collection_select :sensor_id, Sensor.all, :id, :name, include_blank: true
+        = f.label :status
+        = f.select :status, [['Online', 'online'], ['Offline', 'offline']]
 
-      = f.label :status
-      = f.select :status, [['Online', 'online'], ['Offline', 'offline']]
+        = f.label :description
+        = f.text_area :description, rows: 5, class: 'span12'
 
-      = f.label :description
-      = f.text_area :description, rows: 5, class: 'span12'
+      #edit-webhook.tab-pane
+        .navbar
+          .navbar-inner
+            .brand
+              Web Hooks
+            .btn-group.pull-right
+              = f.link_to_add "Add Web Hook", :web_hooks, data: { target: '#webhooks' }, class: 'btn btn-success'
+        %table.table.table-bordered.table-condensed
+          %thead
+            %trh
+              %th URL
+              %th Active?
+              %th
+          %tbody#webhooks
+            = f.fields_for :web_hooks, wrapper: false
 
       .pull-right
         = link_to admin_feeds_path, class: 'btn' do
@@ -40,19 +56,3 @@
           Back
         = f.submit class: 'btn btn-primary'
 
-  #edit-webhook.tab-pane
-    .navbar
-      .navbar-inner
-        .brand
-          Web Hooks
-        .btn-group.pull-right
-          =link_to "Add Web Hook", "#create_feed_web_hook(feed_id)", remote: true, class: ['btn','btn-success']
-      - feed.web_hooks.each do |web_hook|
-        %span.label{class: web_hook_label(web_hook)}
-        = web_hook.url
-        .btn-toolbar
-          .btn-group
-            =link_to "#edit_feed_web_hook_path(web_hook)", remote: true, class: ['btn'] do
-              %i.icon-edit
-            =link_to "#delete_feed_web_hook_path(web_hook)", remote: true, class: ['btn', 'btn-danger'] do
-              %i.icon-delete

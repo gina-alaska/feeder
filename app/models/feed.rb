@@ -1,6 +1,6 @@
 class Feed < ActiveRecord::Base
   attr_accessible :slug, :title, :description, :author, :where, :animate,
-                  :active_animations, :status, :sensor_id, :sensor, :ingest_slug
+                  :active_animations, :status, :sensor_id, :sensor, :ingest_slug, :web_hooks_attributes
 
   include GeoRuby::SimpleFeatures
 
@@ -28,7 +28,7 @@ class Feed < ActiveRecord::Base
 
   has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
 
-  accepts_nested_attributes_for :web_hooks
+  accepts_nested_attributes_for :web_hooks, reject_if: proc { |attrs| attrs['url'].blank? }
 
   serialize :active_animations
 

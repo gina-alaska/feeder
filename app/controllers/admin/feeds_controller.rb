@@ -9,6 +9,8 @@ class Admin::FeedsController < AdminController
   end
   
   def edit
+    @feed.web_hooks.build
+    
     respond_with @feed
   end
   
@@ -31,6 +33,7 @@ class Admin::FeedsController < AdminController
   
   def new
     @feed = Feed.new
+    @feed.web_hooks.build
   end
   
   def create
