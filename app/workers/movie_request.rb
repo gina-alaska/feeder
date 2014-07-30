@@ -3,7 +3,6 @@ class MovieRequest
 
   def perform(id)
     movie = Movie.find(id)
-    movie.generate
     movie.create_movie
     Sunspot.commit
   end

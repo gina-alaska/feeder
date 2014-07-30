@@ -7,15 +7,19 @@ class Movie < ActiveRecord::Base
     state :available
 
     event :generate do
-      transitions :to => :generating, :from => :queued
+      transitions :to => :generating, :from => [:failed, :queued]
     end
 
     event :reset do
-      transitions :to => :queued, :from => [:generating, :available]
+      transitions :to => :queued, :from => [:generating, :available, :failed]
     end
 
     event :complete do
       transitions :to => :available, :from => :generating
+    end
+    
+    event :fail do
+      transitions to: :failed, from: :generating
     end
   end
 
@@ -91,8 +95,9 @@ class Movie < ActiveRecord::Base
   end
 
   def create_movie
+    self.generate
+    
     self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
-
     self.save!
 
     mencoder_opts = '-mf fps=8 -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy'
@@ -113,13 +118,15 @@ class Movie < ActiveRecord::Base
     system(cmd)
     frames.unlink
 
-    to_mp4(tmpfile)
-    to_webm(tmpfile)
+    if to_mp4(tmpfile) and to_webm(tmpfile)
+      #cleanup
+      FileUtils.rm_rf(File.dirname(tmpfile))
 
-    #cleanup
-    FileUtils.rm_rf(File.dirname(tmpfile))
-
-    self.complete
+      self.complete
+    else
+      self.fail
+    end
+    
     self.save!
   end
 
@@ -144,7 +151,7 @@ class Movie < ActiveRecord::Base
   end
 
   def has_format?(format)
-    File.exists?(as_format(format))
+    File.exists?(File.join(self.path, "#{self.to_param}.#{format}"))
   end
 
   def to_webm(file)
