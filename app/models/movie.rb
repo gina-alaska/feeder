@@ -5,6 +5,7 @@ class Movie < ActiveRecord::Base
     state :queued, :initial => true
     state :generating
     state :available
+    state :failed
 
     event :generate do
       transitions :to => :generating, :from => [:failed, :queued]
