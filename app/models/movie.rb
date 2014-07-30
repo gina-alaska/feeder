@@ -97,7 +97,7 @@ class Movie < ActiveRecord::Base
   def create_movie
     self.generate
     
-    self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s)
+    self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s, self.id.to_s)
     self.save!
 
     mencoder_opts = '-mf fps=8 -ovc lavc -lavcopts vcodec=mpeg4:mbd=2:trell -oac copy'
