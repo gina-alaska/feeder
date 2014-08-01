@@ -96,6 +96,8 @@ class Movie < ActiveRecord::Base
   end
 
   def create_movie
+    return false unless self.may_generate?
+    
     self.generate
     
     self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s, self.id.to_s)
@@ -129,6 +131,11 @@ class Movie < ActiveRecord::Base
     end
     
     self.save!
+  rescue => e
+    # Mark as failed and reraise exception
+    self.fail
+    self.save
+    raise
   end
 
   def as_mp4
