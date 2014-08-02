@@ -5,7 +5,7 @@ class CreateEventWorker
     entry = Entry.find(entry_id)
 
     entry.feed.web_hooks.active.each do |webhook|
-      event = CreateEvent.create(entry_id: entry_id, web_hook_id: webhook)
+      event = CreateEvent.create(entry_id: entry_id, web_hook_id: webhook.id)
       WebHookNotifyWorker.perform_async(event.id)
     end
   end
