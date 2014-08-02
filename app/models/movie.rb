@@ -8,7 +8,7 @@ class Movie < ActiveRecord::Base
     state :failed
 
     event :generate do
-      transitions :to => :generating, :from => [:failed, :queued]
+      transitions :to => :generating, :from => [:failed, :queued, :generating]
     end
 
     event :reset do
