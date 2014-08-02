@@ -123,8 +123,7 @@ class Movie < ActiveRecord::Base
 
     if to_mp4(tmpfile) and to_webm(tmpfile)
       #cleanup
-      FileUtils.rm_rf(File.dirname(tmpfile))
-
+      FileUtils.rm_f(tmpfile)
       self.complete
     else
       self.fail
