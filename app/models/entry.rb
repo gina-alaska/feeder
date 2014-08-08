@@ -82,6 +82,16 @@ class Entry < ActiveRecord::Base
   def async_generate_create_event
     CreateEventWorker.perform_async(self.id)
   end
+  
+  def notify_webhooks(resend = false)
+    self.feed.web_hooks.active.each do |wh|
+      ce = self.create_events.where(web_hook_id: wh.id).first_or_initialize
+      if ce.new_record? or resend
+        ce.save
+        ce.async_notify
+      end
+    end
+  end
 
   class << self
     def build_slug(text)

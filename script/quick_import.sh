@@ -11,4 +11,4 @@ if [ -z $RAILS_ENV ]; then
   RAILS_ENV=production
 fi
 
-RAILS_ENV=$RAILS_ENV spring rails runner "QuickImportWorker.perform_async('$1', '$2')" -e $RAILS_ENV
+RAILS_ENV=$RAILS_ENV bundle exec rails runner "QuickImportWorker.perform_async('$1', '$2')" -e $RAILS_ENV

@@ -25,6 +25,10 @@ class Event < ActiveRecord::Base
       }
     })
   end
+  
+  def async_notify
+    WebHookNotifyWorker.perform_async(self.id)
+  end
 
   def helpers
     Rails.application.routes.url_helpers
