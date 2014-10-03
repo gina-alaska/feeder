@@ -141,7 +141,7 @@ class Entry < ActiveRecord::Base
     end
     
     def generic_info(filename)
-      import_slug, year, month, day, hour, minute, format = filename.match(generic_regexp)
+      dummy, import_slug, year, month, day, hour, minute, format = filename.match(generic_regexp)
       date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
       
       {
