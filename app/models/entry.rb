@@ -68,7 +68,7 @@ class Entry < ActiveRecord::Base
   end
 
   def georss_location
-    Geometry.from_ewkt(self.where).as_georss unless self.where.empty?
+    Geometry.from_ewkt(self.feed.where).as_georss unless self.where.empty?
   end
 
   def next
