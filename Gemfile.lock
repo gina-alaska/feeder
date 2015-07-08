@@ -140,7 +140,7 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.9.2)
-    libv8 (3.16.14.3)
+    libv8 (3.16.14.11)
     lograge (0.3.0)
       actionpack (>= 3)
       activesupport (>= 3)
