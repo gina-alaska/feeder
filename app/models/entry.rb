@@ -82,7 +82,7 @@ class Entry < ActiveRecord::Base
   def async_generate_create_event
     CreateEventWorker.perform_async(self.id)
   end
-  
+
   def notify_webhooks(resend = false)
     self.feed.web_hooks.active.each do |wh|
       ce = self.create_events.where(web_hook_id: wh.id).first_or_initialize
@@ -135,15 +135,15 @@ class Entry < ActiveRecord::Base
     def barrow_animation_regexp
       Regexp.new(regexps[:barrow_radar_anim])
     end
-    
+
     def generic_regexp
       Regexp.new(regexps[:generic])
     end
-    
+
     def generic_info(filename)
       dummy, import_slug, year, month, day, hour, minute, format = filename.match(generic_regexp)
       date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
-      
+
       {
         import_slug: import_slug,
         year: date.year,
@@ -219,8 +219,8 @@ class Entry < ActiveRecord::Base
       when barrow_webcam_regexp
         dummy, year, month, day, hour, minute = filename.match(barrow_webcam_regexp).to_a
         #fix date to be local
-        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0)
-        date = fix_time_tz(date, date.to_time.localtime.zone)
+        date = DateTime.new(year.to_i, month.to_i, day.to_i, hour.to_i, minute.to_i, 0, 'UTC')
+        # date = fix_time_tz(date, date.to_time.localtime.zone)
 
         info = {
           year: date.year,
