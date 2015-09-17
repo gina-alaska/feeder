@@ -50,7 +50,7 @@ group :development do
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
   gem 'capistrano-bower'
-  gem 'capistrano-chef'
+  #gem 'capistrano-chef'
 end
 
 gem 'jquery-rails'
@@ -63,6 +63,7 @@ gem 'jquery-rails'
 
 # Use unicorn as the app server
 gem 'unicorn'
+gem 'puma'
 
 # Deploy with Capistrano
 
