@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  host: localhost
+  database: feeder_dev
+  client_encoding: UTF8
+  schema_search_path: feeder,public
+test:
+  adapter: sqlite3
+  database: db/test.sqlite3
+  pool: 5
+  timeout: 5000
+
+production:
+  adapter:  postgresql
+  pool:     <%= ENV['DATABASE_POOL'] %>
+  timeout:  <%= ENV['DATABASE_TIMEOUT'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host:     <%= ENV['DATABASE_HOST'] %>
+  client_encoding: UTF8
