@@ -6,9 +6,9 @@ ENV['PUMA_PRELOAD_APP']
 prune_bundler
 
 rackup      DefaultRackup
-port        9292
-environment 'production'
-pidfile     './tmp/pids/puma.pid'
+port        Integer( ENV['PUMA_PORT'] || 9292 )
+environment ENV['RAILS_ENV'] || 'development'
+pidfile     ENV['PUMA_PIDFILE'] || './tmp/pids/puma.pid'
 worker_timeout 240
 
 # not needed unless we are using preload_app!
