@@ -42,7 +42,6 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'test-unit'
 end
 gem 'jquery-rails'
 
@@ -55,6 +54,8 @@ gem 'jquery-rails'
 gem 'puma'
 gem 'rails_12factor', group: :production
 gem 'dotenv-rails'
+# Production complains if it's missing this.
+gem 'test-unit'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
