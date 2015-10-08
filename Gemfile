@@ -45,11 +45,11 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'capistrano'
-  gem 'capistrano-chruby', github: "capistrano/chruby"
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-bower'
+  # gem 'capistrano'
+  # gem 'capistrano-chruby', github: "capistrano/chruby"
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails'
+  # gem 'capistrano-bower'
   #gem 'capistrano-chef'
 end
 
@@ -62,8 +62,9 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the app server
-gem 'unicorn'
+#gem 'unicorn'
 gem 'puma'
+gem 'rails_12factor', group: :production
 
 # Deploy with Capistrano
 
