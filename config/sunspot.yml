@@ -1,7 +1,7 @@
 production:
   solr:
-    hostname: unicorn.x.gina.alaska.edu
-    port: 8983
+    hostname: <%= SOLR_HOSTNAME %>
+    port: <%= SOLR_PORT %>
     log_level: WARNING
     # read_timeout: 2
     # open_timeout: 0.5

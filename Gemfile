@@ -1,9 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.22'
 
 gem 'pg'
 gem 'haml-rails'
@@ -45,14 +42,7 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'capistrano'
-  gem 'capistrano-chruby', github: "capistrano/chruby"
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano-bower'
-  #gem 'capistrano-chef'
 end
-
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -61,11 +51,11 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-# Use unicorn as the app server
-gem 'unicorn'
 gem 'puma'
-
-# Deploy with Capistrano
+gem 'rails_12factor', group: :production
+gem 'dotenv-rails'
+# Production complains if it's missing this.
+gem 'test-unit'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
