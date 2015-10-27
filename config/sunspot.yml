@@ -1,7 +1,7 @@
 production:
   solr:
-    hostname: <%= SOLR_HOSTNAME %>
-    port: <%= SOLR_PORT %>
+    hostname: <%= ENV['SOLR_HOSTNAME'] %>
+    port: <%= ENV['SOLR_PORT'] || 8983 %>
     log_level: WARNING
     # read_timeout: 2
     # open_timeout: 0.5
