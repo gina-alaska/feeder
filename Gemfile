@@ -59,3 +59,5 @@ gem 'test-unit'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
+
+gem 'version'
