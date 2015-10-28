@@ -4,7 +4,7 @@
 
 require File.expand_path('../config/application', __FILE__)
 require 'rake/version_task'
-Rake::VersionTask.new do 
+Rake::VersionTask.new do |task|
   task.with_git_tag = true
 end
 Feeder::Application.load_tasks
