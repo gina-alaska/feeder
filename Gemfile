@@ -51,9 +51,9 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'puma'
 gem 'rails_12factor', group: :production
-gem 'dotenv-rails'
 # Production complains if it's missing this.
 gem 'test-unit'
 
