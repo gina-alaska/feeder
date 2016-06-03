@@ -4,6 +4,8 @@ rvm:
 cache: bundler
 addons:
   postgresql: '9.3'
+services:
+  - redis-server
 script:
 - bundle exec rake db:setup
 - bundle exec rake db:test:prepare
