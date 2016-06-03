@@ -29,3 +29,5 @@
 
 /solr/*
 !/solr/conf
+
+.otto

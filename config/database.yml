@@ -1,14 +1,15 @@
 development:
   adapter: postgresql
-  host: localhost
+  url: <%= ENV['DATABASE_URL'] %>
   database: feeder_dev
   client_encoding: UTF8
   schema_search_path: feeder,public
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
+  database: feeder_test
+  client_encoding: UTF8
+  schema_search_path: feeder,public
 
 production:
   adapter:  postgresql

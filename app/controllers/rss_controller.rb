@@ -1,6 +1,4 @@
 class RssController < ApplicationController
-  respond_to :xml
-  
   def show
     @feed = Feed.where(:slug => params[:slug]).first
     if params[:id].nil?
@@ -11,6 +9,9 @@ class RssController < ApplicationController
     else
       @entries = @feed.entries.includes(:feed).where(:slug => params[:id]).order('event_at DESC')
     end
-    respond_with @feed, @entries
+
+    respond_to do |format|
+      format.xml
+    end
   end
 end

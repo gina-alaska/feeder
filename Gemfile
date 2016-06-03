@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.2.0'
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 gem 'pg'
 gem 'haml-rails'
@@ -21,8 +22,8 @@ gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.14'
 gem 'lograge'
 gem 'logstash-event'
-gem 'sunspot_rails', '~> 2.0.0'
-gem 'sunspot_solr', '~> 2.0.0' # optional pre-packaged Solr distribution for use in development
+gem 'sunspot_rails', '~> 2.2.0'
+gem 'sunspot_solr', '~> 2.2.0' # optional pre-packaged Solr distribution for use in development
 gem 'httparty'
 gem 'spring'
 gem 'nested_form'
@@ -43,6 +44,11 @@ end
 group :development do
   gem 'sqlite3'
 end
+
+group :test do
+  gem 'mocha'
+  gem 'simplecov'
+end
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
@@ -51,7 +57,6 @@ gem 'jquery-rails'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
-gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'puma'
 gem 'rails_12factor', group: :production
 # Production complains if it's missing this.
