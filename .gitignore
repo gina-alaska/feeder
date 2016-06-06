@@ -30,4 +30,8 @@
 /solr/*
 !/solr/conf
 
+# Otto
 .otto
+
+# SimpleCov
+coverage
