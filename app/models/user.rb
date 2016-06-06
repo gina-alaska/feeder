@@ -2,8 +2,6 @@ class User < ActiveRecord::Base
   has_many :authorizations
   belongs_to :member
 
-  # attr_accessible :name, :email
-
   validates_presence_of :email
   validates_uniqueness_of :email
 
