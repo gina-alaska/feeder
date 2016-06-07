@@ -55,6 +55,7 @@ GEM
     bootstrap-sass (2.3.2.2)
       sass (~> 3.2)
     builder (3.2.2)
+    cancancan (1.14.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
     chronic (0.10.2)
@@ -264,6 +265,7 @@ DEPENDENCIES
   aasm
   bootstrap-datepicker-rails
   bootstrap-sass (~> 2.3.2.0)
+  cancancan
   coffee-rails (~> 4.0)
   compass-rails
   dalli
