@@ -2,7 +2,7 @@ require 'test_helper'
 
 class Admin::MembersControllerTest < ActionController::TestCase
   def setup
-    login_user(:admin)
+    sign_in(users(:admin))
   end
 
   test 'it renders index' do

@@ -9,26 +9,29 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140715223556) do
+ActiveRecord::Schema.define(version: 20160607214549) do
 
-  create_table "authorizations", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "entries", :force => true do |t|
+  create_table "entries", force: :cascade do |t|
     t.integer  "feed_id"
     t.string   "title"
     t.text     "content"
     t.string   "where"
     t.datetime "event_at"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.string   "file"
     t.string   "category"
     t.string   "slug"
@@ -38,86 +41,104 @@ ActiveRecord::Schema.define(:version => 20140715223556) do
     t.string   "preview_name"
   end
 
-  add_index "entries", ["slug"], :name => "index_entries_on_slug"
-  add_index "entries", ["updated_at"], :name => "index_entries_on_updated_at"
+  add_index "entries", ["slug"], name: "index_entries_on_slug", using: :btree
+  add_index "entries", ["updated_at"], name: "index_entries_on_updated_at", using: :btree
 
-  create_table "events", :force => true do |t|
+  create_table "events", force: :cascade do |t|
     t.integer  "web_hook_id"
     t.integer  "entry_id"
     t.string   "response"
     t.string   "type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  create_table "feeds", :force => true do |t|
+  create_table "feeds", force: :cascade do |t|
     t.string   "slug"
     t.string   "title"
     t.text     "description"
     t.string   "author"
     t.string   "where"
-    t.datetime "created_at",                              :null => false
-    t.datetime "updated_at",                              :null => false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.boolean  "animate"
     t.string   "active_animations"
-    t.string   "status",            :default => "online"
+    t.string   "status",            default: "online"
     t.integer  "sensor_id"
     t.string   "ingest_slug"
   end
 
-  add_index "feeds", ["slug"], :name => "index_feeds_on_slug"
-  add_index "feeds", ["updated_at"], :name => "index_feeds_on_updated_at"
+  add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
+  add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
 
-  create_table "likes", :force => true do |t|
+  create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "likeable_id"
     t.string   "likeable_type"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  create_table "members", :force => true do |t|
+  create_table "members", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.boolean  "admin"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "movies", :force => true do |t|
+  create_table "movies", force: :cascade do |t|
     t.string   "title"
     t.integer  "feed_id"
     t.date     "event_at"
     t.integer  "duration"
     t.string   "status"
     t.string   "path"
-    t.boolean  "generated",  :default => false
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
+    t.boolean  "generated",  default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  create_table "sensors", :force => true do |t|
+  create_table "sensors", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                            :null => false
-    t.datetime "updated_at",                            :null => false
-    t.boolean  "selected_by_default", :default => true
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.boolean  "selected_by_default", default: true
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.boolean  "admin"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "member_id"
+    t.string   "encrypted_password",     default: "",    null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,     null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet     "current_sign_in_ip"
+    t.inet     "last_sign_in_ip"
+    t.string   "provider"
+    t.string   "uid"
+    t.boolean  "site_admin",             default: false
+    t.boolean  "user_admin",             default: false
+    t.boolean  "feed_admin",             default: false
+    t.boolean  "job_admin",              default: false
   end
 
-  create_table "web_hooks", :force => true do |t|
-    t.string   "url",                          :null => false
-    t.boolean  "active",     :default => true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "web_hooks", force: :cascade do |t|
+    t.string   "url",                       null: false
+    t.boolean  "active",     default: true
     t.integer  "feed_id"
-    t.datetime "created_at",                   :null => false
-    t.datetime "updated_at",                   :null => false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

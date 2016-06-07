@@ -1,5 +1,7 @@
 class Admin::JobsController < AdminController
   before_filter :fetch_job, :only => [:destroy, :show, :retry]
+  
+  authorize_resource
 
   def retry
     if @job.retry

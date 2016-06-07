@@ -3,10 +3,8 @@ require 'test_helper'
 class Admin::FeedsControllerTest < ActionController::TestCase
   def setup
     @feed = feeds(:satellite)
-
+    sign_in users(:admin)
     stub_dragonfly_preview(:thumb, url: "https://example.com/preview")
-
-    login_user(:admin)
   end
 
   test 'it renders index' do

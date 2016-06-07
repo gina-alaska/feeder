@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
   # protect_from_forgery
-
   layout :set_layout
+
+  check_authorization unless: :special_controller?
+
+  rescue_from CanCan::AccessDenied, with: :handle_permission_denied
 
   def search
     # fetch feeds if it hasn't been done yet
@@ -90,15 +93,32 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def require_admin_auth
-    if current_user.nil?
-      session[:redirect_back_location] = request.url
-      redirect_to signin_path
-    elsif not current_user.admin?
-      flash[:error] = 'You do not have permission to access this page'
-      redirect_to root_url
+  protected
+
+  def special_controller?
+    devise_controller?
+  end
+
+  def handle_permission_denied(_exception)
+    if signed_in?
+      flash[:error] = 'You do not have permission to view this page'
+      redirect_to session[:referred_from_url] || request.referer || root_url
+    else
+      flash[:notice] = 'Please login to perform the reqeuested action'
+      save_current_location
+      redirect_to new_user_session_path
     end
   end
+
+  def save_current_location
+    session[:referred_from_url] = request.referer
+    store_location_for(current_user || User.new, request.original_url)
+  end
+
+  def save_referrer_location
+    store_location_for(current_user || User.new, request.referer)
+  end
+
 
   private
   def set_layout

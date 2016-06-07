@@ -1,4 +1,6 @@
 class EntriesController < ApplicationController
+  skip_authorization_check
+
   before_filter :fetch_feed, :only => [:index, :show, :image, :preview, :embed]
 
   def show

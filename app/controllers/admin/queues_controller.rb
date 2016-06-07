@@ -2,18 +2,20 @@ require 'sidekiq'
 
 class Admin::QueuesController < AdminController
   before_filter :fetch_stats
+
+  authorize_resource
   
   def index
     @scheduled = Sidekiq::ScheduledSet.new
     @retry = Sidekiq::RetrySet.new
   end
-  
+
   def show
     @queue = Sidekiq::Queue.new(params[:id])
   end
-  
+
   protected
-  
+
   def fetch_stats
     @stats = Sidekiq::Stats.new
     @processed_count = @stats.processed
@@ -24,14 +26,14 @@ class Admin::QueuesController < AdminController
     @busy_count = workers.size
     @queues = @stats.queues
   end
-  
+
   def retries_with_score(score)
     Sidekiq.redis do |conn|
       results = conn.zrangebyscore('retry', score, score)
       results.map { |msg| Sidekiq.load_json(msg) }
     end
   end
-  
+
   def workers
     @workers ||= begin
       Sidekiq.redis do |conn|

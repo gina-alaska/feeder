@@ -19,6 +19,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'
 gem 'omniauth-openid'
+gem 'cancancan'
 
 gem 'dalli'
 gem 'rack-cache', :require => 'rack/cache'

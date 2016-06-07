@@ -1,5 +1,8 @@
 class AdminController < ApplicationController
-  before_action :authenticate_user!
+  before_action :require_admin!
 
-  before_filter :require_admin_auth
+  private
+  def require_admin!
+    raise CanCan::AccessDenied unless signed_in? && current_user.site_admin?
+  end
 end

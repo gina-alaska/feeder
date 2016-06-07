@@ -1,6 +1,8 @@
 class Admin::FeedsController < AdminController
   before_filter :fetch_feed, :only => [:edit, :update, :destroy]
 
+  authorize_resource
+
   def index
     @feeds = Feed.all
   end

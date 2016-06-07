@@ -1,4 +1,6 @@
 class Admin::SensorsController < AdminController
+  authorize_resource
+
   def index
     @sensors = Sensor.all
   end
@@ -31,12 +33,12 @@ class Admin::SensorsController < AdminController
   def create
     @sensor = Sensor.new(sensor_params)
 
-    respond_to do |wants|
+    respond_to do |format|
       if @sensor.save
         flash[:notice] = 'Sensor was successfully created.'
-        wants.html { redirect_to(admin_sensors_path) }
+        format.html { redirect_to(admin_sensors_path) }
       else
-        wants.html { render :action => "new" }
+        format.html { render :action => "new" }
       end
     end
   end

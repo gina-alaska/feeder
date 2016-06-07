@@ -1,4 +1,6 @@
 class RssController < ApplicationController
+  skip_authorization_check
+
   def show
     @feed = Feed.where(:slug => params[:slug]).first
     if params[:id].nil?

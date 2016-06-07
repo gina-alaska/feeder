@@ -2,10 +2,10 @@ require 'test_helper'
 
 class Admin::WebHooksControllerTest < ActionController::TestCase
   def setup
-    login_user(:admin)
-
     @webhook = web_hooks(:active)
     @feed = @webhook.feed
+    
+    sign_in(users(:admin))
   end
 
   test 'it renders index' do
