@@ -14,9 +14,12 @@ gem 'quiet_assets', :group => :development
 gem 'aasm'
 gem 'sidekiq', '~> 2.0'
 gem 'bootstrap-datepicker-rails'
-gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
+
+# gem "ruby-openid", :git => "git://github.com/kendagriff/ruby-openid.git", :ref => "79beaa419d4754e787757f2545331509419e222e"
+gem 'devise', github: 'plataformatec/devise'
 gem 'omniauth'
 gem 'omniauth-openid'
+
 gem 'dalli'
 gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.14'
