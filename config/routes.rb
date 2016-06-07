@@ -1,4 +1,6 @@
 Feeder::Application.routes.draw do
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
   get '/movies/search' => 'movies#search', as: :search_movies
   get '/search' => 'entries#search'
 
@@ -28,11 +30,11 @@ Feeder::Application.routes.draw do
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
-  put '/signin' => 'sessions#new', :as => :signin
-  put '/signout' => 'sessions#destroy', :as => :signout
-
-  put '/auth/:provider/callback', :to => 'sessions#create'
-  put '/auth/failure', :to => 'sessions#failure'
+  # put '/signin' => 'sessions#new', :as => :signin
+  # put '/signout' => 'sessions#destroy', :as => :signout
+  #
+  # put '/auth/:provider/callback', :to => 'sessions#create'
+  # put '/auth/failure', :to => 'sessions#failure'
 
   get 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
   get 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml

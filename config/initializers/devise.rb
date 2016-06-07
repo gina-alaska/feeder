@@ -240,6 +240,8 @@ Devise.setup do |config|
   #
   # The "*/*" below is required to match Internet Explorer requests.
   # config.navigational_formats = ['*/*', :html]
+  config.omniauth :open_id, name: :gina_id, identifier: 'https://id.gina.alaska.edu'
+  config.omniauth :developer unless Rails.env.production?
 
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete

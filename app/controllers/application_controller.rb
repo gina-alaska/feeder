@@ -82,21 +82,6 @@ class ApplicationController < ActionController::Base
     items.inject([]) { |c,i| c << i[0].to_i if i[1].to_i == 1 }
   end
 
-  def current_user
-    @_current_user ||= User.find_by_id(session[:current_user_id])
-  end
-
-  def signed_in?
-    !!current_user
-  end
-
-  helper_method :current_user, :signed_in?
-
-  def current_user=(user)
-    @_current_user = user
-    session[:current_user_id] = user.id
-  end
-
   def redirect_back_or_default(url)
     if session[:redirect_back_location].present?
       redirect_to session.delete(:redirect_back_location)

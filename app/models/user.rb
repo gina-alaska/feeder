@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
-  has_many :authorizations
+  include UserDevise
+
+  # has_many :authorizations
   belongs_to :member
 
   validates_presence_of :email
