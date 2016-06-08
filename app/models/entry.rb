@@ -1,8 +1,6 @@
 class Entry < ActiveRecord::Base
   include GeoRuby::SimpleFeatures
 
-  # paginates_per 16
-
   belongs_to :feed, touch: true
   has_many :create_events
 

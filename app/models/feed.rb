@@ -1,7 +1,4 @@
 class Feed < ActiveRecord::Base
-  attr_accessible :slug, :title, :description, :author, :where, :animate,
-                  :active_animations, :status, :sensor_id, :sensor, :ingest_slug, :web_hooks_attributes
-
   include GeoRuby::SimpleFeatures
 
   validates_presence_of :slug
@@ -26,7 +23,7 @@ class Feed < ActiveRecord::Base
     end
   end
 
-  has_many :current_entries, class_name: 'Entry', order: 'event_at DESC', limit: 1
+  has_many :current_entries, -> { order('event_at DESC').limit(1) }, class_name: 'Entry'
 
   accepts_nested_attributes_for :web_hooks, reject_if: proc { |attrs| attrs['url'].blank? }
 

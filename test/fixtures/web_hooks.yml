@@ -1,13 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  url: MyString
-  active: false
-  feed_id: 1
-  events: 1
+active:
+  url: 'http://example.com/hooks'
+  active: true
+  feed: satellite
 
-two:
-  url: MyString
+inactive:
+  url: 'http://example.com/nohooks'
   active: false
-  feed_id: 1
-  events: 1
+  feed: satellite

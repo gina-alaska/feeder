@@ -4,7 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+satellite_one:
+  feed: satellite
+  title: satellite_entry
+  content: entry_content
+  where: entry_location
+  event_at: "2016-06-01 22:39:39 +0000"
+  slug: satellite_entry
+  category: satellite
+  image_uid: satellite-image
+  image_name: 13_36_43_763_a1.20160601.2104_ATM1_500_ATM4_ATM3_ATM1.alaska_albers.tif
 # column: value
 #
 two: {}

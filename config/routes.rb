@@ -1,6 +1,6 @@
 Feeder::Application.routes.draw do
-  match '/movies/search' => 'movies#search', as: :search_movies
-  match '/search' => 'entries#search'
+  get '/movies/search' => 'movies#search', as: :search_movies
+  get '/search' => 'entries#search'
 
   resources :feeds, :constraints => { :id => /[^\/\.]+/ } do
     get 'carousel', :action => :carousel
@@ -21,39 +21,38 @@ Feeder::Application.routes.draw do
     end
     resources :sensors
     resources :queues, :only => [:index, :show]
-    resources :jobs, :only => [:index, :show, :destroy], :constraints => { :id => /[^\/]+/ } do
+    resources :jobs, :only => [:destroy], :constraints => { :id => /[^\/]+/ } do
       post :retry, :on => :member
     end
   end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
-  match '/signin' => 'sessions#new', :as => :signin
-  match '/signout' => 'sessions#destroy', :as => :signout
+  put '/signin' => 'sessions#new', :as => :signin
+  put '/signout' => 'sessions#destroy', :as => :signout
 
-  match '/auth/:provider/callback', :to => 'sessions#create'
-  match '/auth/failure', :to => 'sessions#failure'
+  put '/auth/:provider/callback', :to => 'sessions#create'
+  put '/auth/failure', :to => 'sessions#failure'
 
-  match 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
-  match 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
+  get 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
+  get 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
 
-  match ':slug.georss' => 'rss#show', :format => :xml
-  match ':slug/:id.georss' => 'rss#show', :format => :xml
-  match ':slug.xml' => 'rss#show', :format => :xml
-  match ':slug/:id.xml' => 'rss#show', :format => :xml
+  get ':slug.georss' => 'rss#show', :format => :xml
+  get ':slug/:id.georss' => 'rss#show', :format => :xml
+  get ':slug.xml' => 'rss#show', :format => :xml
+  get ':slug/:id.xml' => 'rss#show', :format => :xml
 
   # match ':slug/:date' => 'feeds#show', :as => :slug_entries_by_date, :constraints => { :date => /\d+\/\d+/ }
-  match ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ }
-  match ':slug/movies' => 'movies#index', :as => :slug_movies
+  get ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ }
+  get ':slug/movies' => 'movies#index', :as => :slug_movies
 
   # match 'search/:q' => 'feeds#search', :as => :search
-
-  match ':slug' => 'entries#index', :as => :slug
-  match ':slug/carousel' => 'feeds#carousel'
-  match ':slug/:id' => 'entries#show', :as => :slug_entry
-  match ':slug/:id/embed' => 'entries#embed', :as => :embed_slug_entry
-  match ':slug/:id/image' => 'entries#image', :as => :current_image
-  match ':slug/:id/preview' => 'entries#preview', :as => :current_preview
+  get ':slug' => 'entries#index', :as => :slug
+  get ':slug/carousel' => 'feeds#carousel'
+  get ':slug/:id' => 'entries#show', :as => :slug_entry
+  get ':slug/:id/embed' => 'entries#embed', :as => :embed_slug_entry
+  get ':slug/:id/image' => 'entries#image', :as => :current_image
+  get ':slug/:id/preview' => 'entries#preview', :as => :current_preview
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

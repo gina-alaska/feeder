@@ -1,6 +1,4 @@
 class Event < ActiveRecord::Base
-  attr_accessible :entry_id, :response, :type, :web_hook_id, :web_hook
-
   belongs_to :web_hook
   belongs_to :entry
 
@@ -25,7 +23,7 @@ class Event < ActiveRecord::Base
       }
     })
   end
-  
+
   def async_notify
     WebHookNotifyWorker.perform_async(self.id)
   end
