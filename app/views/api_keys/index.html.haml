@@ -1,0 +1,20 @@
+= link_to 'Create New API Key', new_api_key_path, class: 'btn btn-success'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th Token
+      %th Last Updated
+      %th Actions
+  %tbody
+    - @api_keys.each do |key|
+      %tr
+        %td= key.name
+        %td= key.token
+        %td= key.updated_at
+        %td
+          = link_to api_key_path(key), method: :patch, class: 'btn btn-default' do
+            %i.fa.fa-refresh
+          = link_to api_key_path(key), method: :delete, class: 'btn btn-danger' do
+            %i.fa.fa-trash

@@ -28,6 +28,8 @@ Feeder::Application.routes.draw do
     end
   end
 
+  resources :api_keys, except: [:show, :edit]
+
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
   # put '/signin' => 'sessions#new', :as => :signin

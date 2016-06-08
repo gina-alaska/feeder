@@ -26,8 +26,12 @@ class Ability
       can :manage, Sensor
       can :manage, WebHook
       can :manage, Queue
+      can :manage, ApiKey
     end
 
-    can :read, :all
+    can :read, Feed
+    can :read, Sensor
+    can :read, Movie
+
   end
 end
