@@ -2,9 +2,9 @@ require 'test_helper'
 
 class Admin::SensorsControllerTest < ActionController::TestCase
   def setup
-    login_user(:admin)
-
     @sensor = sensors(:dnb)
+
+    sign_in(users(:admin))
   end
 
   test 'it renders index' do

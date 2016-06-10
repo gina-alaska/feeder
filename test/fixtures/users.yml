@@ -2,10 +2,7 @@
 
 admin:
   name: admin
-  member: admin
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+  site_admin: true
+  feed_admin: true
+  job_admin: true
+  user_admin: true

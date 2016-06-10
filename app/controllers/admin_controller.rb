@@ -1,3 +1,5 @@
 class AdminController < ApplicationController
-  before_filter :require_admin_auth
+  def current_ability
+    Ability.new(current_user, 'admin')
+  end
 end

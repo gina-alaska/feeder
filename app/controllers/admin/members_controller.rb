@@ -1,4 +1,6 @@
 class Admin::MembersController < AdminController
+  authorize_resource
+
   def index
     @members = Member.all
   end

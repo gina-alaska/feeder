@@ -1,6 +1,8 @@
 class Admin::WebHooksController < AdminController
   before_filter :set_web_hook, only: [:edit, :update, :destroy]
 
+  authorize_resource
+
   def index
   end
 
