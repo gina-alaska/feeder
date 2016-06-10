@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApiKeysControllerTest < ActionController::TestCase
+class Admin::ApiKeysControllerTest < ActionController::TestCase
   setup do
     @api_key = api_keys(:one)
     sign_in(users(:admin))
@@ -22,12 +22,12 @@ class ApiKeysControllerTest < ActionController::TestCase
       post :create, api_key: { enabled: @api_key.enabled, name: 'new-key'}
     end
 
-    assert_redirected_to api_keys_path
+    assert_redirected_to admin_api_keys_path
   end
 
   test "should update api_key" do
     patch :update, id: @api_key
-    assert_redirected_to api_keys_path
+    assert_redirected_to admin_api_keys_path
   end
 
   test "should destroy api_key" do
@@ -35,6 +35,6 @@ class ApiKeysControllerTest < ActionController::TestCase
       delete :destroy, id: @api_key
     end
 
-    assert_redirected_to api_keys_path
+    assert_redirected_to admin_api_keys_path
   end
 end
