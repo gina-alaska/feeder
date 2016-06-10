@@ -1,9 +1,17 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, namespace = nil)
     user ||= User.new
 
+
+    case namespace
+    when 'admin' then admin_abilities(user)
+    else              default_abilities(user)
+    end
+  end
+
+  def admin_abilities(user)
     if user.feed_admin?
       can :manage, Feed
       can :manage, Sensor
@@ -28,10 +36,11 @@ class Ability
       can :manage, Queue
       can :manage, ApiKey
     end
+  end
 
+  def default_abilities(user)
     can :read, Feed
     can :read, Sensor
     can :read, Movie
-
   end
 end
