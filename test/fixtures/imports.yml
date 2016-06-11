@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+satellite:
+  url: http://example.com/satellite-image.tif
+  timestamp: 2016-06-10 23:20:12
+  feed: satellite

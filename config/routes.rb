@@ -29,6 +29,11 @@ Feeder::Application.routes.draw do
     resources :api_keys, except: [:show, :edit]
   end
 
+  namespace :api do
+    namespace :v1 do
+      resource :import, only: [:create]
+    end
+  end
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }

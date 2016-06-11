@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608171409) do
+ActiveRecord::Schema.define(version: 20160610232012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20160608171409) do
 
   add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
   add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
+
+  create_table "imports", force: :cascade do |t|
+    t.string   "url"
+    t.datetime "timestamp"
+    t.string   "feed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "members", force: :cascade do |t|
     t.string   "name"
