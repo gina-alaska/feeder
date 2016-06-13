@@ -11,17 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160607214549) do
+ActiveRecord::Schema.define(version: 20160613182410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "api_keys", force: :cascade do |t|
+    t.string   "token",                     null: false
+    t.string   "name"
+    t.boolean  "enabled",    default: true
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "entries", force: :cascade do |t|
@@ -30,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.text     "content"
     t.string   "where"
     t.datetime "event_at"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "file"
     t.string   "category"
     t.string   "slug"
@@ -49,8 +58,8 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.integer  "entry_id"
     t.string   "response"
     t.string   "type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "feeds", force: :cascade do |t|
@@ -59,32 +68,33 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.text     "description"
     t.string   "author"
     t.string   "where"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "animate"
     t.string   "active_animations"
     t.string   "status",            default: "online"
     t.integer  "sensor_id"
     t.string   "ingest_slug"
+    t.string   "timezone"
   end
 
   add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
   add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
 
-  create_table "likes", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "likeable_id"
-    t.string   "likeable_type"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+  create_table "imports", force: :cascade do |t|
+    t.string   "url"
+    t.datetime "timestamp"
+    t.string   "feed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "members", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.boolean  "admin"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -95,14 +105,14 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.string   "status"
     t.string   "path"
     t.boolean  "generated",  default: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "sensors", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "selected_by_default", default: true
   end
 
@@ -110,8 +120,8 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.string   "name"
     t.string   "email"
     t.boolean  "admin"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "member_id"
     t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
@@ -137,8 +147,8 @@ ActiveRecord::Schema.define(version: 20160607214549) do
     t.string   "url",                       null: false
     t.boolean  "active",     default: true
     t.integer  "feed_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
