@@ -40,10 +40,6 @@ class Feed < ActiveRecord::Base
     self.title
   end
 
-  def self.async_import(slug, file)
-    Resque.enqueue(ImportWorker, slug, file)
-  end
-
   def self.generate_animations
     Feed.where(:animate => true).all.each do |f|
       f.queue_animation_ending(Time.now)
