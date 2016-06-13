@@ -16,15 +16,6 @@ ActiveRecord::Schema.define(version: 20160613182410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "api_keys", force: :cascade do |t|
-    t.string   "token",                     null: false
-    t.string   "name"
-    t.boolean  "enabled",    default: true
-    t.integer  "user_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
   create_table "authorizations", force: :cascade do |t|
     t.string   "provider"
     t.string   "uid"
@@ -80,14 +71,6 @@ ActiveRecord::Schema.define(version: 20160613182410) do
 
   add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
   add_index "feeds", ["updated_at"], name: "index_feeds_on_updated_at", using: :btree
-
-  create_table "imports", force: :cascade do |t|
-    t.string   "url"
-    t.datetime "timestamp"
-    t.string   "feed"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
 
   create_table "members", force: :cascade do |t|
     t.string   "name"
