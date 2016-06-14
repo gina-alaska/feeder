@@ -13,3 +13,4 @@ satellite:
   ingest_slug: INGEST
   active_animations: []
   sensor: dnb
+  where: POINT(-147.723056 64.843611)

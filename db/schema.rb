@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160610232012) do
+ActiveRecord::Schema.define(version: 20160614000710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20160610232012) do
     t.integer  "feed_id"
     t.string   "title"
     t.text     "content"
-    t.string   "where"
     t.datetime "event_at"
     t.datetime "created_at"
     t.datetime "updated_at"

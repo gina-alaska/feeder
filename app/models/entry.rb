@@ -4,6 +4,8 @@ class Entry < ActiveRecord::Base
   belongs_to :feed, touch: true
   has_many :create_events
 
+  delegate :where, to: :feed
+
   image_accessor :image do |a|
     copy_to(:preview) do |a|
       if a.format == :tif
