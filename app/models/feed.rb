@@ -4,7 +4,7 @@ class Feed < ActiveRecord::Base
   validates_presence_of :slug
   validates_uniqueness_of :slug
 
-  validates_uniqueness_of :ingest_slug
+  # validates_uniqueness_of :ingest_slug
 
   validates_presence_of :title
   validates_uniqueness_of :title
