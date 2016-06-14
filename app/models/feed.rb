@@ -74,10 +74,17 @@ class Feed < ActiveRecord::Base
   end
 
   def import(url, event_at)
-    self.entries.build(
-      image_url: url,
-      event_at: event_at,
-      slug: Entry.build_slug(event_at)
-    )
+    begin
+      e = self.entries.build(
+        image_url: url,
+        event_at: event_at,
+        slug: Entry.build_slug(event_at)
+      )
+      e.save!
+      Sunspot.commit
+    rescue Dragonfly::FunctionManager::UnableToHandle => e
+      Rails.logger.info "Unable to import #{url}"
+      Rails.logger.info e.backtrace.join("\n")
+    end
   end
 end

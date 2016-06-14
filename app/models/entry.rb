@@ -20,11 +20,9 @@ class Entry < ActiveRecord::Base
   end
 
   validates_presence_of :slug
-  validates_presence_of :title
   validates_presence_of :event_at
 
   searchable do
-    text :title
     text :slug
     text :feed
     time :event_at
@@ -42,6 +40,7 @@ class Entry < ActiveRecord::Base
   def to_s
     "#{event_at.strftime('%Y-%m-%d %H:%M %Z')} (JD#{event_at.yday})"
   end
+  alias_method :title, :to_s
 
   def event_at
     self.read_attribute(:event_at).in_time_zone(zone)

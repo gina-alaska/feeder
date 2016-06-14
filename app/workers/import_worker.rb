@@ -7,6 +7,6 @@ class ImportWorker
     feed = Feed.find_by(slug: import.feed)
     entry = feed.import(image_url: import.url, event_at: import.timestamp)
     entry.save!
-    Sunspot.commit
+    import.destroy
   end
 end
