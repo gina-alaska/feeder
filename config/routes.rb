@@ -26,7 +26,9 @@ Feeder::Application.routes.draw do
     resources :jobs, :only => [:destroy], :constraints => { :id => /[^\/]+/ } do
       post :retry, :on => :member
     end
+    resources :api_keys, except: [:show, :edit]
   end
+
 
   #resources :atoms, :constraints => { :id => /[^\/\.]+/ }
   #resources :rss, :constraints => { :id => /[^\/\.]+/ }
