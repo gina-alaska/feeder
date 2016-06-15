@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160608171409) do
+ActiveRecord::Schema.define(version: 20160613182410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20160608171409) do
     t.string   "status",            default: "online"
     t.integer  "sensor_id"
     t.string   "ingest_slug"
+    t.string   "timezone"
   end
 
   add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
