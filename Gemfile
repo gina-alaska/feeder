@@ -31,6 +31,8 @@ gem 'sunspot_solr', '~> 2.2.0' # optional pre-packaged Solr distribution for use
 gem 'httparty'
 gem 'spring'
 gem 'nested_form'
+gem 'simple_form'
+gem "font-awesome-rails"
 
 # Gems used only for assets and not required
 # in production environments by default.

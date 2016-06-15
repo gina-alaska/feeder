@@ -1,3 +1,6 @@
+/*
+ * = require font-awesome
+*/
 @import 'compass';
 
 $navbarInverseBackground: #3F3F3F;
@@ -19,27 +22,27 @@ html, body {
   a { text-decoration: none; }
   a.brand {
   }
-  
+
   img.puffin {
     float: left;
     bottom: 0px;
     height: 40px;
   }
-      
+
   span {
     &.gina {
       color: #EDB329;
-    }        
+    }
     vertical-align: bottom;
     display: inline-block;
     font-size: 36px;
     color: #F9F9F9;
     font-weight: bold;
   }
-    
+
   h1 { font-size: 3em; margin-bottom: 5px; }
 }
-  
+
 #footer {
   margin-top: 5px;
   text-align: center;
@@ -85,7 +88,7 @@ html, body {
 //}
 //
 .page a {
-  width: 15px; 
+  width: 15px;
 }
 
 .icon-rss {

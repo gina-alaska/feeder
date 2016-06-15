@@ -1,0 +1,11 @@
+= simple_form_for [:admin, @api_key] do |f|
+  - if @api_key.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@api_key.errors.count, "error")} prohibited this api_key from being saved:"
+      %ul
+        - @api_key.errors.full_messages.each do |msg|
+          %li= msg
+  = f.input :name
+
+  .actions
+    = f.submit 'Save', class: 'btn btn-primary'

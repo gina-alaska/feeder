@@ -34,10 +34,13 @@ class Ability
       can :manage, Sensor
       can :manage, WebHook
       can :manage, Queue
+      can :manage, ApiKey
     end
   end
 
   def default_abilities(user)
-    can :read, :all
+    can :read, Feed
+    can :read, Sensor
+    can :read, Movie
   end
 end
