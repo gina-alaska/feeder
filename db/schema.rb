@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160614000710) do
     t.string   "status",            default: "online"
     t.integer  "sensor_id"
     t.string   "ingest_slug"
+    t.string   "timezone"
   end
 
   add_index "feeds", ["slug"], name: "index_feeds_on_slug", using: :btree
