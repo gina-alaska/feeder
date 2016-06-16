@@ -47,8 +47,7 @@ class Entry < ActiveRecord::Base
   end
 
   def zone
-    # feed.timezone
-    "UTC"
+    feed.timezone
   end
 
   def entry_type?
