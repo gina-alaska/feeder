@@ -72,4 +72,10 @@ class EntriesControllerTest < ActionController::TestCase
 
     assert_response :success
   end
+
+  test 'it render json list of entries' do
+    get :search, format: :json
+
+    assert_response :success
+  end
 end
