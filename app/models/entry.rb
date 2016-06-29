@@ -19,7 +19,7 @@ class Entry < ActiveRecord::Base
     after_assign { |a| a.name = "#{a.basename}.jpg" }
   end
 
-  validates_presence_of :slug
+  validates_presence_of :slug, uniqueness: true
   validates_presence_of :event_at
 
   searchable do

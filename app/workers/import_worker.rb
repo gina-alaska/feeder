@@ -5,8 +5,7 @@ class ImportWorker
     import = Import.find(id)
 
     feed = Feed.find_by(slug: import.feed)
-    entry = feed.import(image_url: import.url, event_at: import.timestamp)
-    entry.save!
+    entry = feed.import(import.url, import.timestamp.to_s)
     import.destroy
   end
 end

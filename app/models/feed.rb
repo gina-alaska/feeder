@@ -75,10 +75,11 @@ class Feed < ActiveRecord::Base
 
   def import(url, event_at)
     begin
-      e = self.entries.build(
+      slug = Entry.build_slug(event_at)
+
+      e = self.entries.where(slug: slug).first_or_initialize(
         image_url: url,
-        event_at: event_at,
-        slug: Entry.build_slug(event_at)
+        event_at: event_at
       )
       e.save!
       Sunspot.commit

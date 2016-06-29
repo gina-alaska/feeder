@@ -6,7 +6,7 @@ class Api::V1::ImportsController < ApiController
     import = Import.new(import_params)
 
     if import.save!
-      ImportWorker.perform_async(import.id)
+      import.queue!
       head 200, content_type: 'application/json'
     else
       head 503, content_type: 'application/json'
