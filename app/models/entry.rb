@@ -87,7 +87,7 @@ class Entry < ActiveRecord::Base
 
   class << self
     def build_slug(text)
-      text.downcase.gsub(/[\-\.:\s]/,'_').gsub(/[\(\)]/, '')
+      text.parameterize('_')
     end
 
     def fix_time_tz(time, zone)
