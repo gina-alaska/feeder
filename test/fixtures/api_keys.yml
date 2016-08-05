@@ -2,10 +2,15 @@
 
 one:
   token: MyString
-  enabled: 
+  enabled:
   user_id: 1
 
 two:
   token: MyString
-  enabled: 
+  enabled:
   user_id: 1
+
+satellite:
+  token: tokentokentoken
+  enabled: true
+  

@@ -7,6 +7,7 @@ class Ability
 
     case namespace
     when 'admin' then admin_abilities(user)
+    when 'api'   then api_abilities(user)
     else              default_abilities(user)
     end
   end
@@ -42,5 +43,10 @@ class Ability
     can :read, Feed
     can :read, Sensor
     can :read, Movie
+  end
+
+  def api_abilities(token)
+    can :read, Feed
+    can :create, Import
   end
 end
