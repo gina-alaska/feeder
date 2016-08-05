@@ -40,4 +40,3 @@ coverage
 *.hart
 habitat/results
 habitat/*/results
-habitat/feeder
