@@ -19,7 +19,7 @@ class Entry < ActiveRecord::Base
     after_assign { |a| a.name = "#{a.basename}.jpg" }
   end
 
-  validates_presence_of :slug
+  validates_presence_of :slug, uniqueness: { scope: :feed_id }
   validates_presence_of :event_at
 
   searchable do
@@ -87,7 +87,7 @@ class Entry < ActiveRecord::Base
 
   class << self
     def build_slug(text)
-      text.downcase.gsub(/[\-\.:\s]/,'_').gsub(/[\(\)]/, '')
+      text.parameterize('_')
     end
 
     def fix_time_tz(time, zone)
