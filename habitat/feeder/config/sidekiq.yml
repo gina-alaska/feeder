@@ -1,0 +1,9 @@
+---
+:verbose: {{cfg.sidekiq.verbose}}
+:logfile: {{cfg.sidekiq.logfile}}
+:pidfile: {{cfg.sidekiq.pidfile}}
+:concurrency:  {{cfg.sidekiq.concurrency}}
+:queues:
+{{~#each cfg.sidekiq.queues}}
+  - [{{name}}, {{priority}}]
+{{/each}}
