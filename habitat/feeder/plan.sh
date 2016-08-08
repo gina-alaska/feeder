@@ -1,9 +1,10 @@
 pkg_name="feeder"
-pkg_version="master"
+pkg_version="1.3.0"
+pkg_shasum="2e87ae4fb86ed19f2f7c8ab9dfc20fb69351cb8b44416c821531a46ae4cab131"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
-pkg_source="${pkg_name}-${pkg_version}.tar.bz2"
+pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.tar.gz"
 pkg_deps=(
   core/bundler
   core/cacerts
@@ -12,7 +13,7 @@ pkg_deps=(
   core/libyaml
   core/libxml2
   core/libxslt
-  core/openssl/1.0.2h/20160612081127
+  core/openssl
   core/postgresql
   core/redis
   bixu/memcached
@@ -77,7 +78,7 @@ do_build() {
     echo 'gem "tzinfo-data"' >> Gemfile
   fi
 
-  bundle install --jobs 2 --retry 5 --path vendor/bundle --binstubs --without development test
+  bundle install --jobs 2 --retry 5 --path vendor/bundle --without development test
 }
 
 do_install() {
