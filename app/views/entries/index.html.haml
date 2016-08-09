@@ -3,7 +3,7 @@
     = render 'shared/sidebar'
   .span9
     %h5{style:'text-align:center;'}
-      = "Curent view dates: #{current_date_range(@entries.results)}" if @entries.total > 1
+      = "Curent view dates: #{current_date_range(@entries)}" if @entries.any?
     .entries.clearfix
-      = render @entries.results, :feed => @feed
-      = paginate @entries.results, :params => { :search => search_params }
+      = render @entries, :feed => @feed
+      = paginate @entries, :params => { :search => search_params }
