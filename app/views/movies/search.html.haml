@@ -3,7 +3,7 @@
     = render 'shared/sidebar'
 
   #feed.span9{style:"text-align:center;"}
-    - if @entries.total == 0
+    - if @entries.empty?
       %h2 No movies available
 
     - @entries.each do |movie|
