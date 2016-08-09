@@ -43,13 +43,13 @@ Feeder::Application.routes.draw do
   # put '/auth/:provider/callback', :to => 'sessions#create'
   # put '/auth/failure', :to => 'sessions#failure'
 
-  get 'rss/:slug' => 'rss#show', :as => :georss, :format => :xml
-  get 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, :format => :xml
+  get 'rss/:slug' => 'rss#show', :as => :georss, defaults: {format: :xml}
+  get 'rss/:slug/:id' => 'rss#show', :as => :georss_entry, defaults: {format: :xml}
 
-  get ':slug.georss' => 'rss#show', :format => :xml
-  get ':slug/:id.georss' => 'rss#show', :format => :xml
-  get ':slug.xml' => 'rss#show', :format => :xml
-  get ':slug/:id.xml' => 'rss#show', :format => :xml
+  get ':slug.georss' => 'rss#show', defaults: {format: :xml}
+  get ':slug/:id.georss' => 'rss#show', defaults: {format: :xml}
+  get ':slug.xml' => 'rss#show', defaults: {format: :xml}
+  get ':slug/:id.xml' => 'rss#show', defaults: {format: :xml}
 
   # match ':slug/:date' => 'feeds#show', :as => :slug_entries_by_date, :constraints => { :date => /\d+\/\d+/ }
   get ':slug/movies/:date/:duration' => 'movies#show', :as => :slug_movie, :constraints => { :date => /\d+\/\d+\/\d+/ }
