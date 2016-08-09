@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     @entries = @entries.joins(:feed).where("feeds.sensor_id" => selected_sensor_ids) unless selected_sensor_ids.empty?
     @entries = @entries.where('event_at > ?', Time.zone.parse(search_params[:start]).beginning_of_day) unless search_params[:start].blank?
     @entries = @entries.where('event_at < ?', Time.zone.parse(search_params[:end]).beginning_of_day) unless search_params[:end].blank?
-    @entries.page(page).per(15)
+    @entries = @entries.page(page).per(15)
   end
 
   protected
