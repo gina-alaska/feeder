@@ -14,6 +14,10 @@ export LD_LIBRARY_PATH=$(join : ${_libs[@]})
 export FEEDER_HOME="{{pkg.path}}"
 export FEEDER_DATA="{{pkg.svc_data_path}}"
 
+echo "Creating var/run"
+mkdir -p {{pkg.svc_var_path}}/run
+chown hab:hab {{pkg.svc_var_path}}/run
+
 echo "Removing previous version deployed at ${FEEDER_DATA}"
 rm -rf ${FEEDER_DATA}/dist
 
@@ -28,6 +32,8 @@ echo "Linking sidekiq.yml"
 ln -sf {{pkg.svc_config_path}}/sidekiq.yml ${FEEDER_DATA}/dist/config/sidekiq.yml
 echo "Linking secrets.yml"
 ln -sf {{pkg.svc_config_path}}/secrets.yml ${FEEDER_DATA}/dist/config/secrets.yml
+echo "Linking puma.rb"
+ln -sf {{pkg.svc_config_path}}/puma.rb ${FEEDER_DATA}/dist/config/puma.rb
 
 export GEM_HOME="${FEEDER_DATA}/dist/vendor/bundle/ruby/2.3.0"
 export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$GEM_HOME"

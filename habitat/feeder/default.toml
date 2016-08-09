@@ -1,6 +1,11 @@
 binding_ip = "0.0.0.0"
 port = 9292
 secret_key_base = ""
+rails_env = "production"
+threads = 5
+concurrency = 1
+puma_pidfile = './tmp/pids/puma.pid'
+worker_timeout = 240
 
 [database]
 name = "feeder_production"

@@ -17,8 +17,26 @@ export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path co
 export LD_LIBRARY_PATH=$(join : ${_libs[@]})
 export PATH="$PATH:${FEEDER_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/bin"
 export RAILS_ENV="production"
+export FEEDER_SERVICE="${FEEDER_SERVICE:-web}"
 
 cd $FEEDER_DATA/dist
 
 exec 2>&1
-exec chpst -u hab ./bin/rails server -b {{cfg.binding_ip}} -p {{cfg.port}}
+
+case $FEEDER_SERVICE in
+  web)
+    exec chpst -u hab ./bin/puma -c ${FEEDER_DATA}/dist/config/puma.rb
+    ;;
+  worker)
+    exec chpst -u hab ./bin/sidekiq
+    ;;
+  solr)
+    exec chpst -u hab ./bin/sunspot-solr run -d {{pkg.svc_var_path}}/solr/data \
+                      --pid-dir={{pkg.svc_var_path}}/run/solr.pid
+    ;;
+  *)
+    echo "${FEEDER_SERVICE} not recognized as a valid service"
+    sleep 5
+    exit 1
+    ;;
+esac

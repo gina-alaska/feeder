@@ -1,6 +1,6 @@
 pkg_name="feeder"
-pkg_version="1.3.0"
-pkg_shasum="2e87ae4fb86ed19f2f7c8ab9dfc20fb69351cb8b44416c821531a46ae4cab131"
+pkg_version="1.3.1"
+pkg_shasum="18a696c25ff29fe54b3d522f1c35c39d35570a24c9dac14484e5be2cfc6c9a36"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
@@ -78,7 +78,7 @@ do_build() {
     echo 'gem "tzinfo-data"' >> Gemfile
   fi
 
-  bundle install --jobs 2 --retry 5 --path vendor/bundle --without development test
+  bundle install --binstubs --jobs 2 --retry 5 --path vendor/bundle --without development test
 }
 
 do_install() {
