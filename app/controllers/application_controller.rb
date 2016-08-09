@@ -22,28 +22,13 @@ class ApplicationController < ActionController::Base
     end
 
     page = params[:page] || 1
-    @search = search_params
 
-    @entries = Entry.search do
-      with(:feed_id, selected_feed_ids) unless selected_feed_ids.empty?
-      with(:sensor_id, selected_sensor_ids) unless selected_sensor_ids.empty?
-      with(:event_at).greater_than(Time.zone.parse(search_params[:start]).beginning_of_day) unless search_params[:start].blank?
-      with(:event_at).less_than(Time.zone.parse(search_params[:end]).end_of_day) unless search_params[:end].blank?
-
-      facet :sensor_id
-      facet :feed_id
-
-      order_by(:event_at, :desc)
-      paginate :page => page, :per_page => 15
-    end
-
-    @facets = {}
-    %w{ feed_id sensor_id }.each do |name|
-      @entries.facet(name.to_sym).rows.each do |f|
-        @facets[name.to_sym] ||= {}
-        @facets[name.to_sym][f.value] = f.count
-      end
-    end
+    @entries = Entry.order(event_at: :desc)
+    @entries = @entries.where(feed_id: selected_feed_ids) unless selected_feed_ids.empty?
+    @entries = @entries.joins(:feed).where("feeds.sensor_id" => selected_sensor_ids) unless selected_sensor_ids.empty?
+    @entries = @entries.where('event_at > ?', Time.zone.parse(search_params[:start]).beginning_of_day) unless search_params[:start].blank?
+    @entries = @entries.where('event_at < ?', Time.zone.parse(search_params[:end]).beginning_of_day) unless search_params[:end].blank?
+    @entries.page(page).per(15)
   end
 
   protected
