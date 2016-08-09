@@ -1,14 +1,14 @@
 - bgclass = 'active'
-- @entries.results.reverse.each_with_index do |entry, index|
+- @entries.reverse.each_with_index do |entry, index|
   .image{ class: bgclass }
-    %img{ src: entry.preview.thumb("#{@width}x#{@height}#").url }    
+    %img{ src: entry.preview.thumb("#{@width}x#{@height}#").url }
     .caption
       %h4= link_to entry.feed, slug_path(entry.feed), target: :_blank
       %h5= link_to entry, slug_entry_path(entry.feed, entry), target: :_blank
     .navigation
-      %ul.image-links.nav        
-        - @entries.results.count.times do |i|          
-          %li            
+      %ul.image-links.nav
+        - @entries.count.times do |i|
+          %li
             = link_to '#', data: { action: 'skip-to', target: i }, class: index == i ? 'badge badge-info' : 'badge' do
-              = i + 1    
+              = i + 1
           - bgclass = ''

@@ -82,7 +82,6 @@ class Feed < ActiveRecord::Base
         event_at: event_at
       )
       e.save!
-      Sunspot.commit
     rescue Dragonfly::FunctionManager::UnableToHandle => e
       Rails.logger.info "Unable to import #{url}"
       Rails.logger.info e.backtrace.join("\n")

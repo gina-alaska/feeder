@@ -26,8 +26,6 @@ gem 'rack-cache', :require => 'rack/cache'
 gem 'dragonfly', '~>0.9.14'
 gem 'lograge'
 gem 'logstash-event'
-gem 'sunspot_rails', '~> 2.2.0'
-gem 'sunspot_solr', '~> 2.2.0' # optional pre-packaged Solr distribution for use in development
 gem 'httparty'
 gem 'spring', group: [:development, :test]
 gem 'nested_form'

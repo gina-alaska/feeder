@@ -1,9 +1,9 @@
 .row-fluid
   #sidebar.span3
     = render 'shared/sidebar'
-  
+
   #feed.span9{style:"text-align:center;"}
-    - @entries.results.each do |duration|
+    - @entries.each do |duration|
       .entry
         .title{style:"padding:3px;"}
           %b= "#{duration} day animation for"

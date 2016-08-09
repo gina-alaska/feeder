@@ -18,19 +18,10 @@ class Movie < ActiveRecord::Base
     event :complete do
       transitions :to => :available, :from => :generating
     end
-    
+
     event :fail do
       transitions to: :failed, from: :generating
     end
-  end
-
-  searchable do
-    integer :feed_id
-    integer :sensor_id do
-      self.feed.sensor.id
-    end
-
-    time :event_at
   end
 
   # attr_accessible :title, :body
@@ -97,9 +88,9 @@ class Movie < ActiveRecord::Base
 
   def create_movie
     return false unless self.may_generate?
-    
+
     self.generate
-    
+
     self.path = File.join('movies', self.event_at.year.to_s, self.event_at.month.to_s, self.event_at.day.to_s, self.id.to_s)
     self.save!
 
@@ -128,7 +119,7 @@ class Movie < ActiveRecord::Base
     else
       self.fail
     end
-    
+
     self.save!
   rescue => e
     # Mark as failed and reraise exception

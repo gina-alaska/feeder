@@ -1,12 +1,12 @@
 .row-fluid
   #sidebar.span3
     = render 'shared/sidebar'
-  
+
   #feed.span9{style:"text-align:center;"}
-    - if @entries.total == 0
+    - if @entries.empty?
       %h2 No movies available
-      
-    - @entries.results.each do |movie|
+
+    - @entries.each do |movie|
       .entry
         .title{style:"padding:3px;"}
           %b= link_to movie.feed, feed_movies_url(movie.feed)
@@ -21,4 +21,4 @@
           = link_to feed_movie_url(movie.feed, movie) do
             = image_tag cw_image_url(movie.entries.first.preview.try(:thumb, '200x200#'))
             Play animation
-    = paginate @entries.results, :params => { :search => search_params }
+    = paginate @entries, :params => { :search => search_params }

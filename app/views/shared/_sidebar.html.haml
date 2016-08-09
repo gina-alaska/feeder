@@ -44,20 +44,20 @@
         /     = link_to embed_slug_entry_path(@feed, @entry), remote: true do
         /       %i.icon-leaf
         /       = "Embed #{@entry}"
-      /   
+      /
       / - unless @entries.nil?
       /   %li.nav-header
       /     Information
       /   %li
       /     Total:
       /     = @entries.total
-      
+
       %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#sensors_list' } }
         %i.icon-chevron-down
         Sensors
       %ul#sensors_list.nav.nav-list.collapse.in
         = render 'shared/sensor_fields'
-        
+
       %li.nav-header.hand{ data: { toggle: 'collapse', parent: '#sidebar', target: '#feeds_list' } }
         / { data: { target: '#feed_list', parent: '#sidebar', toggle: 'collapse' } }
         / %i.icon-chevron-down
@@ -65,7 +65,7 @@
         Feeds
       %ul#feeds_list.nav.nav-list.collapse
         = render 'shared/feed_fields'
-        
+
       %li.nav-header{ data: { toggle: 'collapse', parent: '#sidebar', target: '#date_selection' } }
         / { data: { target: '#date_selection', parent: '#sidebar', toggle: 'collapse' } }
         / %i.icon-chevron-down
@@ -85,7 +85,7 @@
             = link_to 'Reset', root_url, class: 'btn btn-block'
           .span6
             = submit_tag 'Search', class: 'btn btn-primary btn-block'
-        
+
 :javascript
   $(".datepicker").datepicker({ autoclose: true, format: 'yyyy/mm/dd' }).on('changeDate', function(e) {
     var picker;
