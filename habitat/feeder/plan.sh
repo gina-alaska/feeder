@@ -1,6 +1,6 @@
 pkg_name="feeder"
-pkg_version="1.3.1"
-pkg_shasum="18a696c25ff29fe54b3d522f1c35c39d35570a24c9dac14484e5be2cfc6c9a36"
+pkg_version="1.4.0"
+pkg_shasum="5f2128c46345212548cc7df5605b8b7a88fad53bd4d06073d78db0c791102167"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
@@ -24,11 +24,13 @@ pkg_deps=(
 pkg_build_deps=(
   core/coreutils
   core/gcc
+  core/gcc-libs
   core/make
   core/git
   core/postgresql
   core/which
   core/pkg-config
+  core/node
   uafgina/imagemagick
 )
 
@@ -65,6 +67,8 @@ do_build() {
   export GEM_HOME=${pkg_path}/vendor/bundler
   export GEM_PATH=${_bundler_dir}:${GEM_HOME}
   export PKG_CONFIG_PATH=$(pkg_path_for imagemagick)/lib/pkgconfig
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$_imagemagick_dir/lib
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pkg_path_for gcc-libs)/lib
 
   # don't let bundler split up the nokogiri config string (it breaks
   # the build), so specify it as an env var instead
@@ -78,7 +82,15 @@ do_build() {
     echo 'gem "tzinfo-data"' >> Gemfile
   fi
 
+  build_line "Vendoring Gems"
   bundle install --binstubs --jobs 2 --retry 5 --path vendor/bundle --without development test
+
+  build_line "Precompiling Assets"
+  bin/rake assets:precompile
+
+  build_line "Removing dragonfly/uploads"
+  rm -rf public/uploads
+  rm -rf public/dragonfly
 }
 
 do_install() {

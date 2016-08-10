@@ -26,14 +26,15 @@ cp -a ${FEEDER_HOME}/dist ${FEEDER_DATA}/dist
 
 echo "Linking database.yml"
 ln -sf {{pkg.svc_config_path}}/database.yml ${FEEDER_DATA}/dist/config/database.yml
-echo "Linking sunspot.yml"
-ln -sf {{pkg.svc_config_path}}/sunspot.yml ${FEEDER_DATA}/dist/config/sunspot.yml
 echo "Linking sidekiq.yml"
 ln -sf {{pkg.svc_config_path}}/sidekiq.yml ${FEEDER_DATA}/dist/config/sidekiq.yml
 echo "Linking secrets.yml"
 ln -sf {{pkg.svc_config_path}}/secrets.yml ${FEEDER_DATA}/dist/config/secrets.yml
 echo "Linking puma.rb"
 ln -sf {{pkg.svc_config_path}}/puma.rb ${FEEDER_DATA}/dist/config/puma.rb
+echo "Linking cache path"
+ln -sf {{cfg.cache_path}} ${FEEDER_DATA}/dist/public/uploads
+ln -sf {{cfg.cache_path}} ${FEEDER_DATA}/dist/public/dragonfly
 
 export GEM_HOME="${FEEDER_DATA}/dist/vendor/bundle/ruby/2.3.0"
 export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$GEM_HOME"
@@ -41,13 +42,16 @@ export PATH="$PATH:${FEEDER_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/b
 export RAILS_ENV="production"
 
 chown -R hab:hab ${FEEDER_DATA}/dist
+chmod go+x ${FEEDER_DATA}
+mkdir -p ${pkg_var_path}/log
+chown -R hab:hab ${pkg_var_path}/log
+
 cd ${FEEDER_DATA}/dist
 
 exec 2>&1
 
 if [[ ! -f ${FEEDER_DATA}/.migrations_complete ]]; then
   echo "Running 'rake db:create && rake db:migrate' in ${PWD}"
-  exec chpst -u hab bin/rake db:create && \
-       chpst -u hab bin/rake db:migrate && \
+  exec chpst -u hab bin/rake db:migrate && \
        touch $FEEDER_DATA/.migrations_complete
 fi

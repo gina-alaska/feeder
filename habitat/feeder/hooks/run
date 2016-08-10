@@ -25,14 +25,11 @@ exec 2>&1
 
 case $FEEDER_SERVICE in
   web)
-    exec chpst -u hab ./bin/puma -c ${FEEDER_DATA}/dist/config/puma.rb
+    chpst -u hab bin/rake tmp:create
+    exec chpst -u hab ./bin/puma -C ${FEEDER_DATA}/dist/config/puma.rb
     ;;
   worker)
     exec chpst -u hab ./bin/sidekiq
-    ;;
-  solr)
-    exec chpst -u hab ./bin/sunspot-solr run -d {{pkg.svc_var_path}}/solr/data \
-                      --pid-dir={{pkg.svc_var_path}}/run/solr.pid
     ;;
   *)
     echo "${FEEDER_SERVICE} not recognized as a valid service"

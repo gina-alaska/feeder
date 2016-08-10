@@ -16,10 +16,6 @@ timeout = 5000
 host = "127.0.0.1"
 port = 5432
 
-[sunspot]
-hostname = "127.0.0.1"
-port = 8983
-
 [sidekiq]
 verbose = false
 logfile = "/var/log/sidekiq.log"
