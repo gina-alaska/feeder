@@ -43,8 +43,8 @@ export RAILS_ENV="production"
 
 chown -R hab:hab ${FEEDER_DATA}/dist
 chmod go+x ${FEEDER_DATA}
-mkdir -p ${pkg_var_path}/log
-chown -R hab:hab ${pkg_var_path}/log
+mkdir -p {{pkg.svc_var_path}}/log
+chown -R hab:hab {{pkg.svc_var_path}}/log
 
 cd ${FEEDER_DATA}/dist
 
