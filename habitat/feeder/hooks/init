@@ -32,6 +32,8 @@ echo "Linking secrets.yml"
 ln -sf {{pkg.svc_config_path}}/secrets.yml ${FEEDER_DATA}/dist/config/secrets.yml
 echo "Linking puma.rb"
 ln -sf {{pkg.svc_config_path}}/puma.rb ${FEEDER_DATA}/dist/config/puma.rb
+echo "Linking initializers/sidekiq.rb"
+ln -sf {{pkg.svc_config_path}}/sidekiq.rb ${FEEDER_DATA}/dist/config/initializers/sidekiq.rb
 echo "Linking cache path"
 ln -sf {{cfg.cache_path}} ${FEEDER_DATA}/dist/public/uploads
 ln -sf {{cfg.cache_path}} ${FEEDER_DATA}/dist/public/dragonfly
