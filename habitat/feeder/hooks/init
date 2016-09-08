@@ -54,6 +54,6 @@ exec 2>&1
 
 if [[ ! -f ${FEEDER_DATA}/.migrations_complete ]]; then
   echo "Running 'rake db:create && rake db:migrate' in ${PWD}"
-  exec chpst -u hab bin/rake db:migrate && \
+  exec bin/rake db:migrate && \
        touch $FEEDER_DATA/.migrations_complete
 fi

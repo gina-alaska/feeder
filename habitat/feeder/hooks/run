@@ -15,7 +15,7 @@ export FEEDER_DATA="{{pkg.svc_data_path}}"
 export GEM_HOME="${FEEDER_DATA}/dist/vendor/bundle/ruby/2.3.0"
 export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$GEM_HOME"
 export LD_LIBRARY_PATH=$(join : ${_libs[@]})
-export PATH="$PATH:${FEEDER_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/bin"
+export PATH="$PATH:${FEEDER_DATA}/dist/bin:${FEEDER_DATA}/dist/vendor/bundle/ruby/2.3.0/bin:$(hab pkg path uafgina/imagemagick)/bin"
 export RAILS_ENV="production"
 export FEEDER_SERVICE="${FEEDER_SERVICE:-web}"
 
@@ -25,11 +25,11 @@ exec 2>&1
 
 case $FEEDER_SERVICE in
   web)
-    chpst -u hab bin/rake tmp:create
-    exec chpst -u hab ./bin/puma -C ${FEEDER_DATA}/dist/config/puma.rb
+    bin/rake tmp:create
+    exec puma -C ${FEEDER_DATA}/dist/config/puma.rb
     ;;
   worker)
-    exec chpst -u hab ./bin/sidekiq
+    exec sidekiq
     ;;
   *)
     echo "${FEEDER_SERVICE} not recognized as a valid service"

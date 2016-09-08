@@ -34,9 +34,7 @@ pkg_build_deps=(
   uafgina/imagemagick
 )
 
-pkg_bin_dirs=(bin)
-pkg_include_dirs=(include)
-pkg_lib_dirs=(lib)
+pkg_bin_dirs=(dist/bin)
 pkg_expose=(9292)
 
 do_prepare() {
@@ -55,11 +53,11 @@ do_prepare() {
 do_build() {
   export CPPFLAGS="${CPPFLAGS} ${CFLAGS}"
 
-  local _bundler_dir=$(pkg_path_for bundler)
-  local _libxml2_dir=$(pkg_path_for libxml2)
-  local _libxslt_dir=$(pkg_path_for libxslt)
-  local _postgresql_dir=$(pkg_path_for postgresql)
-  local _imagemagick_dir=$(pkg_path_for imagemagick)
+  local _bundler_dir=$(pkg_path_for core/bundler)
+  local _libxml2_dir=$(pkg_path_for core/libxml2)
+  local _libxslt_dir=$(pkg_path_for core/libxslt)
+  local _postgresql_dir=$(pkg_path_for core/postgresql)
+  local _imagemagick_dir=$(pkg_path_for uafgina/imagemagick)
   local _pg_config=${_postgresql_dir}/bin/pg_config
   local _magickconfig=${_imagemagick_dir}/bin/Magick-config
   local _zlib_dir=$(pkg_path_for zlib)
@@ -83,7 +81,7 @@ do_build() {
   fi
 
   build_line "Vendoring Gems"
-  bundle install --binstubs --jobs 2 --retry 5 --path vendor/bundle --without development test
+  bundle install --jobs 2 --retry 5 --path vendor/bundle --without development test
 
   build_line "Precompiling Assets"
   bin/rake assets:precompile
