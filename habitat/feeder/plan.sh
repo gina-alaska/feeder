@@ -1,5 +1,5 @@
 pkg_name="feeder"
-pkg_version="1.4.0"
+pkg_version="1.4.1"
 pkg_shasum="5f2128c46345212548cc7df5605b8b7a88fad53bd4d06073d78db0c791102167"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
@@ -78,6 +78,10 @@ do_build() {
 
   if [[ -z "`grep 'gem .*tzinfo-data.*' Gemfile`" ]]; then
     echo 'gem "tzinfo-data"' >> Gemfile
+  fi
+
+  if [[ -z "`grep 'gem .*rb-readline.*' Gemfile`" ]]; then
+    echo 'gem "rb-readline"' >> Gemfile
   fi
 
   build_line "Vendoring Gems"
