@@ -8,7 +8,6 @@ satellite_one:
   feed: satellite
   title: satellite_entry
   content: entry_content
-  where: entry_location
   event_at: "2016-06-01 22:39:39 +0000"
   slug: satellite_entry
   category: satellite

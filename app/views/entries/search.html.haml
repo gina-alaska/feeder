@@ -3,5 +3,5 @@
     = render 'shared/sidebar'
   .span9
     .entries.clearfix
-      = render @entries.results
-      = paginate @entries.results, :params => { :search => search_params }
+      = render @entries
+      = paginate @entries, :params => { :search => search_params }

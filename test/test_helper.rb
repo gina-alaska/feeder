@@ -10,7 +10,6 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
 
   # Override the configuration for dragonfly to point at fixture data
   Dragonfly[:images].datastore.configure do |d|

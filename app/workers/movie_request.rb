@@ -4,6 +4,5 @@ class MovieRequest
   def perform(id)
     movie = Movie.find(id)
     movie.create_movie
-    Sunspot.commit
   end
 end

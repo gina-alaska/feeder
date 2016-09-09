@@ -1,4 +1,4 @@
-Select: 
+Select:
 = link_to 'All', '#', data: { action: 'select-all', target: '#sensors_list :checkbox' }
 \/
 = link_to 'None', '#', data: { action: 'unselect-all', target: '#sensors_list :checkbox' }
@@ -6,6 +6,3 @@ Select:
   %label.checkbox
     = check_box_tag "search[sensors][#{sensor.id}]", 1, search_checked?(sensor,selected_sensor_ids), class: 'sensor'
     = sensor
-    - unless @entries.results.empty?
-      .badge.pull-right 
-        = @facets[:sensor_id][sensor.id] || 0
