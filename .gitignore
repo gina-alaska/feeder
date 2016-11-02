@@ -35,3 +35,8 @@
 
 # SimpleCov
 coverage
+
+# Habitate
+*.hart
+habitat/results
+habitat/*/results
