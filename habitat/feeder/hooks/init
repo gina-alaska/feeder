@@ -13,6 +13,7 @@ _libs=(
 export LD_LIBRARY_PATH=$(join : ${_libs[@]})
 export FEEDER_HOME="{{pkg.path}}"
 export FEEDER_DATA="{{pkg.svc_data_path}}"
+export HONEYBADGER_API_KEY="{{pkg.honeybadger_api_key}}"
 
 echo "Creating var/run"
 mkdir -p {{pkg.svc_var_path}}/run
@@ -50,4 +51,7 @@ if [[ ! -f ${FEEDER_DATA}/.migrations_complete ]]; then
   exec chpst -u hab bin/rake db:create && \
        chpst -u hab bin/rake db:migrate && \
        touch $FEEDER_DATA/.migrations_complete
+
+  echo "Notify honeybadger.io of new deployment"
+  exec bin/honeybadger deploy --environment=${RAILS_ENV}
 fi

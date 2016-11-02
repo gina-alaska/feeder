@@ -72,3 +72,4 @@ gem 'test-unit'
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 gem 'version'
+gem 'honeybadger'

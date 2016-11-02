@@ -1,6 +1,7 @@
 binding_ip = "0.0.0.0"
 port = 9292
 secret_key_base = ""
+honeybadger_api_key = ""
 rails_env = "production"
 threads = 5
 concurrency = 1

@@ -100,6 +100,7 @@ GEM
       railties (>= 4.0.1)
     hashie (3.4.4)
     hike (1.2.3)
+    honeybadger (2.6.0)
     html2haml (2.0.0)
       erubis (~> 2.7.0)
       haml (~> 4.0.0)
@@ -279,6 +280,7 @@ DEPENDENCIES
   dragonfly (~> 0.9.14)
   font-awesome-rails
   haml-rails
+  honeybadger
   httparty
   jquery-rails
   kaminari
