@@ -1,10 +1,12 @@
 pkg_name="feeder"
 pkg_version="1.4.1"
-pkg_shasum="5f2128c46345212548cc7df5605b8b7a88fad53bd4d06073d78db0c791102167"
+pkg_shasum="29356528a22cb0eba3a1fd4b7d8a680f1919d35eed42995c9e2af6327d19e499"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
 pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.tar.gz"
+pkg_svc_user="feeder"
+pkg_svc_group=$pkg_svc_user
 pkg_deps=(
   core/bundler
   core/cacerts
@@ -19,7 +21,7 @@ pkg_deps=(
   bixu/memcached
   core/ruby
   core/zlib
-  uafgina/imagemagick
+  uafgina/imagemagick/6.9.2-10/20161013170256
 )
 pkg_build_deps=(
   core/coreutils
@@ -31,7 +33,7 @@ pkg_build_deps=(
   core/which
   core/pkg-config
   core/node
-  uafgina/imagemagick
+  uafgina/imagemagick/6.9.2-10/20161013170256
 )
 
 pkg_bin_dirs=(dist/bin)

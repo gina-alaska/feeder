@@ -16,7 +16,7 @@ export FEEDER_DATA="{{pkg.svc_data_path}}"
 
 echo "Creating var/run"
 mkdir -p {{pkg.svc_var_path}}/run
-chown hab:hab {{pkg.svc_var_path}}/run
+chown {{pkg.hab_svc_user}}:{{pkg.hab_svc_group}} {{pkg.svc_var_path}}/run
 
 echo "Removing previous version deployed at ${FEEDER_DATA}"
 rm -rf ${FEEDER_DATA}/dist
@@ -43,10 +43,10 @@ export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path co
 export PATH="$PATH:${FEEDER_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/bin"
 export RAILS_ENV="production"
 
-chown -R hab:hab ${FEEDER_DATA}/dist
+chown -R {{pkg.hab_svc_user}}:{{pkg.hab_svc_group}} ${FEEDER_DATA}/dist
 chmod go+x ${FEEDER_DATA}
 mkdir -p {{pkg.svc_var_path}}/log
-chown -R hab:hab {{pkg.svc_var_path}}/log
+chown -R {{pkg.hab_svc_user}}:{{pkg.hab_svc_group}} {{pkg.svc_var_path}}/log
 
 cd ${FEEDER_DATA}/dist
 
